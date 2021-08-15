@@ -6,6 +6,7 @@
 		"target": "esnext",
 		"module": "es2020",
 		"lib": [
+			"es2020.string",
 			"es2019.array",
 			"es2020.bigint",
 			"es2019.object",
