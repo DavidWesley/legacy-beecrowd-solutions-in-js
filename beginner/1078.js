@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split("\n")
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function timesTable(integerNum, multMax = 10) {
 	return Array.from({ length: multMax }, (_, i) => {
@@ -8,7 +8,7 @@ function timesTable(integerNum, multMax = 10) {
 }
 
 function main() {
-	const integer = parseInt(input.shift())
+	const integer = Number.parseInt(input.shift())
 	const responses = timesTable(integer, 10)
 
 	console.log(responses.join("\n"))

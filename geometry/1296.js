@@ -1,11 +1,11 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split(/\s|\n/).filter(s => s !== '').map(Number)
+const input = readFileSync("/dev/stdin", "utf8").split(/\s|\n/).filter(s => s !== '').map(Number)
 const mediansList = splitArrayInSubArrays(input)
 
 function splitArrayInSubArrays(baseArr, sizeOfSubArr = 3) {
     return Array.from(
         { length: Math.floor(baseArr.length / sizeOfSubArr) },
-        (_, i) => baseArr.slice((3*i), sizeOfSubArr + (3*i))
+        (_, i) => baseArr.slice((3 * i), sizeOfSubArr + (3 * i))
     )
 }
 

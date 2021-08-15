@@ -1,6 +1,6 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
-const inputNumber = parseInt(input.shift())
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const inputNumber = Number.parseInt(input.shift())
 
 const responses = []
 

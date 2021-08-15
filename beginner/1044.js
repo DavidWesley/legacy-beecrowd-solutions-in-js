@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split(' ')
+const input = readFileSync("/dev/stdin", "utf8").split(' ')
 
-const [numOne, numTwo] = input.map(num => parseInt(num))
+const [numOne, numTwo] = input.map(num => Number.parseInt(num))
 
 const isMultiples = (fNum = 0, sNum = fNum) => {
 	fNum = Math.abs(fNum), sNum = Math.abs(sNum)

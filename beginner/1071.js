@@ -1,6 +1,6 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
-const [firstLimit, secondLimit] = input.map(limitt => parseInt(limitt))
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const [firstLimit, secondLimit] = input.map(limitt => Number.parseInt(limitt))
 
 const isOdd = (num = 0) => Math.abs(Number(num)) % 2 === 1
 

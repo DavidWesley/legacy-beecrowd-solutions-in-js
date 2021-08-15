@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
-const [firstLimit, secondLimit] = input.slice(0, 2).map((num) => parseInt(num))
+const [firstLimit, secondLimit] = input.slice(0, 2).map((num) => Number.parseInt(num))
 
 function sortOrder([...nums] = [0], ascending = true) {
 	return ascending ? nums.sort((a, b) => a - b) : nums.sort((a, b) => b - a)

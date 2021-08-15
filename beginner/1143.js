@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split("\n")
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function makeIntConsecSequence(minLimit = 0, maxLimit = minLimit) {
 	return Array.from(
@@ -14,7 +14,7 @@ function powSeqFromANumber(sequence = [0], power = 1) {
 
 function main() {
 	const responses = []
-	const limit = parseInt(input.shift())
+	const limit = Number.parseInt(input.shift())
 
 	const baseSequence = makeIntConsecSequence(1, limit)
 	const seqPowerToTwo = powSeqFromANumber(baseSequence, 2)

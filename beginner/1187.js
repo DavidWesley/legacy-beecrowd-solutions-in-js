@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
 const commandOperation = input.shift()
 const matrixValues = input.map(Number)
@@ -14,9 +14,6 @@ function mediaArray(arr = [0]) {
 
 function createMatrixFromModel(model = { lengths: { rows: 0, cols: 0 } }, values = [], defaultReplecmentValue = 0) {
 	const { rows: rowsLenght, cols: colsLength } = model.lengths
-
-	const assertValues = [...values]
-	assertValues.length = colsLength * rowsLenght
 
 	const defaultRows = () => new Array(colsLength).fill(defaultReplecmentValue)
 

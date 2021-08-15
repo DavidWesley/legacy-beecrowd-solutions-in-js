@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split("\n")
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
-const integers = input.splice(0, input.indexOf("0")).map((num) => parseInt(num))
+const integers = input.splice(0, input.indexOf("0")).map((num) => Number.parseInt(num))
 
 const isEven = (num = 1) => Math.abs(Number(num)) % 2 === 0
 

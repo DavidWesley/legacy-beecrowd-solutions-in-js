@@ -1,6 +1,6 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
-const list = input.map(pair => pair.split(' ').map(int => parseInt(int)))
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const list = input.map(pair => pair.split(' ').map(int => Number.parseInt(int)))
 
 const distanceTravelled = (velocity, time) => velocity * time
 

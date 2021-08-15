@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
 const [N1, N2, N3, N4, N5, N6] = input.map(Number)
 const numbersLists = [N1, N2, N3, N4, N5, N6]

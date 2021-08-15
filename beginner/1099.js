@@ -1,9 +1,9 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split("\n")
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const numTestCases = Number(input.shift())
 const cases = input
-	.map((pair) => pair.split(" ").map((num) => parseInt(num)))
+	.map((pair) => pair.split(" ").map((num) => Number.parseInt(num)))
 	.splice(0, numTestCases)
 
 const isOdd = (num = 0) => Math.abs(Number(num)) % 2 === 1

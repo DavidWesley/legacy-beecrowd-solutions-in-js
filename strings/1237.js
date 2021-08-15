@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
 const charCodes = (str = '') => [...str].map(char => char.charCodeAt(0))
 

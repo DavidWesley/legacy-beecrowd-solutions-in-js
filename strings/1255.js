@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numTestCases, ...textsList] = readFileSync("./dev/stdin", "utf8").split('\n')
+const [numTestCases, ...textsList] = readFileSync("/dev/stdin", "utf8").split('\n')
 
 function eachCharQuantity(arrChar = [], dictChar = {}) {
 	for (const char in dictChar) {

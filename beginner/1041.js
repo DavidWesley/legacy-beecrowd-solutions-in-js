@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const coordenates = readFileSync("./dev/stdin", "utf8").split(' ')
+const coordenates = readFileSync("/dev/stdin", "utf8").split(' ')
 
 const [xCoord, yCoord] = coordenates.map(parseFloat)
 

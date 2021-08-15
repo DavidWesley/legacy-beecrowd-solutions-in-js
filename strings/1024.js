@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numTestCases, ...texts] = readFileSync("./dev/stdin", "utf8").split('\n')
+const [numTestCases, ...texts] = readFileSync("/dev/stdin", "utf8").split('\n')
 
 const responses = []
 
@@ -12,7 +12,7 @@ function criptgraph(text) {
 }
 
 function main() {
-    for (const [index, text] of Object.entries(texts)){
+    for (const [index, text] of Object.entries(texts)) {
         if (index === numTestCases) break
         const textCripted = criptgraph(text)
         responses.push(textCripted)
@@ -30,7 +30,7 @@ function criptOne(text) {
 }
 
 function criptTwo(text) {
-    if(text.length < 2) return text
+    if (text.length < 2) return text
     return [...text.toString()].reverse().join('')
 }
 

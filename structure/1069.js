@@ -1,5 +1,5 @@
 const { readFileSync } = require('fs')
-const inputs = readFileSync('./dev/stdin', 'utf8').split('\n')
+const inputs = readFileSync('/dev/stdin', 'utf8').split('\n')
 const [numTestCases, ...cases] = inputs
 
 for (const caseIndex in cases) {

@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync('./dev/stdin', 'utf8').split('\n')
+const input = readFileSync('/dev/stdin', 'utf8').split('\n')
 
 const [[numTestCases], ...pairTextList] = input.map(line => line.split(' '))
 const responses = []
@@ -19,7 +19,7 @@ function main() {
         if (index === numTestCases) break
         const isFit = fitIn([firstValue, secondValue])
 
-        if(isFit) responses.push('encaixa')
+        if (isFit) responses.push('encaixa')
         else responses.push('nao encaixa')
     }
 

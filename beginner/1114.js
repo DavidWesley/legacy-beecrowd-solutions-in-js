@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const inputKeys = readFileSync("./dev/stdin", "utf8").split('\n')
+const inputKeys = readFileSync("/dev/stdin", "utf8").split('\n')
 
 function validateKey(inputKey = '') {
 	const defaultPassword = '2002'

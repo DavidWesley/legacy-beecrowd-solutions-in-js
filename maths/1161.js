@@ -1,8 +1,8 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
 const factorialValues = new Map()
-const factorialsPairList = input.map(factorialPair => factorialPair.split(' ').map((int) => parseInt(int)))
+const factorialsPairList = input.map(factorialPair => factorialPair.split(' ').map((int) => Number.parseInt(int)))
 
 function factorialList(num) {
     if (factorialValues.has(num)) return factorialValues.get(num)

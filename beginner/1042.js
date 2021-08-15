@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split(' ')
+const input = readFileSync("/dev/stdin", "utf8").split(' ')
 
-const [N1, N2, N3] = input.map((int) => parseInt(int))
+const [N1, N2, N3] = input.map((int) => Number.parseInt(int))
 
 const sortSequence = ([...nums]) => nums.sort((a, b) => a - b)
 

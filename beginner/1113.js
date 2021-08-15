@@ -1,6 +1,6 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
-const pairs = input.map(pair => pair.split(' ').map(num => parseInt(num)))
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const pairs = input.map(pair => pair.split(' ').map(num => Number.parseInt(num)))
 
 const isSmaller = (element, index, arr) => !index || arr[index - 1] > element
 const isGreater = (element, index, arr) => !index || arr[index - 1] < element

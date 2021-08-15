@@ -1,8 +1,8 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
 const reverse = str => [...str].reverse().join('')
-const isVowel = (char = '') => char.length === 1 && /[aeiou]/gi.test(char)
+const isVowel = (char = '') => char.length === 1 && /[aeiou]/i.test(char)
 
 function isAfunnyLaugh(laugth = '') {
 	const laughtVowels = [...laugth].filter(isVowel)

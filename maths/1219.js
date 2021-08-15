@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
 const sidesList = input.map(sides => sides.split(' ').map(Number))
 
 // TRIANGLES FORMULAS USING THE SIDES
@@ -13,7 +13,7 @@ const heronFormula = ([...sides]) => {
 // CIRCLES FORMULAS USING THE SIDES OF AN TRIANGLE
 
 const circleArea = (r) => Math.PI * Math.pow(r, 2)
-const inradius = ([...sides]) =>  heronFormula(sides) / (perimeter(sides) / 2)
+const inradius = ([...sides]) => heronFormula(sides) / (perimeter(sides) / 2)
 const circumradius = ([...sides]) => sides.reduce((acc, cur) => acc * cur, 1) / (4 * heronFormula(sides))
 
 function main() {

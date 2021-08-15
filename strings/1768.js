@@ -1,8 +1,8 @@
 const { readFileSync } = require("fs")
 
-const sizes = readFileSync("./dev/stdin", "utf8")
+const sizes = readFileSync("/dev/stdin", "utf8")
 	.split('\n')
-	.map(size => parseInt(size))
+	.map(size => Number.parseInt(size))
 
 function appendTrunkFromTopTree(tree = [], size = 2, from = 0) {
 	const until = from + size > tree.length ? tree.length - from : from + size

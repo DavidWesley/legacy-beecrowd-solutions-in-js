@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
 const value = parseFloat(input.shift())
 
@@ -15,7 +15,7 @@ function createInterval(min = 0, max = 100, steps = 2) {
 function subIntervalInclude(v, min = 0, max = 100, steps = 2) {
     const intervalSteps = createInterval(min, max, steps)
 
-    for (let index = 0; index < intervalSteps.length - 1 ; index++) {
+    for (let index = 0; index < intervalSteps.length - 1; index++) {
         const minLocal = intervalSteps[index]
         const maxLocal = intervalSteps[index + 1]
 

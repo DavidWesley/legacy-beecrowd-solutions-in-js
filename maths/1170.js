@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
 const numTestCases = input.shift()
 const foods = input.map(parseFloat)
@@ -15,7 +15,7 @@ function main() {
     const messageDaysList = []
 
     for (const [index, food] of Object.entries(foods)) {
-        if(index === numTestCases) break
+        if (index === numTestCases) break
         const days = daysToFinishFood(food, tax)
         messageDaysList.push(`${days} dias`)
     }

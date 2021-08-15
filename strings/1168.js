@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numTestCases, ...numbers] = readFileSync("./dev/stdin", "utf8").split('\n')
+const [numTestCases, ...numbers] = readFileSync("/dev/stdin", "utf8").split('\n')
 
 const responses = []
 
@@ -15,8 +15,8 @@ function main() {
 
         for (const digit of Object.keys(digitsCountObj))
             digitsCountObj[digit] = [...num].filter((char) => char === digit).length
-            // num.match(new RegExp(digit, 'g'))?.length ?? 0   | WORK TOO! | ES2020+
-            // [...num].filter((char) => char === digit).length | WORK!     | ES6+
+        // num.match(new RegExp(digit, 'g'))?.length ?? 0   | WORK TOO! | ES2020+
+        // [...num].filter((char) => char === digit).length | WORK!     | ES6+
 
         const result = numberOfLEDs(LEDsNumbersForEachDigitsMap, digitsCountObj)
         responses.push(result)

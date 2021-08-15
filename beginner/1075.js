@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')[0]
+const input = readFileSync("/dev/stdin", "utf8").split('\n')[0]
 
-const targetNumber = parseInt(input)
+const targetNumber = Number.parseInt(input)
 
 function createInterval(min = 0, max = min, step = 2) {
 	step = step >= 2 ? step : 2

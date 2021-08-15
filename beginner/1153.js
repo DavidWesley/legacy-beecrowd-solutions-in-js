@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
 function fact(num = 0) {
 	let returnedValue = 1
@@ -8,7 +8,7 @@ function fact(num = 0) {
 }
 
 function main() {
-	const N = parseInt(input.shift())
+	const N = Number.parseInt(input.shift())
 	console.log(fact(N))
 }
 

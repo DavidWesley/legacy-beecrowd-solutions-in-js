@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8")
+const input = readFileSync("/dev/stdin", "utf8")
 
 const PI = +Math.PI.toFixed(5)
 const [radius] = input.split("\n").map(r => +parseFloat(r).toFixed(2))

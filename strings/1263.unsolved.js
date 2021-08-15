@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const cases = readFileSync("./dev/stdin", "utf8").split("\n")
+const cases = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function returnInittialLettersFromTextSequence(textSequence = [""]) {
 	return textSequence.map((textCase) => {

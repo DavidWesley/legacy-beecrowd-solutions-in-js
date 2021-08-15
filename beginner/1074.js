@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
-const [numTestCases, ...numbersList] = input.map(num => parseInt(num))
+const [numTestCases, ...numbersList] = input.map(num => Number.parseInt(num))
 
 const isNegative = (num = 0) => Number(num) < 0
 const isPositive = (num = 0) => Number(num) > 0
@@ -26,7 +26,7 @@ function main() {
 	const responses = []
 
 	for (const [index, number] of Object.entries(numbersList)) {
-		if (parseInt(index) === numTestCases) break
+		if (Number.parseInt(index) === numTestCases) break
 		const numPros = defineNumberProperties(number)
 		responses.push(numPros)
 	}

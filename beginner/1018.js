@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
-const cash = parseInt(input.shift())
+const cash = Number.parseInt(input.shift())
 
 /**
  * @param {number} value

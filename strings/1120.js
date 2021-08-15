@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
 const pairs = input.map(pair => pair.split(' '))
 
 const responses = []
@@ -13,7 +13,7 @@ function formatValueByDigit(value, digit) {
         for (let j = 1; j < size; j++) formatedValue[j] = formatedValue[j + 1]
 
         formatedValue.pop()
-        size -= 1; i -= 1;
+        size -= 1; i -= 1
     }
 
     if (size === 0) formatedValue.push('0')

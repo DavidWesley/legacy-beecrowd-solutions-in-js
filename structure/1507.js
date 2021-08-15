@@ -1,6 +1,6 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
-const numTestCases = parseInt(input.shift())
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const numTestCases = Number.parseInt(input.shift())
 
 function isASubSequence(subsequence = '', targetWord = '') {
 	let finalSubsequence = ''
@@ -31,7 +31,7 @@ function main() {
 
 	for (let currentCase = 0; currentCase < numTestCases; currentCase++) {
 		const searchableWord = input.shift()
-		const numQueries = parseInt(input.shift())
+		const numQueries = Number.parseInt(input.shift())
 		const subsequences = input.splice(0, numQueries)
 
 		validateSubsequencesFromWord(subsequences, searchableWord)

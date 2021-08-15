@@ -1,9 +1,9 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split("\n")
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const integers = input
 	.splice(0, input.indexOf("0"))
-	.map((num) => parseInt(num))
+	.map((num) => Number.parseInt(num))
 
 function makeIntConsecSequence(minLimit = 0, maxLimit = minLimit) {
 	return Array.from(

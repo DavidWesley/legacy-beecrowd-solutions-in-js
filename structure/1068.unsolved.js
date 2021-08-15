@@ -1,12 +1,12 @@
 const { readFileSync } = require("fs")
-const inputs = readFileSync("./dev/stdin", "utf8").split("\n")
+const inputs = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const responses = []
 
 function main() {
     for (const input of inputs) {
         const validateParentheses = parenthesesValidate(input)
-        if(validateParentheses) responses.push('correct')
+        if (validateParentheses) responses.push('correct')
         else responses.push('incorrect')
     }
 

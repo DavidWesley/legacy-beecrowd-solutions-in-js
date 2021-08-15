@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const notas = readFileSync("./dev/stdin", "utf8").split('\n')
+const notas = readFileSync("/dev/stdin", "utf8").split('\n')
 
 const [N1, N2, N3, N4] = notas.shift().split(' ').map(parseFloat)
 const N5 = parseFloat(notas.shift()) || 0

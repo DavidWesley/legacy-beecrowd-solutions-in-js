@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
-const [N1, N2, N3, N4, N5, ..._] = input.map(num => parseInt(num))
+const [N1, N2, N3, N4, N5, ..._] = input.map(num => Number.parseInt(num))
 const numbersLists = [N1, N2, N3, N4, N5]
 
 const isNegative = (num = 0) => Number(num) < 0

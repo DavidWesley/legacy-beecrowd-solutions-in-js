@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = parseInt(readFileSync("./dev/stdin", "utf8").split("\n")[0])
+const input = Number.parseInt(readFileSync("/dev/stdin", "utf8").split("\n")[0])
 
 function chunkArray(myArray = [], chunkSize = myArray.length) {
 	const results = []
