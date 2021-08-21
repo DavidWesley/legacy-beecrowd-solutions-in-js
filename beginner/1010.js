@@ -5,7 +5,7 @@ function pay(part) {
     const [, num, cost] = part.split(' ').map(Number)
     const total = (num * cost).toFixed(2)
 
-    return parseFloat(total)
+    return Number.parseFloat(total)
 }
 
 function cost(parts = []) {

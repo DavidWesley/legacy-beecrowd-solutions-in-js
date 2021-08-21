@@ -1,6 +1,6 @@
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8")
-const numbers = input.split(' ').map(parseFloat)
+const numbers = input.split(' ').map(Number.parseFloat)
 
 const biggerNumber = (nums) => Math.max(...nums)
 

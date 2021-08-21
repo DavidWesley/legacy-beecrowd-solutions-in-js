@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split(' ')
 
-const [A, B, C] = input.map(parseFloat)
+const [A, B, C] = input.map(Number.parseFloat)
 
 const rect = (x = 0, y = x) => x * y
 const square = (l) => rect(l)

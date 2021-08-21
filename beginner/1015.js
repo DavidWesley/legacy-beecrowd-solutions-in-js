@@ -2,7 +2,7 @@ const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8")
 
 const [x, y] = input.split('\n').map(point => {
-	return point.split(' ').map(coordenate => parseFloat(coordenate))
+	return point.split(' ').map(coordenate => Number.parseFloat(coordenate))
 })
 
 function distance([x1, y1], [x2, y2]) {

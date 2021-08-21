@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split(' ')
 
-const [A, B, C] = input.map(parseFloat)
+const [A, B, C] = input.map(Number.parseFloat)
 
 function baskharaRoots(a, b = 0, c = 0) {
     if ((Math.pow(b, 2) - 4 * a * c) < 0 || a === 0) return [null, null]

@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
-const value = parseFloat(input.shift())
+const value = Number.parseFloat(input.shift())
 
 function createInterval(min = 0, max = 100, steps = 2) {
     const stepsCounter = steps >= 2 ? steps : 2

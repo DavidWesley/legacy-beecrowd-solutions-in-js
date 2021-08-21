@@ -21,7 +21,7 @@ function validateNotes(notesArr = [], settedLimits = [0, 0], maxValidNotes = not
 function main() {
 	const responses = []
 
-	const listNotes = input.map(parseFloat)
+	const listNotes = input.map(Number.parseFloat)
 	const [validNotes, invalidNotes] = validateNotes(listNotes, [0, 10], 2)
 
 	const mediaNotes = media(validNotes)

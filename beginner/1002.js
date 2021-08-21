@@ -2,7 +2,7 @@ const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8")
 
 const PI = +Math.PI.toFixed(5)
-const [radius] = input.split("\n").map(r => +parseFloat(r).toFixed(2))
+const [radius] = input.split("\n").map(r => +Number.parseFloat(r).toFixed(2))
 
 function circleArea(r) {
     let area = PI * Math.pow(r, 2)

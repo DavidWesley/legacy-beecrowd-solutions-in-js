@@ -2,7 +2,7 @@ const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
 const numTestCases = input.shift()
-const foods = input.map(parseFloat)
+const foods = input.map(Number.parseFloat)
 
 function daysToFinishFood(food, tax) {
     if (food <= 0) return 1

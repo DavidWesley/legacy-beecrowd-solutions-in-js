@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
-const cash = parseFloat(input.shift())
+const cash = Number.parseFloat(input.shift())
 
 /**
  * @param {number} value

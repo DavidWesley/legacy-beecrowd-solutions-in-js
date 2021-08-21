@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split(' ')
 
-const [A, B, C] = input.slice(0, 3).map(parseFloat)
+const [A, B, C] = input.slice(0, 3).map(Number.parseFloat)
 
 function isTriangle(a = 0, b = 0, c = 0) {
 	const isNegative = (num) => Number(num) < 0
