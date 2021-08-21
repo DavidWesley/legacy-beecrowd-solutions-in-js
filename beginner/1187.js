@@ -27,9 +27,9 @@ function createMatrixFromModel(model = createSquareModel(0), values = [], defaul
  * @param {operationType} operation
  */
 
-function selectedAreaToOperateFromSquareMatrix(matrix, operation) {
+function selectedSupAreaToOperateFromSquareMatrix(matrix, operation) {
 	const selectedValues = []
-	const limiter = (matrix.length / 2) - 1
+	const limiter = Math.ceil(matrix.length / 2) - 1
 
 	for (let currentRowIndex = 0; currentRowIndex < limiter; currentRowIndex++) {
 		const firstColIndex = currentRowIndex + 1
@@ -55,7 +55,7 @@ function main() {
 
 	const model = createSquareModel(12)
 	const matrix = createMatrixFromModel(model, matrixValues)
-	const response = selectedAreaToOperateFromSquareMatrix(matrix, (CMD === 'S' ? 'S' : 'M'))
+	const response = selectedSupAreaToOperateFromSquareMatrix(matrix, (CMD === 'S' ? 'S' : 'M'))
 
 	console.log(`${response.toFixed(1)}`)
 }
