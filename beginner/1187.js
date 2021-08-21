@@ -1,20 +1,18 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const [CMD, ...values] = readFileSync("/dev/stdin", "utf8").split('\n')
 
-const commandOperation = input.shift()
-const matrixValues = input.map(Number)
 
-function sumsArray(arr = [0], initialValue = 0) {
-	return arr.reduce((acc, cur) => acc + cur, initialValue)
-}
+/** @param {number[]} values */
+const sumValues = ([...values], initialValue = 0) => values.reduce((acc, cur) => acc + cur, initialValue)
 
-function mediaArray(arr = [0]) {
-	return sumsArray(arr) / arr.length
-}
+/** @param {number[]} values */
+const mediaValues = ([...values]) => sumValues(values) / values.length
 
-function createMatrixFromModel(model = { lengths: { rows: 0, cols: 0 } }, values = [], defaultReplecmentValue = 0) {
+/** @param {number} size*/
+const createSquareModel = (size) => ({ lengths: { cols: size, rows: size } })
+
+function createMatrixFromModel(model = createSquareModel(0), values = [], defaultReplecmentValue = 0) {
 	const { rows: rowsLenght, cols: colsLength } = model.lengths
-
 	const defaultRows = () => new Array(colsLength).fill(defaultReplecmentValue)
 
 	return Array.from({ length: rowsLenght }, () => {
@@ -22,7 +20,14 @@ function createMatrixFromModel(model = { lengths: { rows: 0, cols: 0 } }, values
 	})
 }
 
-function selectedAreaToOperateFromSquareMatrix(matrix = [[0]], operation = '') {
+/** @typedef {'S' | 'M'} operationType */
+
+/**
+ * @param {number[][]} matrix
+ * @param {operationType} operation
+ */
+
+function selectedAreaToOperateFromSquareMatrix(matrix, operation) {
 	const selectedValues = []
 	const limiter = (matrix.length / 2) - 1
 
@@ -35,8 +40,8 @@ function selectedAreaToOperateFromSquareMatrix(matrix = [[0]], operation = '') {
 		}
 	}
 
-	if (operation === 'S') return sumsArray(selectedValues)
-	else if (operation === 'M') return mediaArray(selectedValues)
+	if (operation === 'S') return sumValues(selectedValues)
+	else if (operation === 'M') return mediaValues(selectedValues)
 }
 
 // * [0][1] -> [0][10]
@@ -46,11 +51,13 @@ function selectedAreaToOperateFromSquareMatrix(matrix = [[0]], operation = '') {
 // * [4][5] -> [4][06]
 
 function main() {
-	const model = { lengths: { cols: 12, rows: 12 } }
-	const matrix = createMatrixFromModel(model, matrixValues, 0)
-	const response = selectedAreaToOperateFromSquareMatrix(matrix, commandOperation) //=
+	const matrixValues = values.map(Number.parseFloat)
 
-	console.log(response.toFixed(1))
+	const model = createSquareModel(12)
+	const matrix = createMatrixFromModel(model, matrixValues)
+	const response = selectedAreaToOperateFromSquareMatrix(matrix, (CMD === 'S' ? 'S' : 'M'))
+
+	console.log(`${response.toFixed(1)}`)
 }
 
 main()

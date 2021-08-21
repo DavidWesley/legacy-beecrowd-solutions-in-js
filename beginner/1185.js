@@ -1,6 +1,5 @@
 const { readFileSync } = require("fs")
-const [L, CMD, ...values] = readFileSync("/dev/stdin", "utf8").split('\n')
-
+const [CMD, ...values] = readFileSync("/dev/stdin", "utf8").split('\n')
 
 /** @param {number[]} values */
 const sumValues = ([...values], initialValue = 0) => values.reduce((acc, cur) => acc + cur, initialValue)
@@ -24,12 +23,16 @@ function createMatrixFromModel(model = createSquareModel(0), values = [], defaul
 
 /**
  * @param {number[][]} matrix
- * @param {number} selectedLine
  * @param {operationType} operation
  */
 
-function selectedLineToOperateFromMatrix(matrix, selectedLine, operation) {
-	const selectedValues = matrix[selectedLine]
+function selectedAreaAboveSecondaryDiagonaToOperateFromSquareMatrix(matrix, operation) {
+	const selectedValues = []
+	const limit = matrix.length - 1
+
+	for (let rowIndex = 0; rowIndex < limit; rowIndex++)
+		for (let colIndex = 0; colIndex < limit - rowIndex; colIndex++)
+			selectedValues.push(matrix[rowIndex][colIndex])
 
 	if (operation === 'S') return sumValues(selectedValues)
 	else if (operation === 'M') return mediaValues(selectedValues)
@@ -41,7 +44,7 @@ function main() {
 
 	const model = createSquareModel(12)
 	const matrix = createMatrixFromModel(model, matrixValues)
-	const response = selectedLineToOperateFromMatrix(matrix, +L, (CMD === 'S' ? 'S' : 'M'))
+	const response = selectedAreaAboveSecondaryDiagonaToOperateFromSquareMatrix(matrix, (CMD === 'S' ? 'S' : 'M'))
 
 	console.log(`${response.toFixed(1)}`)
 }
