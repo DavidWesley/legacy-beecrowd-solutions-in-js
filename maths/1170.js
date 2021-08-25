@@ -5,22 +5,23 @@ const numTestCases = input.shift()
 const foods = input.map(Number.parseFloat)
 
 function daysToFinishFood(food, tax) {
-    if (food <= 0) return 1
-    const exponent = Math.log(1 / food) / Math.log(tax)
-    return Math.ceil(exponent)
+	if (food <= 0) return 1
+	const exponent = Math.log(1 / food) / Math.log(tax)
+	return Math.ceil(exponent)
 }
 
 function main() {
-    const tax = 0.5
-    const messageDaysList = []
+	const tax = 0.5
+	const messageDaysList = []
 
-    for (const [index, food] of Object.entries(foods)) {
-        if (index === numTestCases) break
-        const days = daysToFinishFood(food, tax)
-        messageDaysList.push(`${days} dias`)
-    }
+	for (const [index, food] of Object.entries(foods)) {
+		if (index === numTestCases) break
+		const days = daysToFinishFood(food, tax)
 
-    console.log(messageDaysList.join('\n'))
+		messageDaysList.push(`${days} dias`)
+	}
+
+	console.log(`${messageDaysList.join('\n')}`)
 }
 
 main()

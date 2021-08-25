@@ -1,18 +1,18 @@
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split('\n')
-const list = input.map(pair => pair.split(' ').map(int => Number.parseInt(int)))
 
 const distanceTravelled = (velocity, time) => velocity * time
 
 function main() {
-    const responses = []
+	const responses = []
+	const list = input.map(pair => pair.split(' ').map(int => Number.parseInt(int, 10)))
 
-    for (const [velocity, time] of list) {
-        const distance = distanceTravelled(velocity, time * 2)
-        responses.push(distance)
-    }
+	for (const [velocity, time] of list) {
+		const distance = distanceTravelled(velocity, time * 2)
+		responses.push(distance)
+	}
 
-    console.log(responses.join('\n'))
+	console.log(`${responses.join('\n')}`)
 }
 
 main()
