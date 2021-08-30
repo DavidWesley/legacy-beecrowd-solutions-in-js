@@ -8,7 +8,9 @@ function main() {
 	const list = input.map(pair => pair.split(' ').map(int => Number.parseInt(int, 10)))
 
 	for (const [velocity, time] of list) {
+		if (isNaN(velocity) || isNaN(time)) break // EOFile Condition Verification
 		const distance = distanceTravelled(velocity, time * 2)
+
 		responses.push(distance)
 	}
 
