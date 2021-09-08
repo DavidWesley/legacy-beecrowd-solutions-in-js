@@ -7,7 +7,7 @@ function alignFromRight(texts = ['']) {
 }
 
 /** @param {string} spacedText*/
-const deepTrimSpaces = (spacedText) => spacedText.replace(/\s+/g, ' ').trim()
+const deepTrimSpaces = (spacedText) => spacedText.replaceAll(/\s+/, ' ').trim()
 
 function main() {
 	const responses = []

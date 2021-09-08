@@ -7,11 +7,11 @@ const isALegallInteger = (num) => Number.isInteger(num) && num <= MAX_ACEPTABLE_
 
 function processInputIntoIntengers(inputInteger = "") {
 	const processedNum = inputInteger
-		.replace(/[l]/g, "1")
-		.replace(/[Oo]/g, "0")
-		.replace(/[\,\s]/g, "")
+		.replaceAll(/[l]/, "1")
+		.replaceAll(/[Oo]/, "0")
+		.replaceAll(/[\,\s]/, "")
 
-	return processedNum.replace(/\D/g, "") === processedNum
+	return processedNum.replaceAll(/\D/, "") === processedNum
 		? Number.parseInt(processedNum, 10)
 		: NaN
 }
