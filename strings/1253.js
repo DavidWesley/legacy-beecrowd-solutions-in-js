@@ -1,30 +1,40 @@
-const input = require('fs').readFileSync('/dev/stdin', 'utf-8');
+const { readFileSync } = require("fs")
+const input = readFileSync("/dev/stdin", "utf8")
 
-const numTestCases = input.match(/^\d+$/gm)[0];
-const testCases = input.match(/^(\w{1,50})\s+(\d{1,2})$/gm);
-const originalTexts = [];
+const numTestCases = input.match(/^\d+$/gm)[0]
+const testCases = input.match(/^(\w{1,50})\s+(\d{1,2})$/gm)
 
-for (let index in testCases) {
-    if (index === numTestCases) break;
-    const [text, rightWardPositions] = testCases[index].split(/\s+/g);
-    const originalText = upperCharToOriginalPosition(text, rightWardPositions);
-    originalTexts.push(originalText);
+const caesarCipher = (str, shift, decrypt = false) => {
+	const s = decrypt ? (26 - shift) % 26 : shift
+	const n = s > 0 ? s : 26 + (s % 26)
+
+	const [minUpper, maxUpper] = [65, 90]
+	const [minLower, maxLower] = [97, 122]
+
+	return [...str]
+		.map((char, index) => {
+			const c = str.charCodeAt(index)
+
+			if (c >= minUpper && c <= maxUpper) return String.fromCharCode(((c - minUpper + n) % 26) + minUpper)
+			else if (c >= minLower && c <= maxLower) return String.fromCharCode(((c - minLower + n) % 26) + minLower)
+			else return char
+		})
+		.join('')
 }
 
-function upperCharToOriginalPosition(word, positions) {
-    const [min, max] = [65, 90];
-    const pos = +positions;
+function main() {
+	const decodedTextList = []
 
-    const originalText = word.split('').map(char => {
-        const actualPosision = char.charCodeAt();
+	for (const index in testCases) {
+		if (index === numTestCases) break
 
-        let originalCharPosition = actualPosision - pos;
-        if (originalCharPosition < min) originalCharPosition = max + actualPosision - (min + pos) + 1;
+		const [text, rightWardPositions] = testCases[index].split(/\s+/g)
+		const decodedText = caesarCipher(text, +rightWardPositions, true)
 
-        return String.fromCharCode(originalCharPosition);
-    }).join('');
+		decodedTextList.push(decodedText)
+	}
 
-    return originalText;
+	console.log(`${decodedTextList.join('\n')}`)
 }
 
-console.log(originalTexts.join("\n"));
+main()
