@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 const cases = readFileSync("/dev/stdin", "utf8").split("\n")
 
-const MAX_ACEPTABLE_INTEGER = 2147483647
+const MAX_ACEPTABLE_INTEGER = Math.pow(2, 31) - 1 // 2147483647
 
 const isALegallInteger = (num) => Number.isInteger(num) && num <= MAX_ACEPTABLE_INTEGER
 
@@ -27,10 +27,7 @@ function main() {
 		)
 	})
 
-
-	const rest = responses.pop() //! bug
-
-	console.log(`${responses.join("\n")}`)
+	console.log(`${responses.slice(1).join("\n")}`)
 }
 
 main()
