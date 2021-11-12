@@ -4,12 +4,12 @@
 		"resolveJsonModule": true,
 		"moduleResolution": "node",
 		"target": "esnext",
-		"module": "es2020",
+		"module": "esnext",
 		"lib": [
-			"es2020.string",
 			"es2019.array",
-			"es2020.bigint",
 			"es2019.object",
+			"es2020.bigint",
+			"es2021.string"
 		],
 		"baseUrl": "."
 	},
