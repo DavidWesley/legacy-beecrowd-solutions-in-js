@@ -23,9 +23,10 @@ function main() {
 
 	const responses = []
 	const listWords = input.slice(0, +numTestCases)
+	const corretcWordsValues = Object.values(corretcWords)
 
 	for (const word of listWords) {
-		for (const { name, value } of Object.values(corretcWords)) {
+		for (const { name, value } of corretcWordsValues) {
 			const distance = hammingDistance(word, name)
 
 			if (distance <= MAX_VALID_DIFFERENCE) {
