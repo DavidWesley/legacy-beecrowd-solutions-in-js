@@ -1,26 +1,19 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n")
+const [startHour, endHour] = readFileSync("/dev/stdin", "utf8")
+	.split(" ")
+	.slice(0, 2)
+	.map((hour) => Number.parseInt(hour, 10))
 
-const integers = input
-	.splice(0, input.indexOf("0"))
-	.map((num) => Number.parseInt(num))
+function getDifferenceBetweenHours(init = 0, end = init) {
+	const HOURS_IN_DAY = 24
 
-function makeIntConsecSequence(minLimit = 0, maxLimit = minLimit) {
-	return Array.from(
-		{ length: maxLimit - minLimit + 1 },
-		(_, i) => minLimit + i
-	)
+	if (end > init) return end - init
+	else return HOURS_IN_DAY + end - init
 }
 
 function main() {
-	const responses = []
-
-	for (const integer of integers) {
-		const sequence = makeIntConsecSequence(1, integer)
-		responses.push(`${sequence.join(" ")}`)
-	}
-
-	console.log(responses.join("\n"))
+	const difference = getDifferenceBetweenHours(startHour, endHour)
+	console.log(`O JOGO DUROU ${difference} HORA(S)`)
 }
 
 main()
