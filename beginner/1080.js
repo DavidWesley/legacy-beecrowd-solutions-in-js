@@ -1,8 +1,8 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
-
-const SIZE = 100
-const listNumbers = input.splice(0, SIZE).map(num => Number.parseInt(num))
+const listNumbers = readFileSync("/dev/stdin", "utf8")
+	.split('\n')
+	.slice(0, 100)
+	.map(num => Number.parseInt(num, 10))
 
 function main() {
 	const biggerNum = Math.max(...listNumbers)

@@ -1,28 +1,23 @@
 const { readFileSync } = require("fs")
 const [sequence, encryptedText] = readFileSync("/dev/stdin", "utf8").split('\n')
 
-function Cypher(baseSequence = 'abcdefghijklmnopqrstuvwxyz') {
-	baseSequence = baseSequence.substring(0, 26)
+class CipherDecoder {
+	#cypher
+	constructor(initSequence) {
+		const ORDENED_ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
 
-	const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
-
-	const cypher = new Map(
-		Array.from([...baseSequence], (char, index) => [char, ALPHABET.charAt(index)])
-	)
-
-	function decrypt(encryptedText = '') {
-		return [...encryptedText]
-			.map(char => cypher.get(char) ?? char)
-			.join('')
+		this.#cypher = new Map(
+			Array.from([...initSequence.substring(0, ORDENED_ALPHABET.length)], (char, index) => [char, ORDENED_ALPHABET.charAt(index)])
+		)
 	}
 
-	return { decrypt }
+	decrypt(encryptedText = '') {
+		return [...encryptedText].map(char => this.#cypher.get(char.toLowerCase()) ?? char).join('')
+	}
 }
 
 function main() {
-	const cypherInstance = Cypher(sequence)
-	const decryptedText = cypherInstance.decrypt(encryptedText)
-
+	const decryptedText = new CipherDecoder(sequence).decrypt(encryptedText)
 	console.log(`${decryptedText}`)
 }
 

@@ -4,6 +4,8 @@ const [[numCases], ...pairsList] = readFileSync("/dev/stdin", "utf8").split('\n'
 /** @typedef { { x: number, y: number } } PointType */
 /** @typedef { { firstPos: PointType, lastPos: PointType } } CircumferenceCoordsType */
 
+const Float = (num, precision) => Number.parseFloat(num.toFixed(precision))
+
 /**
 * @param {CircumferenceCoordsType} firstCircumference
 * @param {CircumferenceCoordsType} secondCircumference
@@ -12,8 +14,6 @@ const [[numCases], ...pairsList] = readFileSync("/dev/stdin", "utf8").split('\n'
 function findCenterCircunferenceCoordenate(firstCircumference, secondCircumference) {
 	const { firstPos: { x: x1, y: y1 }, lastPos: { x: x2, y: y2 } } = firstCircumference
 	const { firstPos: { x: x3, y: y3 }, lastPos: { x: x4, y: y4 } } = secondCircumference
-
-	const Float = (num, precision) => Number.parseFloat(num.toFixed(precision))
 
 	const { pow } = Math
 

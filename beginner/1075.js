@@ -1,18 +1,18 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')[0]
-
-const targetNumber = Number.parseInt(input)
+const targetNumber = +readFileSync("/dev/stdin", "utf8").split('\n').shift()
 
 function createInterval(min = 0, max = min, step = 2) {
 	step = step >= 2 ? step : 2
 	const size = Math.ceil((max - min + 1) / step)
+
 	return Array.from({ length: size }, (_, i) => min + step * i)
 }
 
-function returnListFromRest(targetNumber = 1, rest = 0, maxLimimitValue = targetNumber) {
+function returnListFromRest(targetNum = 1, rest = 0, maxLimimitValue = targetNum) {
 	rest = Math.abs(rest)
-	if (rest > targetNumber) return
-	return createInterval(rest, maxLimimitValue, targetNumber)
+
+	if (rest > targetNum) return []
+	else return createInterval(rest, maxLimimitValue, targetNum)
 }
 
 function main() {
