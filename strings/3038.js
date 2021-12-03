@@ -20,8 +20,11 @@ class ChristmasCypher {
 }
 
 function main() {
-	const stopAtIndex = input.includes("") ? input.indexOf("") : input.length
-	const encryptedChristmasTexts = input.slice(0, stopAtIndex)
+	const encryptedChristmasTexts = []
+
+	for (const text of input)
+		if (text === '') break
+		else encryptedChristmasTexts.push(text)
 
 	const { decryptChristimasText } = ChristmasCypher
 	const decryptedTexts = encryptedChristmasTexts.map(decryptChristimasText)
