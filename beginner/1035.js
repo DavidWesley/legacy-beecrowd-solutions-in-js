@@ -1,17 +1,15 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
-
-const [A, B, C, D] = input.map(Number)
+const [A, B, C, D] = readFileSync("/dev/stdin", "utf8").split('\n').slice(0, 4).map(Number.parseFloat)
 
 function isAcceptable(a, b, c, d) {
-    return ((b > c) && (d > a) && (c + d > a + b) && (c > 0) && (d > 0) && (a % 2 == 0)) ? true : false
+	return ((b > c) && (d > a) && (c + d > a + b) && (c > 0) && (d > 0) && (a % 2 == 0)) ? true : false
 }
 
 function main() {
-    const acceptable = isAcceptable(A, B, C, D)
+	const acceptable = isAcceptable(A, B, C, D)
 
-    if (acceptable) console.log("Valores aceitos")
-    else console.log("Valores nao aceitos")
+	if (acceptable) console.log("Valores aceitos")
+	else console.log("Valores nao aceitos")
 }
 
 main()

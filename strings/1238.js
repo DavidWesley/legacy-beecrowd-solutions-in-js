@@ -1,27 +1,21 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
-const responses = []
-const [[numTestCases], ...wordsPairsList] = input.map(words => words.split(' '))
+const [[numCases], ...wordsPairsList] = readFileSync("/dev/stdin", "utf8")
+	.split('\n')
+	.map(words => words.split(' '))
 
 function replaceAndJoinWords([first, last]) {
-    const [firstWord, lastWord] = [[...first], [...last]]
-    const resultWord = []
-
-    for (let i = 0; i < Math.max(firstWord.length, lastWord.length); i++)
-        resultWord.push(firstWord[i] ?? '', lastWord[i] ?? '')
-
-    return resultWord.join("")
+	return Array
+		.from({ length: Math.max(first.length, last.length) }, (_, i) => `${first.charAt(i)}${last.charAt(i)}`)
+		.join('')
 }
 
 function main() {
-    for (const [index, [firstWord, lastWord]] of Object.entries(wordsPairsList)) {
-        if (index === numTestCases) break
-        const result = replaceAndJoinWords([firstWord, lastWord])
-        responses.push(result)
-    }
+	const responses = wordsPairsList
+		.slice(0, +numCases)
+		.map(([firstWord, lastWord]) => replaceAndJoinWords([firstWord, lastWord]))
 
-    console.log(responses.join('\n'))
+	console.log(`${responses.join('\n')}`)
 }
 
 main()

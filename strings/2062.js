@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numTestCases, ...words] = readFileSync("./dev/stdin", "utf8").split(/\s/)
+const [numTestCases, ...words] = readFileSync("/dev/stdin", "utf8").split(/\s/)
 
 function fixWords(wordsArr = [""]) {
 	return wordsArr.map(word =>

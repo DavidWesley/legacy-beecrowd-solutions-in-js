@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("./dev/stdin", "utf8").split('\n')
-
-const numTestCases = Number.parseInt(input.shift())
+const [numLines, ...numbers] = readFileSync("/dev/stdin", "utf8")
+	.split('\n')
+	.map(num => Number.parseInt(num, 10))
 
 function getLimits(settedLimits = [0, 0]) {
 	settedLimits = [Math.min(...settedLimits), Math.max(...settedLimits)]
@@ -22,9 +22,8 @@ function main() {
 	const responses = []
 
 	const limits = [10, 20]
-	const numbers = input.map(num => Number.parseInt(num))
 
-	const [inRange, outRange] = numbers.slice(0, numTestCases).reduce((filter, num) => {
+	const [inRange, outRange] = numbers.slice(0, numLines).reduce((filter, num) => {
 		whitinRange(num, limits) ? filter[0].push(num) : filter[1].push(num)
 		return filter
 	}, [[], []])

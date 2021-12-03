@@ -3,8 +3,8 @@ const input = readFileSync("/dev/stdin", "utf8")
 	.split("\n")
 	.map((line) => line.split(" ").slice(0, 4).map(Number.parseFloat))
 
-const ObliqueThrow = {
-	maxHorizontalDistance: (velocity, height, acceleration = 9.8) => {
+class ObliqueThrow {
+	static maxHorizontalDistance(velocity, height, acceleration = 9.8) {
 		return (velocity / acceleration) * Math.sqrt(Math.pow(velocity, 2) + 2 * acceleration * height)
 	}
 }

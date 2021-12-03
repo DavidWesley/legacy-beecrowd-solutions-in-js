@@ -1,8 +1,7 @@
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
-const [N1, N2, N3, N4, N5, ..._] = input.map(num => Number.parseInt(num))
-const numbersLists = [N1, N2, N3, N4, N5]
+const numbersLists = input.slice(0, 5).map(num => Number.parseInt(num, 10))
 
 const isNegative = (num = 0) => Number(num) < 0
 const isPositive = (num = 0) => Number(num) > 0
@@ -29,7 +28,7 @@ function main() {
 		`${negativeNumbersQuantity} valor(es) negativo(s)`
 	]
 
-	console.log(responses.join('\n'))
+	console.log(`${responses.join('\n')}`)
 }
 
 main()

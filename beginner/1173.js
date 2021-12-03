@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [init] = readFileSync("../dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split('\n').shift()
 
 /**
  * @param {number} initialValue
@@ -14,16 +14,8 @@ function doubleFillVector(initialValue, length) {
 }
 
 function main() {
-	const responses = []
-
-	const initValue = parseInt(init, 10)
-	const vector = doubleFillVector(initValue, 10)
-
-	vector.forEach((value, index) => {
-		responses.push(
-			`N[${index}] = ${value}`
-		)
-	})
+	const initValue = Number.parseInt(input, 10)
+	const responses = doubleFillVector(initValue, 10).map((value, index) => `N[${index}] = ${value}`)
 
 	console.log(`${responses.join('\n')}`)
 }

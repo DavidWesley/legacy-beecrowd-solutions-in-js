@@ -1,53 +1,50 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
-
-const cash = Number.parseInt(input.shift())
+const cash = Number.parseInt(
+	readFileSync("/dev/stdin", "utf8").split("\n").shift(),
+	10
+)
 
 /**
  * @param {number} value
  * @param {number[] | null} notes
- * @return {[number[], number[], (number | null)?]}
+ * @return {[number[], number[]]}
  */
 
 function getFewestNotesSequence(value, notes = null) {
-    const sequenceNotes = []
-    const defaultNotes = notes ?? [100, 50, 20, 10, 5, 2, 1]
+	const sequenceNotes = []
+	const defaultNotes = notes ?? [100, 50, 20, 10, 5, 2, 1]
 
-    let sum = 0
+	for (let i = 0, sum = 0; i < defaultNotes.length; i++) {
+		const note = defaultNotes[i]
+		const cashBack = value - sum
+		const multiple = Math.floor(cashBack / note)
+		const cashValue = note * multiple
 
-    for (const note of defaultNotes) {
-        const cashBack = value - sum
-        const multiple = Math.floor(cashBack / note)
-        const cashValue = note * multiple
+		sum += multiple >= 1 ? cashValue : 0
+		sequenceNotes.push(multiple)
+	}
 
-        sum += (multiple >= 1) ? cashValue : 0
-        sequenceNotes.push(multiple)
-    }
-
-    return [sequenceNotes, defaultNotes]
+	return [sequenceNotes, defaultNotes]
 }
 
 /**
+ * @param {number[]} multiples
  * @param {number[]} defaultNotes
  */
 
-function createMessagesNotes(multsNotes = [], defaultNotes) {
-    const multiples = multsNotes
-    const messagesArray = []
-
-    for (const [index, multiple] of Object.entries(multiples)) {
-        messagesArray.push(`${multiple} nota(s) de R$ ${defaultNotes[index].toFixed(2)}`)
-    }
-
-    return messagesArray
+function createMessagesNotes(multiples, defaultNotes) {
+	return Array.from(
+		{ length: multiples.length },
+		(multiple, index) => `${multiple} nota(s) de R$ ${defaultNotes[index].toFixed(2)}`
+	)
 }
 
 function main() {
-    console.log(cash)
-    const [multiples, defaultNotes] = getFewestNotesSequence(cash)
+	const [multiples, defaultNotes] = getFewestNotesSequence(cash)
+	console.log(cash)
 
-    for (const msg of createMessagesNotes(multiples, defaultNotes))
-        console.log(msg)
+	for (const msg of createMessagesNotes(multiples, defaultNotes))
+		console.log(msg)
 }
 
 main()

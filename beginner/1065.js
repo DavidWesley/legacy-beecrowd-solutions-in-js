@@ -1,13 +1,15 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
-const [N1, N2, N3, N4, N5] = input.map((int) => Number.parseInt(int))
+const nums = readFileSync("/dev/stdin", "utf8")
+	.split('\n')
+	.slice(0, 5)
+	.map((value) => Number.parseInt(value, 10))
 
 const isEven = (num = 1) => Math.abs(Number(num)) % 2 === 0
-const evenNumbersCounter = (...nums) => nums.filter(isEven).length
+const evenNumbersCounter = (/** @type {number[]} */ ...nums) => nums.filter(isEven).length
 
 function main() {
-	const evenNumbersQuantity = evenNumbersCounter(N1, N2, N3, N4, N5)
+	const evenNumbersQuantity = evenNumbersCounter(...nums)
 	console.log(`${evenNumbersQuantity} valores pares`)
 }
 

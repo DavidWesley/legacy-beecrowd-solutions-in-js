@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 const [numTestCases, ...cases] = readFileSync("/dev/stdin", "utf8").split("\n")
 
-Object.setPrototypeOf(Math, {
+Reflect.setPrototypeOf(Math, {
 	gcf: ([x, y]) => {
 		if (isNaN(x) || isNaN(y)) return
 		x = Math.abs(x), y = Math.abs(y)

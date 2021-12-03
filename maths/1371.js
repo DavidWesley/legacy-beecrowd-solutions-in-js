@@ -1,4 +1,4 @@
-const { readFileSync, writeFileSync } = require("fs")
+const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
 function Doors(doorsList = []) {

@@ -1,24 +1,18 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n")
+const input = readFileSync("/dev/stdin", "utf8").split("\n").shift()
 
-function makeIntConsecSequence(minLimit = 0, maxLimit = minLimit) {
-	return Array.from(
-		{ length: maxLimit - minLimit + 1 },
-		(_, i) => minLimit + i
-	)
-}
-
-function powSeqFromANumber(sequence = [0], power = 1) {
-	return sequence.map((value) => Math.pow(value, power))
+function range(start, end = start, step = 1) {
+	const length = Math.floor((end - start + 1) / step) + (Math.sign(Math.min(start, end)) === -1 ? 1 : 0)
+	return Array.from({ length }, (_, i) => start + step * i)
 }
 
 function main() {
 	const responses = []
-	const limit = Number.parseInt(input.shift())
+	const limit = Number.parseInt(input)
 
-	const baseSequence = makeIntConsecSequence(1, limit)
-	const seqPowerToTwo = powSeqFromANumber(baseSequence, 2)
-	const seqPowerToThree = powSeqFromANumber(baseSequence, 3)
+	const baseSequence = range(1, limit)
+	const seqPowerToTwo = baseSequence.map((value) => Math.pow(value, 2))
+	const seqPowerToThree = baseSequence.map((value) => Math.pow(value, 3))
 
 	for (const index in baseSequence) {
 		responses.push(

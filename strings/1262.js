@@ -11,7 +11,7 @@ function main() {
 
 	while (input.length > 0) {
 		const processes = input.shift()
-		const simultaneousProcessesSize = input.shift()
+		const simultaneousProcessesSize = input.shift() 
 
 		if (processes === '' || simultaneousProcessesSize === '') break // EOFile Condition
 

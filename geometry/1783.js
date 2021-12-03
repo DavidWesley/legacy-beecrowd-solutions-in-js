@@ -36,10 +36,10 @@ function main() {
 
 	for (let i = 0; i < Number.parseInt(numCases, 10); i++) {
 
-		const [X1, Y1] = pairsList[4 * i + 0].map(Number.parseFloat)
-		const [X3, Y3] = pairsList[4 * i + 1].map(Number.parseFloat)
-		const [X2, Y2] = pairsList[4 * i + 2].map(Number.parseFloat)
-		const [X4, Y4] = pairsList[4 * i + 3].map(Number.parseFloat)
+		const [X1, Y1] = pairsList[4 * i + 0].slice(0, 2).map(Number.parseFloat)
+		const [X3, Y3] = pairsList[4 * i + 1].slice(0, 2).map(Number.parseFloat)
+		const [X2, Y2] = pairsList[4 * i + 2].slice(0, 2).map(Number.parseFloat)
+		const [X4, Y4] = pairsList[4 * i + 3].slice(0, 2).map(Number.parseFloat)
 
 		const firstCircumference = { firstPos: { x: X1, y: Y1 }, lastPos: { x: X2, y: Y2 } }
 		const secondCircumference = { firstPos: { x: X3, y: Y3 }, lastPos: { x: X4, y: Y4 } }

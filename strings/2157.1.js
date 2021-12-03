@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numTestCases, ...cases] = readFileSync("./stdin", "utf8").split("\n")
+const [numTestCases, ...cases] = readFileSync("/stdin", "utf8").split("\n")
 
 const reverseStr = str => [...str].reverse().join('')
 

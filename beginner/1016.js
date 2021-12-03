@@ -1,16 +1,20 @@
 const { readFileSync } = require("fs")
 
-const [distance] = readFileSync("/dev/stdin", "utf8").split('\n').map(Number)
+const [distance] = readFileSync("/dev/stdin", "utf8")
+	.split('\n')
+	.slice(0, 1)
+	.map(Number.parseFloat)
 
 function distanceBetween(space = 0) {
-    const [carX, carY] = [60, 90]
-    const distanceTax = Math.abs(carX - carY) / 60
+	const [carX, carY] = [60, 90]
+	const distanceTax = Math.abs(carX - carY) / 60
 
-    return Math.round(space / distanceTax)
+	return Math.round(space / distanceTax)
 }
 
 function main() {
-    const distTime = distanceBetween(distance)
-    console.log(`${distTime} minutos`)
-}; /
+	const distTime = distanceBetween(distance)
+	console.log(`${distTime} minutos`)
+}
+
 main()

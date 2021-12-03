@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const firstWord = readFileSync("/dev/stdin", "utf8").split('\n').shift()
 
 const reverse = str => [...str].reverse().join('')
 const isVowel = (char = '') => char.length === 1 && /[aeiou]/i.test(char)
@@ -12,9 +12,7 @@ function isAfunnyLaugh(laugth = '') {
 }
 
 function main() {
-	const firstWord = input.shift()
 	const response = isAfunnyLaugh(firstWord) ? 'S' : 'N'
-
 	console.log(response)
 }
 

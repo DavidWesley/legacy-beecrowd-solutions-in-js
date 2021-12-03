@@ -1,16 +1,9 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
-
-const wordInput = input.shift()
+const wordInput = readFileSync("/dev/stdin", "utf8").split('\n').shift()
 
 function linkMoodFromSurname(surnameLink) {
-    const surname = String(surnameLink).toLowerCase()
-    return `Link ${surname.includes("zelda") ? "Bolado" : "Tranquilo"}`
+	const surname = String(surnameLink).toLowerCase()
+	return `Link ${surname.includes("zelda") ? "Bolado" : "Tranquilo"}`
 }
 
-function main() {
-    const responses = linkMoodFromSurname(wordInput)
-    console.log(responses)
-}
-
-main()
+console.log(linkMoodFromSurname(wordInput))
