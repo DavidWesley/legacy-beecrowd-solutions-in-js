@@ -3,12 +3,13 @@ const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function main() {
 	const responses = []
-	const stopAtIndex = input.lastIndexOf("")
 
-	input.slice(0, stopAtIndex).forEach((text) => {
+	for (const text of input) {
+		if (text == "") break
 		const isValid = parenthesesValidate(text)
+
 		responses.push(isValid ? "correct" : "incorrect")
-	})
+	}
 
 	console.log(`${responses.join("\n")}`)
 }

@@ -1,40 +1,88 @@
-const { readFileSync } = require("fs")
-const inputs = readFileSync('/dev/stdin', 'utf8').split("\n")
+class QueueNode {
+	constructor(data, prev = null, next = null) {
+		this.data = data
+		this.prev = prev
+		this.next = next
+	}
+}
+class Queue {
+	#size = 0
+	#first = null
+	#last = null
 
-const responses = []
+	enqueue(data) {
+		const newNode = new QueueNode(data, this.#last, null)
+
+		if (this.isEmpty) this.#first = newNode
+		else this.#last.next = newNode
+
+		this.#last = newNode
+		this.#size++
+		return this
+	}
+
+	dequeue() {
+		const removedItem = this.#first
+		this.#first = removedItem.next
+
+		if (!this.isEmpty) this.#size--
+		return removedItem.data
+	}
+
+
+	get size() { return this.#size }
+	get peek() { return this.#first ?? null }
+	get isEmpty() { return this.size === 0 }
+
+	static fromArray(arr) {
+		const queue = new Queue()
+		for (const data of arr) queue.enqueue(data)
+		return queue
+	}
+}
+
+const { readFileSync } = require("fs")
+const input = readFileSync("/dev/stdin", 'utf8').split("\n")
 
 function main() {
-    for (const input of inputs) {
-        if (input === "0") break
-        const cards = createCardsSequence(Number(input))
-        const [discardedCards, [reaming]] = discardCards(cards)
-        printCardsOrganization(reaming, discardedCards)
-    }
+	const responses = []
+
+	for (const size of input) {
+		if (size === "0") break
+
+		const deck = Queue.fromArray(range(1, +size, 1))
+		const [discardedCards, reaming] = discardCards(deck)
+
+		const messageCards = {
+			discarded: `cards: ${discardedCards.join(", ")}`,
+			remaing: `Remaining card: ${reaming}`
+		}
+
+		responses.push(messageCards.discarded, messageCards.remaing)
+	}
+
+	console.log(`${responses.join('\n')}`)
 }
 
-function createCardsSequence(size) {
-    const array = Array.from({ length: size }, (_, i) => i + 1)
-    return array
+/**
+ * @param {number} start
+ * @param {number} [end]
+ */
+function range(start, end, step = 1) {
+	const length = Math.floor((end - start + 1) / step) + (Math.sign(Math.min(start, end)) === -1 ? 1 : 0)
+	return Array.from({ length }, (_, i) => start + step * i)
 }
 
-function discardCards(cards = []) {
-    const discardedCardsArray = []
-    while (cards.length > 1) {
-        discardedCardsArray.push(cards.shift())
-        cards.push(cards.shift())
-    }
+/** @param {Queue} deck */
+function discardCards(deck) {
+	const discardedCardsArray = []
 
-    return [discardedCardsArray, cards]
-}
+	while (deck.size > 1) {
+		discardedCardsArray.push(deck.dequeue())
+		deck.enqueue(deck.dequeue())
+	}
 
-function printCardsOrganization(reamingCard, discardedCards = []) {
-    const messageCards = {
-        discarded: `Discarded cards:${discardedCards.length > 0 ? " " : ''}${discardedCards.join(", ")}`,
-        remaing: `Remaining card: ${reamingCard}`
-    }
-
-    responses.push(messageCards.discarded, messageCards.remaing)
+	return [discardedCardsArray, deck.peek.data]
 }
 
 main()
-console.log(responses.join('\n'))

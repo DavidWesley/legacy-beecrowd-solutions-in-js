@@ -1,60 +1,58 @@
 const { readFileSync } = require('fs')
-const inputs = readFileSync('/dev/stdin', 'utf8').split('\n')
+const input = readFileSync('/dev/stdin', 'utf8').split('\n')
 
-let actualIndex = 0
+const toInt = (value = '') => Number.parseInt(value, 10)
 
-for (const [cityIndex, properties] of Object.entries(inputs)) {
-    if (inputs.length === 0) break
-    else if (properties === '0') break
-    else if (isNaN(+properties)) continue
+for (let index = 0, cityIndex = 1; index < input.length; index++) {
+	if (input[index] === '') break
+	if (input[index] === '0') break
 
-    const startIndexProperties = +cityIndex + 1
-    const endIndexProperties = (+properties) + startIndexProperties
-    const listOfHousesByCities = inputs.slice(startIndexProperties, endIndexProperties)
+	const housesList = toInt(input[index])
 
-    // DYNAMIC VALUES - BEGIN
-    const consumedList = []
-    const orderResidentsByConsum = []
-    let totalConsumed = 0, totalResidents = 0
-    // DYNAMIC VALUES - END
+	const startHouseListIndex = index + 1
+	const endHouseListIndex = housesList + startHouseListIndex
 
-    for (const house of listOfHousesByCities) {
-        const [residents, consumed] = house.split(' ').map(Number)
-        const consumedByResidents = Math.floor(consumed / residents)
+	// DYNAMIC VALUES - BEGIN
+	const consumedList = []
+	const orderResidentsByConsum = []
+	let totalConsumed = 0, totalResidents = 0
+	// DYNAMIC VALUES - END
 
-        totalResidents += residents
-        totalConsumed += consumed
+	for (let i = startHouseListIndex; i < endHouseListIndex; i++, index++) { // housesByCityList
+		const house = input[i] //=
+		const [residents, consumed] = house.split(' ').slice(0, 2).map(toInt)
+		const consumedByResidents = Math.floor(consumed / residents)
 
-        if (consumedList.includes(consumedByResidents))
-            orderResidentsByConsum[consumedList.indexOf(consumedByResidents)] += residents
-        else {
-            consumedList.push(consumedByResidents)
-            orderResidentsByConsum.push(residents)
-        }
-    }
+		totalResidents += residents
+		totalConsumed += consumed
 
-    let media = (totalConsumed / totalResidents).toFixed(4)
-    media = media.substring(0, media.length - 2)
+		if (consumedList.includes(consumedByResidents))
+			orderResidentsByConsum[consumedList.indexOf(consumedByResidents)] += residents
+		else {
+			consumedList.push(consumedByResidents)
+			orderResidentsByConsum.push(residents)
+		}
+	}
 
-    const print = [
-        `Cidade# ${++actualIndex}:`,
-        organizeListOfConsum(consumedList, orderResidentsByConsum),
-        `Consumo medio: ${media} m3.`
-    ].join('\n')
+	const formattedAverageValue = (totalConsumed / totalResidents).toFixed(4).slice(0, -2)
 
-    console.log(print)
+	const formmatedOutput = [
+		`Cidade# ${cityIndex++}:`,
+		`${organizeListOfConsum(consumedList, orderResidentsByConsum)}`,
+		`Consumo medio: ${formattedAverageValue} m3.`
+	].join('\n')
+
+	console.log(formmatedOutput)
 }
 
 /**
- * @param {number[]} arr1
- * @param {number[]} arr2
+ * @param {number[]} arrA
+ * @param {number[]} arrB
 */
 
-function organizeListOfConsum(arr1 = [], arr2 = []) {
-    const arrK = [...arr1]
-    const sorted = arrK.sort((a, b) => a - b)
-    const list = arrK.map((_, index, arr) => {
-        return `${arr2[arr1.indexOf(sorted[index])]}-${arr[index]}`
-    })
-    return list.join(' ')
+function organizeListOfConsum(arrA, arrB) {
+	return [...arrA]
+		.sort((a, b) => a - b)
+		.map((sortedValue) => `${arrB[arrA.indexOf(sortedValue)]}-${sortedValue}`)
+		.join(' ')
 }

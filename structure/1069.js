@@ -1,48 +1,49 @@
 const { readFileSync } = require('fs')
-const inputs = readFileSync('/dev/stdin', 'utf8').split('\n')
-const [numTestCases, ...cases] = inputs
+const [numCases, ...cases] = readFileSync("/dev/stdin", "utf8").split('\n')
 
-for (const caseIndex in cases) {
-    if (caseIndex === numTestCases) break
+function main() {
+	const responses = cases.slice(0, +numCases).map((_, index) => {
+		const sign = [...cases[index]]
+		const foundedDiamonds = findDiamonds(sign)
 
-    const sign = [...cases[caseIndex]]
-    const diamondsQuantity = diamonds(sign)
+		return foundedDiamonds
+	})
 
-    console.log(diamondsQuantity)
+	console.log(`${responses.join('\n')}`)
 }
 
-/**
- * @param {string[]} sign
-*/
+main()
 
-function diamonds(sign = []) {
-    const signs = {
-        sign: sign,
-        stacks: {
-            LTS: [],
-            GTS: []
-        },
-        codes: {
-            LTS: String.fromCharCode(60), // <
-            GTS: String.fromCharCode(62) // >
-        },
-        diamonds: {
-            counter: 0
-        }
-    }
+/** @param {string[]} sign */
 
-    signs.sign.forEach((symbol, index) => {
-        if (symbol === signs.codes.LTS)
-            signs.stacks.LTS.push(index)
-        else if (symbol === signs.codes.GTS) {
-            signs.stacks.GTS.push(index)
+function findDiamonds(sign = []) {
+	const signs = {
+		sign: sign,
+		stacks: {
+			LTS: [],
+			GTS: []
+		},
+		codes: {
+			LTS: String.fromCharCode(60), // <
+			GTS: String.fromCharCode(62) // >
+		},
+		diamonds: {
+			counter: 0
+		}
+	}
 
-            if (signs.stacks.LTS.length > 0) {
-                signs.stacks.LTS.pop()
-                ++signs.diamonds.counter
-            }
-        }
-    })
+	signs.sign.forEach((symbol, index) => {
+		if (symbol === signs.codes.LTS)
+			signs.stacks.LTS.push(index)
+		else if (symbol === signs.codes.GTS) {
+			signs.stacks.GTS.push(index)
 
-    return signs.diamonds.counter
+			if (signs.stacks.LTS.length > 0) {
+				signs.stacks.LTS.pop()
+				++signs.diamonds.counter
+			}
+		}
+	})
+
+	return signs.diamonds.counter
 }

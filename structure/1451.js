@@ -1,15 +1,13 @@
 const { readFileSync } = require("fs")
+
 const textList = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function main() {
 	const outputs = []
 
-	for (const text of textList) {
+	for (const text of textList)
 		if (text === '') break // EOFile Condition Verification
-		const formmatedText = formatText(text)
-
-		outputs.push(formmatedText)
-	}
+		else outputs.push(formatText(text))
 
 	console.log(`${outputs.join('\n')}`)
 }
@@ -17,7 +15,7 @@ function main() {
 main()
 
 
-function formatText(text) {
+function formatText(text) { // Da pra melhorar essa porra!
 	let finalText = ""
 
 	for (let index = 0; index < text.length; index++) {
@@ -57,7 +55,7 @@ function insertTextFrom(index, text = '') {
 
 	while (index + 1 <= text.length) {
 		if (char === "[" || char === "]") {
-			index--
+			index -= 1
 			break
 		}
 

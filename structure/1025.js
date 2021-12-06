@@ -1,35 +1,43 @@
-const { readFileSync } = require('fs')
-const inputs = readFileSync('/dev/stdin', 'utf8').split('\n')
-const responses = []
+const { readFileSync } = require("fs")
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
-let indexCounter = 0
+const toInt = (value = '') => Number.parseInt(value, 10)
 
-for (const [index, line] of Object.entries(inputs)) {
-    if (inputs.length === 0) break
-    else if (!isNaN(+line)) continue
+function main() {
+	const responses = []
 
-    const [marblesNumbers, queriesCount] = line.split(' ').map(Number)
-    if (marblesNumbers === 0 && queriesCount === 0) break
+	for (let index = 0, counter = 1; index < input.length; index++) {
+		const line = input[index]
+		const [marblesNumbers, queriesCount] = line.split(" ").map(toInt)
 
-    const startIndexOfMarble = +index + 1
-    const endIndexOfMarble = marblesNumbers + startIndexOfMarble
+		if (marblesNumbers === 0 && queriesCount === 0) break
 
-    const startIndexOfQueries = endIndexOfMarble
-    const endIndexOfQueries = queriesCount + startIndexOfQueries
+		const startMarbleIndex = index + 1
+		const endMarbleIndex = marblesNumbers + startMarbleIndex
 
-    const marbles = inputs.slice(startIndexOfMarble, endIndexOfMarble).map(Number).sort((a, b) => a - b)
-    const queries = inputs.slice(startIndexOfQueries, endIndexOfQueries).map(Number)
+		const startQueriesIndex = endMarbleIndex
+		const endQueriesIndex = queriesCount + startQueriesIndex
 
-    responses.push(`CASE# ${++indexCounter}:`)
+		const marbles = input
+			.slice(startMarbleIndex, endMarbleIndex)
+			.map(toInt)
+			.sort((a, b) => a - b)
 
-    queries.forEach((query) => {
-        if (marbles.includes(query)) {
-            const indexOfQuery = marbles.indexOf(query) + 1
-            responses.push(`${query} found at ${indexOfQuery}`)
-        } else {
-            responses.push(`${query} not found`)
-        }
-    })
+		const queries = input
+			.slice(startQueriesIndex, endQueriesIndex)
+			.map(toInt)
+
+		responses.push(`CASE# ${counter++}:`)
+
+		for (const query of queries) {
+			if (marbles.includes(query))
+				responses.push(`${query} found at ${marbles.indexOf(query) + 1}`)
+			else
+				responses.push(`${query} not found`)
+		}
+	}
+
+	console.log(`${responses.join("\n")}`)
 }
 
-console.log(responses.join('\n'))
+main()
