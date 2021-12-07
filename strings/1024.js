@@ -21,9 +21,7 @@ main()
 /** @param {string} text */
 
 function criptOne(text) {
-	return [...text].map(char => {
-		return /[a-zA-Z]/.test(char) ? String.fromCharCode(char.charCodeAt(0) + 3) : char
-	}).join('')
+	return text.replace(/[a-zA-Z]/g, (char) => String.fromCharCode(char.charCodeAt(0) + 3))
 }
 
 /** @param {string} text */
@@ -36,10 +34,9 @@ function criptTwo(text) {
 /** @param {string} text */
 
 function criptThree(text) {
-	const len = text.length
-	const limit = Math.trunc(len / 2)
+	const limit = Math.trunc(text.length / 2)
 	const originalText = text.substr(0, limit)
-	const processedText = [...text.substr(limit, (len <= 1 ? limit + 1 : len - 1))].map(char => String.fromCharCode(char.charCodeAt(0) - 1)).join('')
+	const processedText = text.substr(limit).replace(/./g, (char) => String.fromCharCode(char.charCodeAt(0) - 1))
 
 	return `${originalText}${processedText}`
 }
