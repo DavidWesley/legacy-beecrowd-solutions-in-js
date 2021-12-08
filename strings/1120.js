@@ -2,7 +2,7 @@ const { readFileSync } = require("fs")
 const pairs = readFileSync("/dev/stdin", "utf8").split('\n').map(pair => pair.split(' '))
 
 function formatValueByDigit(value, digit) {
-	let formatedValue = [...value.split(digit).join('')]
+	const formatedValue = [...value.replace(RegExp(digit, "g"), '')]
 	let size = formatedValue.length
 
 	for (let i = 0; i < size - 1; i++) {

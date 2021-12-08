@@ -3,10 +3,9 @@ const cases = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function returnInittialLettersFromText(text = "") {
 	return text
+		.replace(/(?<=[A-Z])\w+/gi, '')
 		.toLowerCase()
-		.split(/\s/gim)
-		.filter(Boolean)
-		.map((word) => word.charAt(0))
+		.split(/\s+/gim)
 }
 
 function countAlliterations(text = "") {
