@@ -46,38 +46,38 @@ function range(start, end, step = 1) {
 const output = []
 
 while (input.length > 0) {
-	const numVogons = Number.parseInt(input.shift(), 10)
-	if (numVogons === 0) break
+	const numWagons = Number.parseInt(input.shift(), 10)
+	if (numWagons === 0) break
 
 	const block = []
 
 	while (true) {
-		const permutedVogons = input
+		const permutedWagons = input
 			.shift()
 			.split(" ")
-			.slice(0, numVogons)
+			.slice(0, numWagons)
 
-		if (permutedVogons[0] === "0") break
+		if (permutedWagons[0] === "0") break
 
-		const expected = Stack.fromArray(permutedVogons.reverse())
+		const expected = Stack.fromArray(permutedWagons.reverse())
 
-		const estacaoA = Stack.fromArray(range(numVogons, 1, -1))
-		const estacaoB = new Stack()
-		const estacaoC = new Stack()
+		const stationA = Stack.fromArray(range(numWagons, 1, -1))
+		const stationB = new Stack()
+		const stationC = new Stack()
 
 		while (expected.isEmpty() === false) {
-			if (estacaoA.peek() == expected.peek()) {
-				estacaoB.push(estacaoA.pop())
+			if (stationA.peek() == expected.peek()) {
+				stationB.push(stationA.pop())
 				expected.pop()
-			} else if (estacaoC.peek() == expected.peek()) {
-				estacaoB.push(estacaoC.pop())
+			} else if (stationC.peek() == expected.peek()) {
+				stationB.push(stationC.pop())
 				expected.pop()
-			} else if (estacaoA.isEmpty() == false) {
-				estacaoC.push(estacaoA.pop())
+			} else if (stationA.isEmpty() == false) {
+				stationC.push(stationA.pop())
 			} else break
 		}
 
-		block.push(estacaoB.size() === numVogons ? "Yes" : "No")
+		block.push(stationB.size() === numWagons ? "Yes" : "No")
 	}
 
 	output.push(block.join("\n"))
