@@ -1,9 +1,9 @@
 const { readFileSync } = require("fs")
-const inputs = readFileSync("/dev/stdin", "utf8").split("\n")
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const isOdd = (num = 0) => Math.abs(Number(num)) % 2 === 1
 const isEven = (num = 1) => Math.abs(Number(num)) % 2 === 0
-const modulus = (num, modValue = 1) => Number(num) % modValue
+const modulus = (num, mod = 1) => Number(num) % mod
 
 function compareAndSortValuesFromMod(a = 0, b = 0, targetMod = 1) {
 	if (modulus(a, targetMod) > modulus(b, targetMod)) { return 1 }
@@ -19,11 +19,7 @@ function compareAndSortValuesFromMod(a = 0, b = 0, targetMod = 1) {
 }
 
 function parseStringsEntriesToIntegers(currentValue = "") {
-	const toInt = (value = "") => Math.trunc(Number(value))
-	const parsedToInt = toInt(currentValue)
-
-	if (Number.isNaN(parsedToInt)) return currentValue.split(" ").map(toInt)
-	return parsedToInt
+	return currentValue.split(" ").map(value => Number.parseInt(value, 10))
 }
 
 function deepSortNums([...entries]) {
@@ -35,7 +31,7 @@ function deepSortNums([...entries]) {
 
 		if (N == 0 || M == 0) break
 
-		const sequenceValues = entries.splice(0, N)
+		const sequenceValues = entries.splice(0, N).flat(1)
 		const sortedValues = sequenceValues.sort((a, b) => compareAndSortValuesFromMod(a, b, M))
 
 		result.push(sortedValues.join("\n"))
@@ -45,7 +41,7 @@ function deepSortNums([...entries]) {
 }
 
 function main() {
-	const formattedInputs = inputs.map(parseStringsEntriesToIntegers)
+	const formattedInputs = input.map(parseStringsEntriesToIntegers)
 	const responses = deepSortNums(formattedInputs)
 
 	console.log(responses.join("\n"))
