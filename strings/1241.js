@@ -1,29 +1,20 @@
 const { readFileSync } = require("fs")
 
-const [[numTestCases], ...pairTextList] = readFileSync("/dev/stdin", "utf8")
+const [[numCases], ...pairTextList] = readFileSync("/dev/stdin", "utf8")
 	.split('\n')
 	.map((line) => line.split(' '))
 
 function fitIn([firstValueString = '', secondValueString = '']) {
-	const firstStringLen = firstValueString.length
-	const secondStringLen = secondValueString.length
+	const diffLength = firstValueString.length - secondValueString.length
 
-	if (firstStringLen < secondStringLen) return false
-	const lastFirstSubstring = firstValueString.substr(firstStringLen - secondStringLen)
-
-	return lastFirstSubstring === secondValueString
+	if (diffLength < 0) return false
+	else return firstValueString.substr(diffLength) === secondValueString
 }
 
 function main() {
-	const responses = []
-
-	for (const [index, [firstValue, secondValue]] of Object.entries(pairTextList)) {
-		if (index === numTestCases) break
-		const isFit = fitIn([firstValue, secondValue])
-
-		if (isFit) responses.push("encaixa")
-		else responses.push("nao encaixa")
-	}
+	const responses = pairTextList
+		.slice(0, +numCases)
+		.map(([firstValue, secondValue]) => fitIn([firstValue, secondValue]) ? "encaixa" : "nao encaixa")
 
 	console.log(responses.join("\n"))
 }
