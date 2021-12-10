@@ -27,7 +27,7 @@ class VigenèreCipher {
 
 	encryptText(key, text, from = 0) {
 		return Array
-			.from(text, (char) => this.#CIPHER_TABLE[key.charAt(from++ % key.length).toUpperCase()][char.toUpperCase()] || char)
+			.from(text, (char) => this.#CIPHER_TABLE[key.charAt(from++ % key.length).toUpperCase()][char.toUpperCase()] ?? char)
 			.join('')
 			.toLowerCase()
 	}
