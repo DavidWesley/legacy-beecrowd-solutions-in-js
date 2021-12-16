@@ -10,7 +10,7 @@ function filledOrEmpty(shade) {
 }
 
 const output = []
-const AlternativesEnum = ['A', 'B', 'C', 'D', 'E']
+const AlternativesEnum = { 0: 'A', 1: 'B', 2: 'C', 3: 'D', 4: 'E' }
 
 while (input.length > 0) {
 	const numQuestions = Number.parseInt(input.shift(), 10)
