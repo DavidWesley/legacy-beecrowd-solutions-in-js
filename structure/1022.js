@@ -1,75 +1,84 @@
 const { readFileSync } = require('fs')
-const inputs = readFileSync('/dev/stdin', 'utf8').split('\n')
+const [numTestCases, ...equations] = readFileSync("/dev/stdin", "utf8").split('\n')
 
-const [numTestCases, ...equations] = inputs
-
-const sum = (N1 = 1, D1 = 1, N2 = 0, D2 = 0) => `${(N1 * D2 + N2 * D1)}\/${(D1 * D2)}`
-const subtract = (N1 = 1, D1 = 1, N2 = 0, D2 = 0) => `${(N1 * D2 - N2 * D1)}\/${(D1 * D2)}`
-const multiply = (N1 = 0, D1 = 0, N2 = 1, D2 = 1) => `${(N1 * N2)}\/${(D1 * D2)}`
-const divide = (N1 = 0, D1 = 0, N2 = 1, D2 = 1) => `${(N1 * D2)}\/${(N2 * D1)}`
+const FormattedEquationsFunctionsEnum = Object.freeze({
+	sum: (N1 = 1, D1 = 1, N2 = 0, D2 = 0) => `${(N1 * D2 + N2 * D1)}\/${(D1 * D2)}`,
+	subtract: (N1 = 1, D1 = 1, N2 = 0, D2 = 0) => `${(N1 * D2 - N2 * D1)}\/${(D1 * D2)}`,
+	multiply: (N1 = 0, D1 = 0, N2 = 1, D2 = 1) => `${(N1 * N2)}\/${(D1 * D2)}`,
+	divide: (N1 = 0, D1 = 0, N2 = 1, D2 = 1) => `${(N1 * D2)}\/${(N2 * D1)}`,
+})
 
 // Run Call all function here
 
-for (const index in equations) {
-    if (index === numTestCases) break
-    const solvedEquation = returnSolvedEquation(equations[index])
-    console.log(solvedEquation)
+function main() {
+	const responses = equations.slice(0, +numTestCases).map(resolveEquation)
+	console.log(`${responses.join('\n')}`)
 }
 
-// Return the fraction formatted
+main()
 
-function reduceFraction(fraction) {
-    const [N, D] = destructFraction(fraction)
-    const MDC = mdc(N, D)
 
-    return [N / MDC, D / MDC]
+// Return the final equation solved
+
+/** @param {string} equation */
+
+function resolveEquation(equation) {
+	const unstructured = destructSimpleLinearEquation(equation)
+	const initialFraction = defineOperation(unstructured)
+	const reducedFraction = defineOperation(reduceFraction(initialFraction))
+
+	return `${initialFraction} = ${reducedFraction}`
 }
+
 
 // Functions Destructs
 
+/** @param { string } fraction */
+
 function destructFraction(fraction) {
-    return fraction.replace(/\s/gs, '').split("\/").map(Number)
+	return fraction.replace(/\s/gs, '').split("\/").map(Number.parseFloat)
 }
 
-function destructFullEquation(equation) {
-    const destructedEquation = equation.split(/\s/).filter((_, i) => (i != 1 && i != 5))
-    return destructedEquation
+/** @param {string} equation */
+
+function destructSimpleLinearEquation(equation) {
+	const equationRegex = /(\d+)\/(\d+)([\+\-\*\/])(\d+)\/(\d+)/s
+	return equation.replace(/\s/g, '').match(equationRegex).slice(1, 5)
 }
 
-// Set the correct operation for equation input
+
+// Set the correct operation from equation input
+
+/** @param {[number, number, string, number, number]} equation */
 
 function defineOperation(equation) {
-    const [n1, d1, operator, n2, d2] = equation
-    let response = ""
+	const [N1, D1, operator, N2, D2] = equation
 
-    if (operator === '+') response = sum(n1, d1, n2, d2)
-    else if (operator === '-') response = subtract(n1, d1, n2, d2)
-    else if (operator === '*') response = multiply(n1, d1, n2, d2)
-    else if (operator === '/') response = divide(n1, d1, n2, d2)
-    else response = multiply(n1, d1)
+	if (operator === '+') return FormattedEquationsFunctionsEnum.sum(N1, D1, N2, D2)
+	else if (operator === '-') return FormattedEquationsFunctionsEnum.subtract(N1, D1, N2, D2)
+	else if (operator === '*') return FormattedEquationsFunctionsEnum.multiply(N1, D1, N2, D2)
+	else if (operator === '/') return FormattedEquationsFunctionsEnum.divide(N1, D1, N2, D2)
 
-    return response
+	return FormattedEquationsFunctionsEnum.multiply(N1, D1)
 }
 
-// Print the final equation solved
 
-function returnSolvedEquation(equation) {
-    const unstructured = destructFullEquation(equation)
-    const initialFraction = defineOperation(unstructured)
-    const reducedFraction = defineOperation(reduceFraction(initialFraction))
+// Return the fraction formatted
 
-    return `${initialFraction} = ${reducedFraction}`
+/** @param {string} fraction */
+
+function reduceFraction(fraction) {
+	const [N, D] = destructFraction(fraction)
+	const MDC = GCD([N, D])
+
+	return [N / MDC, D / MDC]
 }
 
-// Adtionals Functions
+// Aditionals Functions
 
-function mdc(num = 1, den = 1) {
-    let rest
-
-    do {
-        rest = num % den;
-        [num, den] = [den, rest]
-    } while (rest !== 0)
-
-    return Math.abs(num)
+const GCD = ([x, y]) => {
+	if (isNaN(x) || isNaN(y)) return
+	x = Math.abs(x), y = Math.abs(y)
+	while (y !== 0) [x, y] = [y, x % y]
+	return x
 }
