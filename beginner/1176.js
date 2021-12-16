@@ -2,6 +2,7 @@ const { readFileSync } = require("fs")
 const [numTestCases, ...positions] = readFileSync("/dev/stdin", "utf8").split('\n')
 
 function binetFormule(nth) {
+	if (nth < 0) return 0
 	const sqrt5 = Math.sqrt(5)
 	const nthPower = (equation) => Math.pow(equation / 2, nth) / sqrt5
 
