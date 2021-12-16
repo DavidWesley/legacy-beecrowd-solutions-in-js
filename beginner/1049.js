@@ -1,33 +1,48 @@
 const { readFileSync } = require("fs")
-const inputs = readFileSync("/dev/stdin", "utf8").split("\n")
+const [phylumName, className, nutritionTypeName] = readFileSync("/dev/stdin", "utf8")
+	.split("\n")
+	.slice(0, 3)
 
-const inputValues = inputs.map((input) =>
-	input.split(" ").map((num) => Number.parseInt(num))
-)
-
-const isPositive = (num = 0) => Number(num) > 0
-
-function sumPA(start, size, step = 1) {
-	const end = start + step * size
-	return ((start + end) * (size - 1)) / 2
+const AnimalTree = {
+	vertebrado: {
+		ave: {
+			carnivoro: "aguia",
+			onivoro: "pomba",
+		},
+		mamifero: {
+			onivoro: "homem",
+			herbivoro: "vaca",
+		},
+	},
+	invertebrado: {
+		inseto: {
+			hematofago: "pulga",
+			herbivoro: "lagarta",
+		},
+		anelideo: {
+			hematofago: "sanguessuga",
+			onivoro: "minhoca",
+		},
+	},
 }
 
-function sumFromPA(A = 0, N = 1) {
-	return A + sumPA(A, N)
+const handler = {
+	get(target, prop, receiver) {
+		if (typeof target[prop] === 'object' && target[prop] !== null) return new Proxy(target[prop], handler)
+		else return target[prop]
+
+	},
+	set(target, key, value, receiver) {
+		return false
+	}
 }
+
+const AnimalTreeDeeplyFrozen = new Proxy(AnimalTree, handler)
 
 function main() {
-	const responses = []
-
-	for (const values of inputValues) {
-		const A = values.shift()
-		const N = values.find(isPositive)
-		const sum = sumFromPA(A, N)
-
-		responses.push(sum)
-	}
-
-	console.log(responses.join("\n"))
+	console.log(
+		AnimalTreeDeeplyFrozen[phylumName][className][nutritionTypeName]
+	)
 }
 
 main()
