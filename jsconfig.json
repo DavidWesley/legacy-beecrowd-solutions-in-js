@@ -6,16 +6,14 @@
 		"target": "esnext",
 		"module": "esnext",
 		"lib": [
-			"es2019.array",
-			"es2019.object",
-			"es2020.bigint",
-			"es2021.string"
+			"ESNext"
 		],
 		"baseUrl": ".",
 		"useDefineForClassFields": true,
 		"strict": true,
 		"allowUnreachableCode": false,
 		"strictNullChecks": false,
+		"noImplicitAny": false,
 	},
 	"exclude": [
 		"dist",
