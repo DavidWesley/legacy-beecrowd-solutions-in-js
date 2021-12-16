@@ -15,13 +15,13 @@ function sortStudentsList(studentsList) {
 
 function getStudentsProps(propsList = []) {
 	return propsList.map(props => {
-		const [name, region, dist] = props
+		const [name, region, distance] = props
 
-		return {
+		return Object.freeze({
 			name,
 			region,
-			distance: dist //Number.parseInt(dist, 10)
-		}
+			distance
+		})
 	})
 }
 
