@@ -5,7 +5,8 @@ function main() {
     const classes = getterClasses(inputs)
     const shirtsSorted = shirtSorter(classes)
     const output = printShirtsByClasses(shirtsSorted)
-    console.log(output)
+
+    console.log(`${output.join('\n\n')}`)
 }
 
 function getterClasses(classes = []) {
@@ -72,20 +73,7 @@ function shirtSorter(gruopsOfClasses = [[{ color: '', size: '', name: '' }]]) {
  */
 
 function printShirtsByClasses(gruopsOfShirts) {
-    const fullPrint = []
-
-    for (const shirts of gruopsOfShirts) {
-        const thisPrint = []
-
-        for (const { name, size, color } of shirts) {
-            const message = `${color} ${size} ${name}`
-            thisPrint.push(message)
-        }
-
-        fullPrint.push(thisPrint.join('\n'))
-    }
-
-    return fullPrint.join('\n\n')
+    return gruopsOfShirts.map(shirts => shirts.map(({ name, size, color }) => `${color} ${size} ${name}`).join('\n'))
 }
 
 // RUN THE CODE
