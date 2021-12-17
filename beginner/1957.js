@@ -1,11 +1,12 @@
 const { readFileSync } = require("fs")
 const [num] = readFileSync("/dev/stdin", "utf8").split('\n')
 
-function main() {
-	const decimaNumber = Number.parseInt(num, 10)
-	const hexadecimalString = decimaNumber.toString(16)
+const ConvertBase = (num) => ({
+	from: (baseFrom) => ({
+		to: (baseTo) => parseInt(num, baseFrom).toString(baseTo)
+	})
+})
 
-	console.log(hexadecimalString.toUpperCase())
-}
+const hexString = ConvertBase(num).from(10).to(16).toUpperCase()
 
-main()
+console.log(hexString)
