@@ -1,30 +1,18 @@
 class Stack {
 	#items = [];
 
-	push(element) {
-		this.#items.push(element)
-	}
-	pop() {
-		return this.#items.pop()
-	}
-	toArray() {
-		return this.#items
-	}
+	push(element) { this.#items.push(element) }
+	pop() { return this.#items.pop() }
 
-	size() {
-		return this.#items.length
-	}
-	peek() {
-		return this.#items[this.#items.length - 1]
-	}
-	isEmpty() {
-		return this.size() == 0
-	}
+	toArray() { return this.#items }
+	isEmpty() { return this.size == 0 }
+
+	get size() { return this.#items.length }
+	get peek() { return this.#items.at(-1) }
 
 	static fromArray(arr = []) {
 		const stack = new Stack()
 		for (const item of arr) stack.push(item)
-		stack
 		return stack
 	}
 }
@@ -51,7 +39,7 @@ while (input.length > 0) {
 
 	const block = []
 
-	while (true) {
+	while (input.length > 0) {
 		const permutedWagons = input
 			.shift()
 			.split(" ")
@@ -66,10 +54,10 @@ while (input.length > 0) {
 		const stationC = new Stack()
 
 		while (expected.isEmpty() === false) {
-			if (stationA.peek() == expected.peek()) {
+			if (stationA.peek == expected.peek) {
 				stationB.push(stationA.pop())
 				expected.pop()
-			} else if (stationC.peek() == expected.peek()) {
+			} else if (stationC.peek == expected.peek) {
 				stationB.push(stationC.pop())
 				expected.pop()
 			} else if (stationA.isEmpty() == false) {
@@ -77,7 +65,7 @@ while (input.length > 0) {
 			} else break
 		}
 
-		block.push(stationB.size() === numWagons ? "Yes" : "No")
+		block.push(stationB.size === numWagons ? "Yes" : "No")
 	}
 
 	output.push(block.join("\n"))
