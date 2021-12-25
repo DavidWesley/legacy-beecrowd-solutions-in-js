@@ -1,14 +1,13 @@
 const { readFileSync } = require("fs")
 const [numCases, ...texts] = readFileSync("/dev/stdin", "utf8").split('\n')
 
+// Compose functions from left to right
+const pipe = (...fns) => (value) => fns.reduce((res, fn) => fn(res), value)
+
 /** @param {string} text */
 
 function criptgraph(text) {
-	let criptWord = criptOne(text)
-	criptWord = criptTwo(criptWord)
-	criptWord = criptThree(criptWord)
-
-	return criptWord
+	return pipe(criptOne, criptTwo, criptThree)(text)
 }
 
 function main() {
