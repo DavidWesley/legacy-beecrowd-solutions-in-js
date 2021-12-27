@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numCases, ...texts] = readFileSync("/dev/stdin", "utf8").split('\n')
+const [numCases, ...texts] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 // Compose functions from left to right
 const pipe = (...fns) => (value) => fns.reduce((res, fn) => fn(res), value)
@@ -12,7 +12,7 @@ function criptgraph(text) {
 
 function main() {
 	const responses = texts.slice(0, +numCases).map(criptgraph)
-	console.log(`${responses.join('\n')}`)
+	console.log(`${responses.join("\n")}`)
 }
 
 main()
@@ -27,7 +27,7 @@ function criptOne(text) {
 
 function criptTwo(text) {
 	if (text.length < 2) return text
-	return [...text].reverse().join('')
+	return [...text].reverse().join("")
 }
 
 /** @param {string} text */
