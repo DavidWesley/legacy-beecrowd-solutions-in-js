@@ -3,8 +3,8 @@
 		"checkJs": true,
 		"resolveJsonModule": true,
 		"moduleResolution": "node",
-		"target": "esnext",
-		"module": "esnext",
+		"target": "ESNext",
+		"module": "ESNext",
 		"lib": [
 			"ESNext"
 		],

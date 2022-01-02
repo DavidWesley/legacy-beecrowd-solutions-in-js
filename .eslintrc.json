@@ -22,7 +22,7 @@
 			"beside"
 		],
 		"quotes": [
-			"error",
+			"warn",
 			"double"
 		],
 		"semi": [

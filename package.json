@@ -5,6 +5,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
+	"type": "commonjs",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/DavidWesley/URI-Online-Judge-Only-JS.git"
