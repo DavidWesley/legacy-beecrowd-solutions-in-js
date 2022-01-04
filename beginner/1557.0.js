@@ -1,29 +1,26 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function main() {
 	const responses = []
 
-	const breakExecAtIndex = input.indexOf('0')
-	const sizes = input.slice(0, breakExecAtIndex).map(size => Number.parseInt(size, 10))
+	for (const T of input) {
+		if (T == "0") break
 
-	sizes.forEach(size => {
-		const spaceLength = `${Math.pow(2, (size - 1) * 2)}`.length
-		const currentMatrix = Array.from({ length: size }, () => [])
+		const size = Number.parseInt(T, 10)
+		const padLen = `${Math.pow(2, (size - 1) * 2)}`.length
+		const matrix = Array.from({ length: size }, () => [])
 
-		const currentMatrizJoined = []
+		for (let row = 0; row < size; row++)
+			for (let col = 0; col < size; col++)
+				matrix[row][col] = Math.pow(2, row + col)
+					.toString(10)
+					.padStart(padLen, " ")
 
-		for (let i = 0; i < size; i++) {
-			for (let j = 0; j < size; j++)
-				currentMatrix[i][j] = `${Math.pow(2, i + j)}`.padStart(spaceLength, ' ')
+		responses.push(matrix.map((row) => row.join(" ")).join("\n"), "")
+	}
 
-			currentMatrizJoined.push(currentMatrix[i].join(' '))
-		}
-
-		responses.push(currentMatrizJoined.join('\n'))
-	})
-
-	console.log(`${responses.join('\n\n')}\n`)
+	console.log(`${responses.join("\n")}`)
 }
 
 main()
