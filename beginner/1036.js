@@ -1,13 +1,16 @@
 const { readFileSync } = require("fs")
-const [A, B, C] = readFileSync("/dev/stdin", "utf8").split(' ').slice(0, 3).map(Number.parseFloat)
+const [A, B, C] = readFileSync("/dev/stdin", "utf8").split(" ").slice(0, 3).map(Number.parseFloat)
 
 function baskharaRoots(a, b = 0, c = 0) {
-	if ((Math.pow(b, 2) - 4 * a * c) < 0 || a === 0) return [null, null]
-	else {
-		const firstRoot = (((-b) + Math.sqrt((Math.pow(b, 2) - 4 * a * c))) / (2 * a))
-		const secondRoot = (((-b) - Math.sqrt((Math.pow(b, 2) - 4 * a * c))) / (2 * a))
-		return [firstRoot, secondRoot]
+	let [first, second] = [null, null]
+	const delta = Math.pow(b, 2) - 4 * a * c
+
+	if (delta >= 0 && a !== 0) {
+		first = (-b + Math.sqrt(delta)) / (2 * a)
+		second = (-b - Math.sqrt(delta)) / (2 * a)
 	}
+
+	return [first, second]
 }
 
 function main() {
