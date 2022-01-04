@@ -1,41 +1,39 @@
 const { readFileSync } = require("fs")
-const [numTestCases, ...numbers] = readFileSync("/dev/stdin", "utf8").split('\n')
+const [numCases, ...numbers] = readFileSync("/dev/stdin", "utf8").split("\n")
+
+const LEDsNumbersForEachDigitsValuesEnum = { "0": 6, "1": 2, "2": 5, "3": 5, "4": 4, "5": 5, "6": 6, "7": 3, "8": 7, "9": 6 }
 
 function main() {
 	const responses = []
+	const digitsCountObj = createKeysObjetctFromValues(0, 10, 0, false)
 
-	const LEDsNumbersForEachDigitsValuesArray = [6, 2, 5, 5, 4, 5, 6, 3, 7, 6]
-	const LEDsNumbersForEachDigitsEntriesArray = Object.entries(LEDsNumbersForEachDigitsValuesArray) // [[Digit, numberOfLEDSIntoDigit]]
-	const LEDsNumbersForEachDigitsMap = new Map(LEDsNumbersForEachDigitsEntriesArray)
+	for (let index = 0; index < +numCases; index++) {
+		const num = numbers[index]
 
-	const digitsCountObj = initDigitsCounterObj(0, LEDsNumbersForEachDigitsValuesArray.length, 0)
+		for (const digit in digitsCountObj)
+			// num.match(new RegExp(digit, 'g'))?.length ?? 0   | WORK TOO! | ES2020+
+			// [...num].filter((char) => char === digit).length | WORK!     | ES6+
+			digitsCountObj[digit] = num.match(new RegExp(digit, "g"))?.length ?? 0
 
-	for (const [index, num] of Object.entries(numbers)) {
-		if (index === numTestCases) break
-
-		for (const digit of Object.keys(digitsCountObj))
-			digitsCountObj[digit] = [...num].filter((char) => char === digit).length
-		// num.match(new RegExp(digit, 'g'))?.length ?? 0   | WORK TOO! | ES2020+
-		// [...num].filter((char) => char === digit).length | WORK!     | ES6+
-
-		const result = numberOfLEDs(LEDsNumbersForEachDigitsMap, digitsCountObj)
+		const result = numberOfLEDs(digitsCountObj)
 		responses.push(result)
 	}
 
-	console.log(responses.join('\n'))
+	console.log(`${responses.join("\n")}`)
 }
 
 main()
 
-function initDigitsCounterObj(infLimit = 0, supLimit = -1, defaultStartValue, frozen = false) {
-	const arr = Array.from({ length: supLimit - infLimit }, () => defaultStartValue ?? '')
+function createKeysObjetctFromValues(infLimit = 0, supLimit = -1, defaultStartValue = null, frozen = false) {
+	const arr = Array.from({ length: supLimit - infLimit }, () => defaultStartValue ?? "")
 	const obj = Object.fromEntries(Object.entries(arr))
 	return frozen ? Object.freeze(obj) : obj
 }
 
-function numberOfLEDs(LEDsNumbersMap, digitsCounterObj, sum = 0) {
-	for (const [digitIndex, value] of Object.entries(digitsCounterObj))
-		sum += value * LEDsNumbersMap.get(digitIndex)
+function numberOfLEDs(digitsCounterObj) {
+	let sum = 0
+	for (const digit in digitsCounterObj)
+		sum += digitsCounterObj[digit] * LEDsNumbersForEachDigitsValuesEnum[digit]
 
 	return `${sum} leds`
 }
