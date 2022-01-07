@@ -1,35 +1,37 @@
 const { readFileSync } = require("fs")
-const notas = readFileSync("/dev/stdin", "utf8").split('\n')
+const [N1, N2, N3, N4, N5 = 0] = readFileSync("/dev/stdin", "utf8").split(/\s+/).map(Number.parseFloat)
 
-const [N1, N2, N3, N4] = notas.shift().split(' ').map(Number.parseFloat)
-const N5 = Number.parseFloat(notas.shift()) || 0
+/**
+ * @param {number} nA/
+ * @param {number} nB
+ * @param {number} nC
+ * @param {number} nD
+ */
 
-function media(a, b, c, d) {
-    return (a * 2 + b * 3 + c * 4 + d * 1) / 10
+function studentAverageNote(nA, nB, nC, nD) {
+	return (nA * 2.0 + nB * 3.0 + nC * 4.0 + nD * 1.0) / 10.0
 }
 
-function studentStatus(media) {
-    if (media >= 7.0)
-        console.log('Aluno aprovado.')
-    else if (media >= 5.0) {
-        console.log('Aluno em exame.')
-        console.log(`Nota de exame: ${N5.toFixed(1)}`)
+/** @param {number} avg */
 
-        const lastMed = (N5 + media) / 2.0
+function printStudentStatus(avg, rec) {
+	if (avg >= 7.0) console.log("Aluno aprovado.")
+	else if (avg < 5.0) console.log("Aluno reprovado.")
+	else if (avg >= 5.0 && avg <= 6.9) {
+		const newAvg = (rec + avg) * 0.5
 
-        if (lastMed > 5.0) console.log('Aluno aprovado.')
-        else console.log('Aluno reprovado.')
-
-        console.log(`Media Final: ${lastMed.toFixed(1)}`)
-    }
-    else
-        console.log('Aluno reprovado.')
+		console.log("Aluno em exame.")
+		console.log("Nota do exame:", rec.toFixed(1))
+		console.log(newAvg >= 5.0 ? "Aluno aprovado." : "Aluno reprovado.")
+		console.log("Media final:", newAvg.toFixed(1))
+	}
 }
 
 function main() {
-    let med = media(N1, N2, N3, N4)
-    console.log(`Media: ${med.toFixed(1)}`)
-    studentStatus(med)
+	const average = studentAverageNote(N1, N2, N3, N4)
+	console.log("Media:", average.toFixed(1))
+
+	printStudentStatus(average, N5)
 }
 
 main()
