@@ -3,7 +3,7 @@ const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
 function Doors(doorsList = []) {
 	const numSquares = []
-	const maxNumDoors = Math.max(...doorsList)
+	const maxNumDoors = Math.max.apply(null, doorsList)
 
 	for (let i = 0, u = 1; i + u <= maxNumDoors; u += 2) {
 		i += u

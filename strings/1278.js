@@ -2,7 +2,7 @@ const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8")
 
 function alignFromRight(texts = ['']) {
-	const biggestTextLength = Math.max(...texts.map(text => text.length))
+	const biggestTextLength = Math.max.apply(null, texts.map(text => text.length))
 	return texts.map(text => text.padStart(biggestTextLength, ' ')).join('\n')
 }
 

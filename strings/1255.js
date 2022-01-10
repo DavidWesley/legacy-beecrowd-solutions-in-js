@@ -7,8 +7,8 @@ function getFrequenciesOnQueue(list) {
 
 function getMostFrequentChars(str = "") {
 	const frequencies = getFrequenciesOnQueue([...str])
-	const biggerFrequency = Math.max(...Object.values(frequencies))
-	const mostFrequentChars = Object.entries(frequencies).filter(([_, frequency]) => frequency === biggerFrequency)
+	const biggerFrequency = Math.max.apply(null, Object.values(frequencies))
+	const mostFrequentChars = Object.entries(frequencies).filter(([, frequency]) => frequency === biggerFrequency)
 
 	return mostFrequentChars.map(([char]) => char)
 }

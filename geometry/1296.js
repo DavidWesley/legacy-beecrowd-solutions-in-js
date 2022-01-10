@@ -18,7 +18,7 @@ function main() {
 	for (const sides of sidesList) {
 		if (sides.includes(NaN)) break
 
-		else if ((perimeter(sides) / 2) - Math.max(...sides) < 0 || sides.includes(0)) responses.push(`${(-1).toFixed(3)}`)
+		else if ((perimeter(sides) / 2) - Math.max.apply(null, sides) < 0 || sides.includes(0)) responses.push(`${(-1).toFixed(3)}`)
 		else responses.push(`${((4.0 / 3.0) * heronFormula(sides) || -1).toFixed(3)}`)
 	}
 

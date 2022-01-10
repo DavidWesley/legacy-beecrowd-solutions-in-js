@@ -1,11 +1,11 @@
 const { readFileSync } = require("fs")
 const numbers = readFileSync("/dev/stdin", "utf8").split(' ').map(Number.parseFloat)
 
-const biggerNumber = (nums) => Math.max(...nums)
+const biggerNumber = (nums) => Reflect.apply(Math.max, null, nums)
 
 function main() {
-    const bigger = biggerNumber(numbers)
-    console.log(`${bigger} eh o maior`)
+	const bigger = biggerNumber(numbers)
+	console.log(`${bigger} eh o maior`)
 }
 
 main()

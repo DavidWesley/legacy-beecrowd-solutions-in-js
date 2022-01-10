@@ -4,7 +4,7 @@ const [numLines, ...numbers] = readFileSync("/dev/stdin", "utf8")
 	.map(num => Number.parseInt(num, 10))
 
 function getLimits(settedLimits = [0, 0]) {
-	settedLimits = [Math.min(...settedLimits), Math.max(...settedLimits)]
+	settedLimits = [Math.min.apply(null, settedLimits), Math.max.apply(null, settedLimits)]
 	return settedLimits
 }
 

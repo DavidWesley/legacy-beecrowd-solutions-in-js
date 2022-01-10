@@ -4,7 +4,7 @@ const input = readFileSync("/dev/stdin", "utf8").split('\n')
 const media = ([...nums] = [0]) => nums.reduce((a, b) => a + b, 0) / nums.length
 
 function validateNotes(notesArr = [], settedLimits = [0, 0], maxValidNotes = notesArr.length) {
-	settedLimits = settedLimits.every(lim => lim === 0) ? [0, 10] : [Math.min(...settedLimits), Math.max(...settedLimits)]
+	settedLimits = settedLimits.every(lim => lim === 0) ? [0, 10] : [Math.min.apply(null, settedLimits), Math.max.apply(null, settedLimits)]
 	const isValid = (note = -1) => (note >= settedLimits[0] && note <= settedLimits[1])
 
 	const valid = []

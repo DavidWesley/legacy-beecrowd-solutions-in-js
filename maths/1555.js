@@ -15,7 +15,7 @@ function List(enumFunctions) {
 
 	function getNameFromBiggerResult(x, y) {
 		const results = funcs.map((fn) => fn(x, y))
-		const bigger = Math.max(...results)
+		const bigger = Math.max.apply(null, results)
 
 		return names[results.indexOf(bigger)]
 	}
