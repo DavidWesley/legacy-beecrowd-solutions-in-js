@@ -6,21 +6,17 @@ function main() {
 
 	for (const size of input) {
 		if (size === "0") break
-		const table = []
 
-		for (let i = 0; i < +size; i++) {
-			const line = new Array(+size)
+		const matrix = Array.from({ length: +size }, () => new Array(size).fill(""))
 
-			for (let j = 0; j < +size; j++)
-				line[j] = String(Math.abs(i - j) + 1).padStart(3, " ")
+		for (let row = 0; row < +size; row++)
+			for (let col = 0; col < +size; col++)
+				matrix[row][col] = String(Math.abs(row - col) + 1).padStart(3, " ")
 
-			table.push(line.join(" "))
-		}
-
-		responses.push(table.join("\n"))
+		responses.push(matrix.map(row => row.join(" ")).join("\n"), "")
 	}
 
-	console.log(`${responses.join("\n\n")}\n`)
+	console.log(`${responses.join("\n")}`)
 }
 
 main()
