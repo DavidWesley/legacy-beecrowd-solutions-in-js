@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split("\n")
@@ -11,7 +11,7 @@ const CardinalCodeEnum = Object.seal({
 	North: "-3",
 	South: "-2",
 	East: "-4",
-	West: "-1",
+	West: "-1"
 }) // Extensible by literal Modification
 
 const UNSPECIFIED_CODE = "unspecified"
@@ -36,7 +36,7 @@ function main() {
 		CardinalCodeEnum.West,
 		CardinalCodeEnum.North,
 		CardinalCodeEnum.South,
-		CardinalCodeEnum.East,
+		CardinalCodeEnum.East
 	]
 
 	// The rest will be ordened by default position on Enum Object.
@@ -45,9 +45,13 @@ function main() {
 	)
 
 	const ordenedAirplanes = []
-	const longerAirplanesQueue = Math.max(...Array.from(CardinalCodesMap.values()).map(({ length }) => length))
+	const longerAirplanesQueue = Reflect.apply(
+		Math.max,
+		null,
+		Array.from(CardinalCodesMap.values()).map(({ length }) => length)
+	)
 
-	// First In Fitst Out -> Queue
+	// First In Fitst Out -> Priority Queue
 	for (let turn = 0; turn < longerAirplanesQueue; turn++) {
 		for (const priorityCode of settledOrdenedCodesByPriorities) {
 			if (CardinalCodesMap.get(priorityCode).length > 0) {
