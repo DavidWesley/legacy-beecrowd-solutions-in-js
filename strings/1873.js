@@ -18,13 +18,18 @@ class Rock_Paper_Scissors_Lizard_Spock {
 	}
 
 	static winner(player1 = "", player2 = "") {
+		player1 = player1.toLowerCase()
+		player2 = player2.toLowerCase()
+
 		const staricClasReference = Rock_Paper_Scissors_Lizard_Spock
-		if ((staricClasReference.players.includes(player1) && staricClasReference.players.includes(player2)) == false)
+		const playersReference = staricClasReference.#players
+
+		if ((playersReference.includes(player1) && playersReference.includes(player2)) == false)
 			throw new Error("Wrong Player Name!")
 
-		if (staricClasReference.#RULES[player1].includes(player2.toLowerCase())) return player1
-		if (staricClasReference.#RULES[player2].includes(player1.toLowerCase())) return player2
-		return ""
+		if (staricClasReference.#RULES[player1].includes(player2)) return player1
+		if (staricClasReference.#RULES[player2].includes(player1)) return player2
+		return "empate"
 	}
 }
 
