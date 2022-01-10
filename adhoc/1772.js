@@ -51,14 +51,14 @@ function main() {
 		const bin = new Bin(+originalNumber)
 
 		let res = 0
-		let max = +ConvertBase(bin.bits).from(2).to(10)
+		let max = Number.parseInt(bin.bits, 2)
 		let min = max
 
 		for (let permu = 0; permu < +permutations; permu++) {
 			const [indexA, indexB] = input.next().value
 
 			bin.swap(+indexA, +indexB)
-			res = +ConvertBase(bin.bits).from(2).to(10)
+			res = Number.parseInt(bin.bits, 2)
 
 			if (res > max) max = res
 			if (res < min) min = res
