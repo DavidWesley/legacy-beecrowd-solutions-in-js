@@ -7,7 +7,6 @@ const input = readFileSync("/dev/stdin", "utf8").split("\n").map((line) => line.
  */
 const at = (arr, pos) => arr[(arr.length + pos) % arr.length]
 
-
 /** @param {number[]} nums  */
 function countInflections(nums) {
 	if (nums.length <= 1) return nums.length
