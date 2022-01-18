@@ -28,7 +28,7 @@ function main() {
 		if (line == "") break
 		else responses.push(CPF.validate(line) ? "CPF valido" : "CPF invalido")
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

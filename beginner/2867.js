@@ -10,7 +10,7 @@ function main() {
 			return Math.floor(Number.parseInt(M, 10) * Math.log10(Number.parseInt(N, 10))) + 1
 		})
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

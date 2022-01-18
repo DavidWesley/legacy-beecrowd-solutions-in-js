@@ -9,7 +9,7 @@ function main() {
 		.map((str) => str.split(" ").map((value) => Number.parseInt(value, 10)))
 		.map(([X, M]) => X * M)
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

@@ -24,7 +24,7 @@ function main() {
 		responses.push(isCatched)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

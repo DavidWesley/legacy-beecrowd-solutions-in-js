@@ -12,7 +12,7 @@ function criptgraph(text) {
 
 function main() {
 	const responses = texts.slice(0, +numCases).map(criptgraph)
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

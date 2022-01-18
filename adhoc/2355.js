@@ -18,7 +18,7 @@ function main() {
 		responses.push(`Brasil ${BRGols} x Alemanha ${DEGols}`)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

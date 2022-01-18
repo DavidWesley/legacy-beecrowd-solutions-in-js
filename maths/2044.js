@@ -21,7 +21,7 @@ function main() {
 		responses.push(count)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

@@ -35,7 +35,7 @@ function main() {
 		responses.push(countInflections(nums))
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

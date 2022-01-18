@@ -28,7 +28,7 @@ function main() {
 		responses.push(`${area.toFixed(4)}`)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

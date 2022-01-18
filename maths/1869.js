@@ -17,7 +17,7 @@ function main() {
 		if (num === "0") break // EOFile Condition Verification
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

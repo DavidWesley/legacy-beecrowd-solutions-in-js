@@ -11,7 +11,7 @@ function main() {
 		responses.push(isValid ? "correct" : "incorrect")
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

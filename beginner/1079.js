@@ -9,7 +9,7 @@ function weigthAverage(A = 0, B = 0, C = 0) {
 
 function main() {
 	const responses = lines.slice(0, +numLines).map(([a, b, c]) => weigthAverage(a, b, c).toFixed(1))
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

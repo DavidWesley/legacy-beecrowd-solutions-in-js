@@ -6,7 +6,7 @@ function main() {
 		.slice(0, +numLines)
 		.sort((strA, strB) => strA.charAt(0).localeCompare(strB.charAt(0)))
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

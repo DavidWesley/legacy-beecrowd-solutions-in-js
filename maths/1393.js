@@ -17,7 +17,7 @@ function main() {
 		else responses.push(binetFormule(Number.parseInt(input[i], 10) + 1))
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

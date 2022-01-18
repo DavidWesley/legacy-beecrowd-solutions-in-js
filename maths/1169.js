@@ -55,7 +55,7 @@ function main() {
 		responses.push(`${kilos} kg`)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

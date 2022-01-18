@@ -13,7 +13,7 @@ function main() {
 		.slice(0, +numLines)
 		.map((num) => countNonSquaredNumbersOnInterval(num, 0))
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

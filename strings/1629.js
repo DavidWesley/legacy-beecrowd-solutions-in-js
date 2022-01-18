@@ -39,7 +39,7 @@ function main() {
 			responses.push(getVerifyingDigit(input.next().value || ""))
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

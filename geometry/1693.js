@@ -19,7 +19,7 @@ function main() {
 		responses.push(maxDist >= R ? 'Y' : 'N')
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

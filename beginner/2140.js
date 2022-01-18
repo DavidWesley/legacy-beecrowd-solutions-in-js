@@ -36,7 +36,7 @@ function main() {
 		return possibleDoubleNotesSumList.includes(change) ? "possible" : "impossible"
 	})
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

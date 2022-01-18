@@ -18,7 +18,7 @@ function main() {
 	if (odds.length) responses.push(...odds.slice(0).map((num, index) => `impar[${index}] = ${num}`))
 	if (evens.length) responses.push(...evens.slice(0).map((num, index) => `par[${index}] = ${num}`))
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

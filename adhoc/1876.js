@@ -18,7 +18,7 @@ function main() {
 		if (cipo === "") break
 		else responses.push(longestFillet(cipo))
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

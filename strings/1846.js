@@ -11,7 +11,7 @@ function main() {
 		responses.push(converter(num))
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

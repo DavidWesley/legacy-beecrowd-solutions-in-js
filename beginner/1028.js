@@ -22,7 +22,7 @@ function main() {
 
 	const responses = figurinesPairList.map(MyMath.gcd)
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

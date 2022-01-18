@@ -9,7 +9,7 @@ function binaryFunction(num) {
 
 function main() {
 	const responses = lines.slice(0, +numLines).map(binaryFunction)
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

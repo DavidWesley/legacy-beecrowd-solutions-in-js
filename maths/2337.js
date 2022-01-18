@@ -46,7 +46,7 @@ function main() {
 		responses.push(`${num / mdc}/${den / mdc}`)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

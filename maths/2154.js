@@ -29,7 +29,7 @@ function main() {
 		responses.push(simplePolinomialDerivation(polynomialEquation))
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

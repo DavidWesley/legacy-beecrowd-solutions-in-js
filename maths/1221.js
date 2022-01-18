@@ -19,7 +19,7 @@ function main() {
 		return isPrime(n) ? "Prime" : "Not Prime"
 	})
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

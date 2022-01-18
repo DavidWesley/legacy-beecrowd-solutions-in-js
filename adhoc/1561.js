@@ -19,7 +19,7 @@ function binaryClockMask(time = "00:00") {
 	const [, hour, min] = time.match(/(\d{1,2}):(\d{1,2})/).map((t) => Number.parseInt(t, 10))
 
 	const BINARY_CLOCK_MASK =
-` ____________________________________________
+		` ____________________________________________
 |                                            |
 |    ____________________________________    |_
 |   |                                    |   |_)
@@ -45,7 +45,7 @@ function main() {
 		if (time == "") break
 		else responses.push(binaryClockMask(time))
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

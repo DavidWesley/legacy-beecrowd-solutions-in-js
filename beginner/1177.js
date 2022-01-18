@@ -9,7 +9,7 @@ function main() {
 		responses.push(`N[${index}] = ${index % mod}`)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

@@ -38,7 +38,7 @@ function main() {
 		.map(Expressions.validate)
 		.map((b) => b ? 'S' : 'N')
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

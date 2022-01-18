@@ -23,7 +23,7 @@ function main() {
 		responses.push(printedMatrix, "")
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

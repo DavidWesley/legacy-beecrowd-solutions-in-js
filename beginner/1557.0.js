@@ -20,7 +20,7 @@ function main() {
 		responses.push(matrix.map((row) => row.join(" ")).join("\n"), "")
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

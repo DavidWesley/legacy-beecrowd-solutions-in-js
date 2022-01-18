@@ -37,7 +37,7 @@ function main() {
 		responses.push(`${winner} ganhou`)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

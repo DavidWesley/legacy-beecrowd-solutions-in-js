@@ -22,7 +22,7 @@ function main() {
         responses.push(`${format(hours)}:${format(minutes)}`)
     }
 
-    console.log(`${responses.join("\n")}`)
+    console.log(responses.join("\n"))
 }
 
 main()

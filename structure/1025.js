@@ -37,7 +37,7 @@ function main() {
 		}
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

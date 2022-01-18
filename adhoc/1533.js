@@ -14,7 +14,7 @@ function main() {
 		responses.push(secondIndex + 1)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

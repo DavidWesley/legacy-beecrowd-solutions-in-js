@@ -25,7 +25,7 @@ function main() {
 		return sorted
 	})
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

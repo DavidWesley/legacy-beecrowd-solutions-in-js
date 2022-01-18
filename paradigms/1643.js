@@ -47,7 +47,7 @@ function main() {
 		.slice(0, +numLines)
 		.map((line) => convertKilometersToMilesFromBruceAlgorithm(+line))
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

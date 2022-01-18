@@ -9,7 +9,7 @@ function kFactorial(kNum) {
 
 function main() {
 	const responses = lines.slice(0, +numLines).map(kFactorial)
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

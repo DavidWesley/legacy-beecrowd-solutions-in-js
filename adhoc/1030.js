@@ -28,7 +28,7 @@ function main() {
 		.slice(0, +numCases)
 		.map(([N, K], index) => `Case ${index + 1}: ${Josephus.lastIndex(+N, +K) + 1}`)
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

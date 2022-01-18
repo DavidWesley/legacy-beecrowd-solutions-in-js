@@ -19,7 +19,7 @@ function main() {
 		responses.push(result)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

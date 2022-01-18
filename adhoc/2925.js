@@ -38,7 +38,7 @@ function main() {
 		if (isNaN(nth)) break
 		else responses.push(mirroring(nth))
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

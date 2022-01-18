@@ -9,7 +9,7 @@ function main() {
 		.slice(0, +numLines)
 		.map((line) => (isOdd(line) ? 1 : 0))
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

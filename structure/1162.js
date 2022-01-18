@@ -36,7 +36,7 @@ function main() {
 		responses.push(`Optimal train swapping takes ${swaps} swaps.`)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

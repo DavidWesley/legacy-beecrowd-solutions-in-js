@@ -40,7 +40,7 @@ function main() {
 		responses.push(`${correctsSinglesDuration}`)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

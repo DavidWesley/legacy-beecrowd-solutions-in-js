@@ -13,7 +13,7 @@ function main() {
 		else responses.push("N")
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

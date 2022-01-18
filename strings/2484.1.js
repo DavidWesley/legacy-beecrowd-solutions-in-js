@@ -22,7 +22,7 @@ function main() {
 		responses.push(textToTriangle(word), "")
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

@@ -66,7 +66,7 @@ function main() {
 		responses.push(`${decryptedPhrasesList.join('\n')}\n`)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

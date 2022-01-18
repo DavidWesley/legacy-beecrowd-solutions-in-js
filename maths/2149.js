@@ -31,7 +31,7 @@ function main() {
 		if (line == "") break // EOFile
 		else responses.push(TioPhillBonati(Number.parseInt(line, 10) - 1))
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

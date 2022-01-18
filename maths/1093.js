@@ -40,7 +40,7 @@ function main() {
 		responses.push((probB * 1e2).toFixed(1))
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

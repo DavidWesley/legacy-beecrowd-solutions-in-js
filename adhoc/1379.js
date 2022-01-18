@@ -9,7 +9,7 @@ function main() {
 		responses.push(2 * (+A) - (+B))
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

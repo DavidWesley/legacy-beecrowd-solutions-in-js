@@ -23,7 +23,7 @@ function main() {
 		responses.push(`Caso #${numCaseIndex + 1}: ${level}`)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

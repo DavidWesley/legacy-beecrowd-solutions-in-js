@@ -14,7 +14,7 @@ function main() {
 		return `Fib(${position}) = ${binetFormule(+position)}`
 	})
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

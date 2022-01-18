@@ -28,7 +28,7 @@ function main() {
 			`A[${index}] = ${value.toFixed(1)}`
 		)
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

@@ -20,7 +20,7 @@ function main() {
 		responses.push(countDiffentOrder)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

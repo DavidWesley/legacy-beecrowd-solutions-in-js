@@ -12,7 +12,7 @@ function pentagonRegularArea(side) {
 
 function main() {
 	const responses = lines.slice(0, +numLines).map((line) => pentagonRegularArea(line).toFixed(3))
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

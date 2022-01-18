@@ -14,7 +14,7 @@ function main() {
 		else responses.push("2")
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

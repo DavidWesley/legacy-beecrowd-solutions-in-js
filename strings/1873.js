@@ -42,7 +42,7 @@ function main() {
 		return "empate"
 	})
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

@@ -54,7 +54,7 @@ function main() {
 		return `fib(${nthFib}) = ${calls} calls = ${value}`
 	})
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

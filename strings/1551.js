@@ -21,7 +21,7 @@ function main() {
 		return `frase ${status(quantity)}`
 	})
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

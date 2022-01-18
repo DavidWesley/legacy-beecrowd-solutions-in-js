@@ -14,7 +14,7 @@ function main() {
 		responses.push(bottlesLeftsOnHands)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

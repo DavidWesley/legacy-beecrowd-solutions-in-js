@@ -16,7 +16,7 @@ function main() {
 		responses.push(numPages)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

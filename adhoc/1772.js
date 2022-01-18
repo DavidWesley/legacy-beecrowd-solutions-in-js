@@ -67,7 +67,7 @@ function main() {
 		responses.push(`${res} ${max} ${min}`)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

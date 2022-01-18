@@ -68,7 +68,7 @@ function main() {
 		responses.push(msg)
 	})
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

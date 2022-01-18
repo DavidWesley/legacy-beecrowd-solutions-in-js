@@ -12,7 +12,7 @@ function main() {
 		else responses.push(DNA.includes(geneticCode) ? "Resistente" : "Nao resistente")
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

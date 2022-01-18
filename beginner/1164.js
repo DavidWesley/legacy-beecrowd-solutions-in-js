@@ -14,7 +14,7 @@ function main() {
 		.slice(0, +numLines)
 		.map((num) => `${num} ${isPerfectNumber(+num) ? "eh" : "nao eh"} perfeito`)
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

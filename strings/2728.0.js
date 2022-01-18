@@ -34,7 +34,7 @@ function main() {
 		responses.push(isMatched ? "GRACE HOPPER" : "BUG")
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

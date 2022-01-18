@@ -15,7 +15,7 @@ function main() {
 		return `${formaSingleTime(H, M)} - A porta ${doorState}!`
 	})
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

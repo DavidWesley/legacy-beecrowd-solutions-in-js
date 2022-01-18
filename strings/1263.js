@@ -36,7 +36,7 @@ function main() {
 		responses.push(countAlliterations(text))
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

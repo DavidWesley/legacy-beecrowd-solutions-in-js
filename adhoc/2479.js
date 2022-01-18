@@ -18,7 +18,7 @@ function main() {
 		`Se comportaram: ${behaved} | Nao se comportaram: ${notBehaved}`
 	)
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

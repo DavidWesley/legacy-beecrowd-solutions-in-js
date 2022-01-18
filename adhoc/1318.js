@@ -28,7 +28,7 @@ function main() {
 		responses.push(fakeTicketsQuant)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

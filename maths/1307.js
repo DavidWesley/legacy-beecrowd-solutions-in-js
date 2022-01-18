@@ -28,7 +28,7 @@ function main() {
 			responses.push(`Pair #${index + 1}: Love is not all you need!`)
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()

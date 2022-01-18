@@ -25,7 +25,7 @@ function main() {
 		responses.push(slugLevel(fasterSlug))
 	}
 
-	console.log(`${responses.join("\n")}`)
+	console.log(responses.join("\n"))
 }
 
 main()
