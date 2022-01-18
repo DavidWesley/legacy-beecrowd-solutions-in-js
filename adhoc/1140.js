@@ -13,7 +13,7 @@ function main() {
 		if (line === '*') break
 		else responses.push(isTautogram(line) ? 'Y' : 'N')
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

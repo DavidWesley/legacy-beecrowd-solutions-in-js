@@ -100,7 +100,7 @@ function main() {
 	const morse = new Morse({ symbol: { space: '.', unit: '=' } })
 	const responses = lines.slice(0, +numLines).map(morseCode => morse.morseToText(morseCode))
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

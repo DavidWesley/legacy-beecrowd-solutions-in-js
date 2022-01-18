@@ -32,7 +32,7 @@ function main() {
 		`Em percentual: ${Math.trunc(status.readjustmentRate * 100.00)} %`
 	]
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

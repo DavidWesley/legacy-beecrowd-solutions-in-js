@@ -26,7 +26,7 @@ function main() {
 		responses.push(resultingValue)
 	}
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

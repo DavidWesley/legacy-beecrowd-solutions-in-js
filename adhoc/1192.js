@@ -20,7 +20,7 @@ function main() {
 		return misteryCalc(firstNum)(char)(secondNum)
 	})
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

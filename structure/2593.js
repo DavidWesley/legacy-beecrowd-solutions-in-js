@@ -21,7 +21,7 @@ function main() {
 		return wordIndexesOnTextList.join(' ')
 	})
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

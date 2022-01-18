@@ -8,7 +8,7 @@ function main() {
 		.slice(0, +numCases)
 		.map(numLines => getFinitePGSum(1, 2, numLines))
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

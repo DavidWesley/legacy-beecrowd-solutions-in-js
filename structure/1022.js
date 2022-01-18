@@ -12,7 +12,7 @@ const FormattedEquationsFunctionsEnum = Object.freeze({
 
 function main() {
 	const responses = equations.slice(0, +numTestCases).map(resolveEquation)
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

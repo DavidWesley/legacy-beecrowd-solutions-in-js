@@ -17,7 +17,7 @@ function main() {
 	const initValue = Number.parseInt(input, 10)
 	const responses = doubleFillVector(initValue, 10).map((value, index) => `N[${index}] = ${value}`)
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

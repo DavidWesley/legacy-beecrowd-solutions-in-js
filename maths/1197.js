@@ -14,7 +14,7 @@ function main() {
 		responses.push(distance)
 	}
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

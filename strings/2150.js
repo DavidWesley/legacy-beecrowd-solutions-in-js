@@ -15,7 +15,7 @@ function main() {
 		responses.push(countOccurrencesOfCharsIntoText(message, vowels))
 	}
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

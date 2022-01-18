@@ -16,7 +16,7 @@ function countVariations(word = '') {
 
 function main() {
 	const responses = lines.slice(0, +numLines).map(countVariations)
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

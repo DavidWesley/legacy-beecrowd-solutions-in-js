@@ -10,7 +10,7 @@ function main() {
 		if (A == 0 || B == 0) break
 		else responses.push(A + B)
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

@@ -17,7 +17,7 @@ function main() {
 		responses.push(formattedLine)
 	}
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 	console.log(`\nThe biggest word: ${longestWord}`)
 }
 

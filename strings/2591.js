@@ -16,7 +16,7 @@ function ka(word) {
 
 function main() {
 	const responses = cases.slice(0, +numCases).map(ka)
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

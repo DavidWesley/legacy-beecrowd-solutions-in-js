@@ -19,7 +19,7 @@ function main() {
 		return `${num}${isPrime(num) ? '' : ' nao'} eh primo`
 	})
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

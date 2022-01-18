@@ -8,7 +8,7 @@ function main() {
 		.map(line => line % 2 == 0 ? 1 : 9)
 
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

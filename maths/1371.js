@@ -25,7 +25,7 @@ function main() {
 	const openedDoors = Doors(doorsList)
 	const responses = doorsList.map(doors => openedDoors(doors).join(' '))
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

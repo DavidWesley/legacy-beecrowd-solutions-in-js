@@ -9,7 +9,7 @@ function main() {
         .slice(0, +numTestCases)
         .map(criptedText => reverseStr(extractLowersChars(criptedText)))
 
-    console.log(`${responses.join('\n')}`)
+    console.log(responses.join("\n"))
 }
 
 main()

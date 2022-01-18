@@ -8,7 +8,7 @@ function main() {
 		.slice(0, +numLines)
 		.map(surname => `${surname}${isADifficultSurname(surname) ? " nao" : ''} eh facil`)
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

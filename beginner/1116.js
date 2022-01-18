@@ -21,7 +21,7 @@ function main() {
 		return `${Number.isFinite(quotient) ? quotient.toFixed(1) : 'divisao impossivel'}`
 	})
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

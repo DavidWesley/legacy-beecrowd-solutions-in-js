@@ -21,7 +21,7 @@ function main() {
 		responses.push(diff)
 	}
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

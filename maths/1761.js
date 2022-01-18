@@ -19,7 +19,7 @@ function main() {
 		responses.push(cordonsQuantities.toFixed(2))
 	}
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

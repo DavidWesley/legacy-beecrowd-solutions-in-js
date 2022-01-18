@@ -23,7 +23,7 @@ function main() {
 		responses.push(dancingSentence)
 	}
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

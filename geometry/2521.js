@@ -35,7 +35,7 @@ function main() {
 		responses.push(`${x.toFixed(2)} ${y.toFixed(2)} ${z.toFixed(2)}`)
 	}
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

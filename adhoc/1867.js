@@ -22,7 +22,7 @@ function main() {
 		else responses.push('0')
 	}
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

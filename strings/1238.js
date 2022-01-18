@@ -15,7 +15,7 @@ function main() {
 		.slice(0, +numCases)
 		.map(([firstWord, lastWord]) => replaceAndJoinWords([firstWord, lastWord]))
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

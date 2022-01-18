@@ -27,4 +27,4 @@ for (let lineIndex = 0; lineIndex < N; lineIndex++) {
 	responses.push(total)
 }
 
-console.log(`${responses.join('\n')}`)
+console.log(responses.join("\n"))

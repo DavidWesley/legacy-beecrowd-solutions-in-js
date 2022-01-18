@@ -11,7 +11,7 @@ function main() {
 		.slice(0, +numCases)
 		.map(([a, b]) => pandorgasArea(+a, +b))
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

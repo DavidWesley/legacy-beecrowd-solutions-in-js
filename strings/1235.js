@@ -13,7 +13,7 @@ function decodeScrambledString(scrambledStr = '') {
 
 function main() {
 	const responses = lines.slice(0, +numLines).map(decodeScrambledString)
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

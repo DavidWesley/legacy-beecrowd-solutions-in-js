@@ -7,7 +7,7 @@ function main() {
 	for (let i = 2; i <= num; i += 2)
 		responses.push(`${i}^2 = ${i ** 2}`)
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

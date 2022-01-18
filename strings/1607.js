@@ -18,7 +18,7 @@ function main() {
 		responses[lineIndex] = sum
 	}
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

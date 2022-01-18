@@ -32,7 +32,7 @@ function main() {
 		`${totalTravelHours} h / ${totalTravelDays} d`
 	]
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

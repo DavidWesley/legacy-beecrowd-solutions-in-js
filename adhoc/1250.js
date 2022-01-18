@@ -31,7 +31,7 @@ function main() {
 		responses[currCaseIndex] = hitsCounter
 	}
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

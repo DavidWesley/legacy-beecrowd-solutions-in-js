@@ -35,7 +35,7 @@ function main() {
 		.slice(0, stopAtIndex)
 		.map(acm => ACMToDec(acm, factorialListInstance))
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

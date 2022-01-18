@@ -10,7 +10,7 @@ function main() {
 		.slice(0, +numCases)
 		.map(([a, b]) => fitFromEnd(a, b) ? "encaixa" : "nao encaixa")
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

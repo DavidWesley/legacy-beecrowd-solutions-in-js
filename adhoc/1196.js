@@ -61,7 +61,7 @@ function main() {
 		if (line === '') break // EOFile Condition Verification
 		else responses.push(convertInputToWERTYUMode(line))
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

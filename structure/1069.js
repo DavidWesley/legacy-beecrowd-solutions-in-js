@@ -9,7 +9,7 @@ function main() {
 		return foundedDiamonds
 	})
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

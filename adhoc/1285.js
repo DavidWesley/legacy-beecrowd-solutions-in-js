@@ -30,7 +30,7 @@ function main() {
 		responses.push(numsWithUniquesDigits.length)
 	}
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

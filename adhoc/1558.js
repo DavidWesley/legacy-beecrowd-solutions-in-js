@@ -29,7 +29,7 @@ function main() {
 		if (line === '') break // EOFile Condition
 		else responses.push(isSumOfTwoSquares(+line) ? "YES" : "NO")
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

@@ -99,7 +99,7 @@ function main() {
 		responses.push(ASCIIChars.join(''))
 	}
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

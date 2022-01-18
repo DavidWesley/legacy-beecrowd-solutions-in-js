@@ -5,7 +5,7 @@ const [[numTestCase], ...lines] = readFileSync("/dev/stdin", "utf8")
 
 function main() {
 	const responses = lines.slice(0, +numTestCase).map(([A, B]) => A + B)
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

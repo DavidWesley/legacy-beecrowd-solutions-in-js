@@ -38,7 +38,7 @@ function main() {
 		responses.push(translatedMessage)
 	}
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

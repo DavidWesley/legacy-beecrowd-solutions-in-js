@@ -61,7 +61,7 @@ function main() {
 		responses.push(messageCards.discarded, messageCards.remaing)
 	}
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 /**

@@ -12,7 +12,7 @@ function main() {
 		.slice(0, +numLines)
 		.map(line => extractNumbersFromText(line, 3).reduce((sum, value) => sum + value, 0))
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

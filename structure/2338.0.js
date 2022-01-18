@@ -88,7 +88,7 @@ function main() {
 	const { morseToText } = Morse
 	const responses = lines.slice(0, +numLines).map(morseCode => morseToText(morseCode))
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

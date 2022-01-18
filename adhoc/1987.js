@@ -14,7 +14,7 @@ function main() {
 		if (num === '') break
 		else responses.push(`${sumDigits(num)} ${isMultipleOf3(num) ? "sim" : "nao"}`)
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

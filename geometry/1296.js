@@ -22,7 +22,7 @@ function main() {
 		else responses.push(`${((4.0 / 3.0) * heronFormula(sides) || -1).toFixed(3)}`)
 	}
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

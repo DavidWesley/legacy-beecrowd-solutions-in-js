@@ -15,7 +15,7 @@ function main() {
 	for (const [isValid, pass] of lines.slice(0, +numCases).map(RA.validate))
 		responses.push(isValid ? pass : "INVALID DATA")
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

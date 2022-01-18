@@ -91,7 +91,7 @@ function main() {
 		responses.push(result.join(' '))
 	}
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

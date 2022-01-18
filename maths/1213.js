@@ -11,7 +11,7 @@ function main() {
 		if (isNaN(num)) break // EOFile Condition
 		else responses.push(getNumDigitsFromSmallestMultipleOfNThatAreMadeUpOf1(num))
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

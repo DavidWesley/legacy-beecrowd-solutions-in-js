@@ -49,7 +49,7 @@ function main() {
 		responses.push(`Caso #${i + 1}: ${Cx.toFixed(2)} ${Cy.toFixed(2)}`)
 	}
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

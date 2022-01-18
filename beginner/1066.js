@@ -28,7 +28,7 @@ function main() {
 		`${negativeNumbersQuantity} valor(es) negativo(s)`
 	]
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

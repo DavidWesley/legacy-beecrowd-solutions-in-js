@@ -10,7 +10,7 @@ function main() {
 			return words.sort((a, b) => b.length - a.length).join(" ")
 		})
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()

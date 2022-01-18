@@ -10,7 +10,7 @@ function main() {
 		if (line === '') break // EOFile Condition
 		else responses.push(omitRepeatedPartFromStart(line))
 
-	console.log(`${responses.join('\n')}`)
+	console.log(responses.join("\n"))
 }
 
 main()
