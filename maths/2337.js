@@ -9,7 +9,8 @@ const MyMath = Object.create(Math, {
 		 */
 		value: function gcd(x, y) {
 			if (isNaN(x) || isNaN(y)) return Number.NaN
-			x = Math.abs(x), y = Math.abs(y)
+			x = Math.abs(x)
+			y = Math.abs(y)
 			while (y) [x, y] = [y, x % y]
 			return x
 		},
