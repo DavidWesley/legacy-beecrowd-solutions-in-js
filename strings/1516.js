@@ -31,7 +31,7 @@ while (input.length > 0) {
 		return new Array(verticalZoomTax).fill(s)
 	})
 
-	output.push(newImageArr.join("\n"))
+	output.push(newImageArr.join("\n"), "")
 }
 
-console.log(`${output.join("\n\n")}\n`)
+console.log(`${output.join("\n")}`)

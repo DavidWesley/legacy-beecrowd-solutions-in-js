@@ -68,7 +68,7 @@ while (input.length > 0) {
 		block.push(stationB.size === numWagons ? "Yes" : "No")
 	}
 
-	output.push(block.join("\n"))
+	output.push(block.join("\n"), "")
 }
 
-console.log(`${output.join("\n\n")}\n`)
+console.log(`${output.join("\n")}`)

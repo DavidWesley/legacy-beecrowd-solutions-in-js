@@ -43,7 +43,7 @@ function main() {
 	const responses = []
 
 	for (let index = 0; index < numCases; index++) {
-		const [matrixSize] = input.next().value
+		const matrixSize = input.next().value[0]
 		const squareMatrix = Array.from({ length: matrixSize }, () => (input.next().value || [0]).map(Num.square))
 		const alignedColumns = alignFromRigthByColumns(squareMatrix).map(row => row.join(" ")).join("\n")
 
