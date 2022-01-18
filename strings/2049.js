@@ -14,7 +14,7 @@ function main() {
 		responses.push(`Instancia ${instanceIndex}\n${contain}`)
 	}
 
-	console.log(`${responses.join("\n\n")}`)
+	console.log(responses.join("\n\n"))
 }
 
 main()

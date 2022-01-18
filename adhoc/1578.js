@@ -50,7 +50,7 @@ function main() {
 		responses.push(`Quadrado da matriz #${index + 4}:\n${alignedColumns}`)
 	}
 
-	console.log(`${responses.join("\n\n")}`)
+	console.log(responses.join("\n\n"))
 }
 
 main()
