@@ -1,50 +1,50 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n")
+const lines = readFileSync("/dev/stdin", "utf8").split("\n")
 
-/** @typedef {{ name: string, region: string, distance: string }} studentModel */
+const input = (function* (lines) {
+	for (const line of lines) yield line
+})(lines)
 
-/** @param {studentModel[]} studentsList */
+/** @typedef {{ name: string, region: string, distance: string }} studentPropsType */
 
-function sortStudentsList(studentsList) {
-	return studentsList.sort((a, b) => {
-		if (a.distance !== b.distance) return a.distance.localeCompare(b.distance, 'pt-BR', { numeric: true })
-		else if (a.region !== b.region) return a.region.localeCompare(b.region, "pt-BR")
-		else return a.name.localeCompare(b.name, "pt-BR")
-	})
+/** @param {studentPropsType} studentA */
+/** @param {studentPropsType} studentB */
+
+function compareStudentsList(studentA, studentB) {
+	if (studentA.distance !== studentB.distance) return studentA.distance.localeCompare(studentB.distance, "pt-BR", { numeric: true })
+	else if (studentA.region !== studentB.region) return studentA.region.localeCompare(studentB.region, "pt-BR")
+	else return studentA.name.localeCompare(studentB.name, "pt-BR")
 }
 
-function getStudentsProps(propsList = []) {
-	return propsList.map(props => {
-		const [name, region, distance] = props
+/**
+ * @param {string[][]} propsList
+ * @returns {studentPropsType[]}
+ */
 
-		return Object.freeze({
-			name,
-			region,
-			distance
-		})
+function getStudentsProps(propsList) {
+	return propsList.map(([name, region, distance]) => {
+		return Object.freeze({ name, region, distance })
 	})
 }
 
 function main() {
-
 	const names = []
 
-	while (input.length > 0) {
-		const Q = Number.parseInt(input.shift(), 10)
-		if (isNaN(Q)) break // EOFile Condition Verification
+	for (let curr = input.next(); !curr.done; curr = input.next()) {
+		const size = Number.parseInt(curr.value, 10)
 
-		const studentsPropsList = input
-			.splice(0, Q)
-			.map(studentProps => studentProps.split(' '))
+		if (isNaN(size)) break // EOFile Condition Verification
 
-		const studentsProps = getStudentsProps(studentsPropsList)
-		const sortedStudentList = sortStudentsList(studentsProps)
-		const studentsNames = sortedStudentList.map(student => student.name)
+		const studentsList = Array.from({ length: size }, () => input.next().value?.split(" "))
 
-		names.push(...studentsNames)
+		const sortedStudentNames = getStudentsProps(studentsList)
+			.sort(compareStudentsList)
+			.map((student) => student.name)
+
+		Reflect.apply(Array.prototype.push, names, sortedStudentNames)
 	}
 
-	console.log(`${names.join('\n')}`)
+	console.log(names.join("\n"))
 }
 
 main()
