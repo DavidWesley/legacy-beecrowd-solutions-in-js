@@ -4,11 +4,13 @@ const [numCases, ...texts] = readFileSync("/dev/stdin", "utf8").split("\n")
 // Compose functions from left to right
 const pipe = (...fns) => (value) => fns.reduce((res, fn) => fn(res), value)
 
-/** @param {string} text */
+// /** @param {string} text */
+// function criptgraph(text) {
+// 	return pipe(criptOne, criptTwo, criptThree)(text)
+// }
 
-function criptgraph(text) {
-	return pipe(criptOne, criptTwo, criptThree)(text)
-}
+// Prevent unnecessary re-pipering, but parameter's information has been hidden
+const criptgraph = pipe(criptOne, criptTwo, criptThree)
 
 function main() {
 	const responses = texts.slice(0, +numCases).map(criptgraph)
