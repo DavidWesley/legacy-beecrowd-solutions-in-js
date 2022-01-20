@@ -34,4 +34,4 @@ while (input.length > 0) {
 	output.push(newImageArr.join("\n"), "")
 }
 
-console.log(`${output.join("\n")}`)
+console.log(output.join("\n"))

@@ -30,7 +30,7 @@ function main() {
 		separator
 	]
 
-	console.log(`${output.join("\n")}`)
+	console.log(output.join("\n"))
 }
 
 if (isSuccessfullyDefined) {

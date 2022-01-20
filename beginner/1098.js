@@ -10,4 +10,4 @@ for (let i = 0, j = 1.0; i <= 2.0; i += 0.2, j += 0.2) {
 	)
 }
 
-console.log(`${output.join("\n")}`)
+console.log(output.join("\n"))

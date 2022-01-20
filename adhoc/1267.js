@@ -22,4 +22,4 @@ while (input.length > 0) {
 	output.push(aluminisList.includes(true) ? "yes" : "no")
 }
 
-console.log(`${output.join('\n')}`)
+console.log(output.join("\n"))

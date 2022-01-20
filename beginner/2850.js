@@ -17,4 +17,4 @@ while (input.length > 0) {
 	output.push(ParrotLegsStateEnum[state])
 }
 
-console.log(`${output.join('\n')}`)
+console.log(output.join("\n"))

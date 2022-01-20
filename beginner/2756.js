@@ -10,4 +10,4 @@ const output = [
 	`       A`,
 ]
 
-console.log(`${output.join('\n')}`)
+console.log(output.join("\n"))

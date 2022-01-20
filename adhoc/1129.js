@@ -25,4 +25,4 @@ while (input.length > 0) {
 	}
 }
 
-console.log(`${output.join('\n')}`)
+console.log(output.join("\n"))

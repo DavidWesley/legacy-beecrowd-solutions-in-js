@@ -28,7 +28,7 @@ function main() {
 		output.push(Long.xor(v1, v2))
 	}
 
-	console.log(`${output.join('\n')}`)
+	console.log(output.join("\n"))
 }
 
 main()

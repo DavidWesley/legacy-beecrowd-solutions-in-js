@@ -13,7 +13,7 @@ function main() {
 	for (const div of DIVISORS)
 		output.push(`${nums.filter((n) => n % div == 0).length} Multiplo(s) de ${div}`)
 
-	console.log(`${output.join("\n")}`)
+	console.log(output.join("\n"))
 }
 
 main()

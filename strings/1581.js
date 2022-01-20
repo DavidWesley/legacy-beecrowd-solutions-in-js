@@ -10,4 +10,4 @@ for (let currentCaseIndex = 0; currentCaseIndex < +numCases; currentCaseIndex++)
 	output[currentCaseIndex] = uniquesLangs.length === 1 ? uniquesLangs[0] : "ingles"
 }
 
-console.log(`${output.join('\n')}`)
+console.log(output.join("\n"))

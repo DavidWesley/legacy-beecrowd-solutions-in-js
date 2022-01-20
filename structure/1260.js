@@ -76,7 +76,7 @@ async function main() {
 		else output.push("")
 	}
 
-	console.log(`${output.join("\n")}`)
+	console.log(output.join("\n"))
 }
 
 main()

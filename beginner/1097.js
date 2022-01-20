@@ -8,4 +8,4 @@ for (let i = 1, j = 5; i <= 9; i += 2, j += 2) {
 	)
 }
 
-console.log(`${output.join("\n")}`)
+console.log(output.join("\n"))

@@ -18,4 +18,4 @@ while (input.length > 0) {
 	output.push(replacedTags)
 }
 
-console.log(`${output.join('\n')}`)
+console.log(output.join("\n"))

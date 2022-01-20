@@ -71,4 +71,4 @@ while (input.length > 0) {
 	output.push(block.join("\n"), "")
 }
 
-console.log(`${output.join("\n")}`)
+console.log(output.join("\n"))
