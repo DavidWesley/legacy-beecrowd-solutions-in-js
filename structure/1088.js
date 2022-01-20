@@ -62,8 +62,7 @@ function main() {
 		const size = line[0]
 		const values = line.slice(1, 1 + size)
 
-		const sorted = mergeSort(values)
-		const inversions = sorted.swaps
+		const inversions = mergeSort(values).swaps
 
 		responses.push(isEven(inversions) ? "Carlos" : "Marcelo")
 	}
