@@ -11,25 +11,25 @@ function longestCommonSubstringBetweenSingleWords(str1, str2) {
 	if (str2.split("").some((char) => str1.includes(char)) == false) return ""
 
 	let substr = ""
-	const storage = []
+	let longest = ""
 
 	for (let i = 0; i < str2.length; i++) {
-		let ind = str1.indexOf(str2[i])
-		if (ind === -1) continue
+		let of = str1.indexOf(str2[i])
+		if (of === -1) continue
 
-		for (let j = i, k = ind; j < str2.length; j++, k++) {
+		for (let j = i, k = of; j < str2.length; j++, k++) {
 			if (str2[j] === str1[k]) substr += str2[j]
 			else {
-				storage.push(substr)
+				if (substr.length > longest.length) longest = substr
 				substr = ""
 			}
 		}
 
-		storage.push(substr)
+		if (substr.length > longest.length) longest = substr
 		substr = ""
 	}
 
-	return storage.sort((a, b) => b.length - a.length)[0]
+	return longest
 }
 
 function main() {
