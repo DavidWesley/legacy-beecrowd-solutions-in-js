@@ -6,7 +6,7 @@ const [numLines, ...lines] = readFileSync("/dev/stdin", "utf8").split("\n")
  * @param {string} str2
  */
 
-function longestCommonSubstring(str1, str2) {
+function longestCommonSubstringBetweenSingleWords(str1, str2) {
 	if (str1 === str2) return str2
 	if (str2.split("").some((char) => str1.includes(char)) == false) return ""
 
@@ -35,7 +35,7 @@ function longestCommonSubstring(str1, str2) {
 function main() {
 	const commonSubst = lines
 		.slice(0, +numLines)
-		.reduceRight((res, str) => longestCommonSubstring(res, str))
+		.reduceRight((res, str) => longestCommonSubstringBetweenSingleWords(res, str))
 
 	console.log(commonSubst)
 }
