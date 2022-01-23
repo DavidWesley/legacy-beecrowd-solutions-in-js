@@ -37,7 +37,7 @@ function main() {
 		if (compassSequence == "*") break
 		const correctsSinglesDuration = musicalCompassCorrectDurationNums(compassSequence)
 
-		responses.push(`${correctsSinglesDuration}`)
+		responses.push(correctsSinglesDuration)
 	}
 
 	console.log(responses.join("\n"))
