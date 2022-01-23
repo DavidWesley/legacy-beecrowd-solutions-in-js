@@ -27,7 +27,7 @@ function main() {
 		)
 	})
 
-	console.log(`${responses.slice(1).join("\n")}`)
+	console.log(responses.slice(1).join("\n"))
 }
 
 main()

@@ -8,12 +8,12 @@ const input = (function* (lines) {
 })(lines)
 
 const RegexesEnum = {
-	numbers: /\d+/gi,
-	vowels: /[aeiou]/gi,
-	consonants: /(?![aeiou])[a-z]/gi,
-	upperCase: /[A-Z]+/,
-	lowerCase: /[a-z]+/,
-	specialChars: /[\W_]/gi
+	get numbers() { return /\d+/gi },
+	get vowels() { return /[aeiou]/gi },
+	get consonants() { return /(?![aeiou])[a-z]/gi },
+	get upperCase() { return /[A-Z]+/ },
+	get lowerCase() { return /[a-z]+/ },
+	get specialChars() { return /[\W_]/gi }
 }
 
 const Chars = {
@@ -67,8 +67,8 @@ function main() {
 	for (let testCaseIndex = 1; testCaseIndex <= +numCases; testCaseIndex++) {
 		responses.push(`Caso #${testCaseIndex}:`)
 
-		let [word] = input.next().value
-		const [cmdLen] = input.next().value
+		let word = input.next().value[0]
+		const cmdLen = input.next().value[0]
 
 		const { consonants: consonantsIndexes, vowels: vowelsIndexes } = groupCharIndexesByType(word)
 

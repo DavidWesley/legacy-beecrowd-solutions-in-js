@@ -45,7 +45,7 @@ function main() {
 		responses.push(messages.join('\n'))
 	}
 
-	console.log(`${responses.join('\n\n')}`)
+	console.log(responses.join('\n\n'))
 }
 
 main()

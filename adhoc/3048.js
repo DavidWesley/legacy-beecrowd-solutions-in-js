@@ -16,9 +16,8 @@ function getLongerSequenceWithoutCommounsValues(originalSequence = []) {
 
 function main() {
 	const sequence = lines.slice(0, +numCases).map(Integer)
-	const responses = getLongerSequenceWithoutCommounsValues(sequence)
 
-	console.log(`${responses}`)
+	console.log(getLongerSequenceWithoutCommounsValues(sequence))
 }
 
 main()

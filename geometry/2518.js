@@ -25,7 +25,7 @@ function main() {
 	for (const [N, H, C, L] of stairsDimensionsList) {
 		const area = rampArea({ quantities: N, height: H, width: C, length: L })
 
-		responses.push(`${area.toFixed(4)}`)
+		responses.push(area.toFixed(4))
 	}
 
 	console.log(responses.join("\n"))

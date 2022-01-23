@@ -40,10 +40,10 @@ function main() {
 		const hashTable = new FixedHashTable(baseAdressesNum).insert(keysList.slice(0, keysNum))
 		const formattedHashTable = hashTable.print()
 
-		responses.push(`${formattedHashTable}`)
+		responses.push(formattedHashTable)
 	}
 
-	console.log(`${responses.join('\n\n')}`)
+	console.log(responses.join('\n\n'))
 }
 
 main()

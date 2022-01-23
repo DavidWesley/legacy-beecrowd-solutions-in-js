@@ -56,7 +56,7 @@ function main() {
 	})
 
 	for (const [H, W, R1, R2] of dimensionsList)
-		responses.push(`${fitInTheElevator(H, W, R1, R2) ? "S" : "N"}`)
+		responses.push(fitInTheElevator(H, W, R1, R2) ? "S" : "N")
 
 	console.log(responses.join("\n"))
 }
