@@ -18,7 +18,7 @@ class CipherDecoder {
 
 function main() {
 	const decryptedText = new CipherDecoder(sequence).decrypt(encryptedText)
-	console.log(`${decryptedText}`)
+	console.log(decryptedText)
 }
 
 main()

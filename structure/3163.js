@@ -61,7 +61,7 @@ function main() {
 		}
 	}
 
-	console.log(`${ordenedAirplanes.join(' ')}`)
+	console.log(ordenedAirplanes.join(" "))
 }
 
 main()

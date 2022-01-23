@@ -18,7 +18,7 @@ const getDivisorsFromNumber = (/**@type {number}*/ num) => {
 function main() {
 	const divisors = getDivisorsFromNumber(+num)
 
-	console.log(`${divisors.join("\n")}`)
+	console.log(divisors.join("\n"))
 }
 
 main()

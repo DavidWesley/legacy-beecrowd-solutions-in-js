@@ -9,7 +9,7 @@ function distance([x1, y1], [x2, y2]) {
 
 function main() {
 	const dist = distance([X1, X2], [Y1, Y2])
-	console.log(`${dist}`)
+	console.log(dist)
 }
 
 main()

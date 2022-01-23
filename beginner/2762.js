@@ -29,9 +29,4 @@ function revertNumParts(originalNumber) {
 		.join('.')
 }
 
-function main() {
-	const reversedNums = revertNumParts(input)
-	console.log(`${reversedNums}`)
-}
-
-main()
+console.log(revertNumParts(input))

@@ -13,7 +13,7 @@ function main() {
 	const nthFibonacciIndex = Number.parseInt(input, 10)
 	const nthFibonacciValue = BinetFormule(nthFibonacciIndex)
 
-	console.log(`${nthFibonacciValue.toFixed(2)}`)
+	console.log(nthFibonacciValue.toFixed(2))
 }
 
 main()

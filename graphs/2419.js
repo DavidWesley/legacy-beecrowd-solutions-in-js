@@ -2,9 +2,9 @@ const { readFileSync } = require("fs")
 const [N, M, ...map] = readFileSync("/dev/stdin", "utf8").split(/\s/g)
 
 const Symbol = {
-	SOIL: "#",	// ‘#’ para representar a terra.
-	WATER: ".",	// ‘.’ para representar a água ou
-	COAST: "~",	// ‘~’ para representar a costa
+	SOIL: "#",	// # para representar a terra.
+	WATER: ".",	// . para representar a água ou
+	COAST: "~",	// ~ para representar a costa
 }
 
 function main() {
@@ -30,7 +30,7 @@ function main() {
 		}
 	}
 
-	console.log(`${counter.coasts}`)
+	console.log(counter.coasts)
 }
 
 main()

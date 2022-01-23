@@ -5,4 +5,4 @@ function PA(min, max = min, step = 1) {
 	return 0.5 * ((max + min) * ((max - min) / step + 1))
 }
 
-console.log(`${PA(+min, +max)}`)
+console.log(PA(+min, +max))

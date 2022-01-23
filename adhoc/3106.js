@@ -9,4 +9,5 @@ const totalTeams = cases
 	.reduce((sum, value) => sum + Math.trunc(value / teamLen), 0)
 
 const totalStudents = totalTeams * teamLen
-console.log(`${totalStudents}`)
+
+console.log(totalStudents)

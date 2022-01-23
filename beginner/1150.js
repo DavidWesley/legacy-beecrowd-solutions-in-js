@@ -12,7 +12,7 @@ function main() {
 	const Z = ZList.find((z) => +z > +X)
 	const repetitions = findMinimalSequenceLenToSumIsEqualTarget(+X, +Z)
 
-	console.log(`${repetitions}`)
+	console.log(repetitions)
 }
 
 main()

@@ -26,8 +26,8 @@ function main() {
 		percentilsList.push(`Percentual de ${name}s: ${percentil.toFixed(2)} %`)
 	}
 
-	console.log(`${totalsList.join("\n")}`)
-	console.log(`${percentilsList.join("\n")}`)
+	console.log(totalsList.join("\n"))
+	console.log(percentilsList.join("\n"))
 }
 
 main()

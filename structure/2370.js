@@ -4,6 +4,7 @@ const [[numPlayers, numTeams], ...players] = readFileSync("/dev/stdin", "utf8")
 	.map((line) => line.split(" "))
 
 function main() {
+	const output = []
 	const teams = Array.from({ length: +numTeams }, () => new Array(0))
 
 	const sortedPlayersStack = players
@@ -16,9 +17,14 @@ function main() {
 	for (let t = 0; t < +numTeams; t++) {
 		teams[t].sort((nameA, nameB) => nameA.localeCompare(nameB, "en-US"))
 
-		console.log(`Time ${t + 1}`)
-		console.log(`${teams[t].join("\n")}\n`)
+		output.push(
+			`Time ${t + 1}`,
+			teams[t].join("\n"),
+			""
+		)
 	}
+
+	console.log(output.join("\n"))
 }
 
 main()

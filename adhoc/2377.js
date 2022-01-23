@@ -4,4 +4,4 @@ const [L, D, K, P] = readFileSync("/dev/stdin", "utf8")
 	.slice(0, 4)
 	.map(value => Number.parseInt(value, 10))
 
-console.log(`${(L * K) + P * Math.floor(L / D)}`)
+console.log((L * K) + P * Math.floor(L / D))

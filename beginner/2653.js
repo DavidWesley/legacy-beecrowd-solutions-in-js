@@ -12,7 +12,7 @@ function main() {
 		if (jewelry == '') break // EOFile Condition
 		else jewelriesList.push(jewelry)
 
-	console.log(`${Dijkstra(jewelriesList)}`)
+	console.log(Dijkstra(jewelriesList))
 }
 
 main()

@@ -18,7 +18,7 @@ function perimeterFromSimpleRegularPolygons(regularSides, sidesLength) {
 
 function main() {
 	const perimeter = perimeterFromSimpleRegularPolygons(sidesQuant, sidesLength)
-	console.log(`${perimeter}`)
+	console.log(perimeter)
 }
 
 main()

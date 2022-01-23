@@ -43,7 +43,7 @@ function main() {
 	const matrix = createMatrixFromModel(model, matrixValues)
 	const response = selectedColumnToOperateFromMatrix(matrix, +L, (CMD === 'S' ? 'S' : 'M'))
 
-	console.log(`${response.toFixed(1)}`)
+	console.log(response.toFixed(1))
 }
 
 main()

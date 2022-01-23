@@ -7,7 +7,7 @@ function main() {
 	const num = Number.parseInt(input.shift(), 10)
 	const response = isEven(num) ? num + 2 : num + 1
 
-	console.log(`${response}`)
+	console.log(response)
 }
 
 main()

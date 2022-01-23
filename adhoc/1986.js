@@ -7,7 +7,7 @@ function main() {
 	const formattedMessages = input.slice(0, +numCases).map(hex => `0x${hex}`)
 	const message = lostInMarsMsg(formattedMessages)
 
-	console.log(`${message}`)
+	console.log(message)
 }
 
 main()

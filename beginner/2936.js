@@ -18,7 +18,7 @@ function main() {
 	const portionsMassIndexes = Array.from(portions.values())
 	const totalMass = quantitiesPerNames.reduce((sum, quantity, index) => sum + quantity * portionsMassIndexes[index], DEFAULT_MASS)
 
-	console.log(`${totalMass}`)
+	console.log(totalMass)
 }
 
 main()

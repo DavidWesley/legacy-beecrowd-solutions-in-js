@@ -14,7 +14,7 @@ function main() {
 	const transationsValues = transations.slice(0, +days).map(num => Number.parseInt(num, 10))
 	const minimunSaleValueOnHistory = getMinimunSaleFromHistory(transationsValues, +openingBalance)
 
-	console.log(`${minimunSaleValueOnHistory}`)
+	console.log(minimunSaleValueOnHistory)
 }
 
 main()

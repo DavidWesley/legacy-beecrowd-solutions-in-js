@@ -5,7 +5,7 @@ const biggerNumber = (nums) => Reflect.apply(Math.max, null, nums)
 
 function main() {
 	const bigger = biggerNumber(numbers)
-	console.log(`${bigger} eh o maior`)
+	console.log("%d eh o maior", bigger)
 }
 
 main()

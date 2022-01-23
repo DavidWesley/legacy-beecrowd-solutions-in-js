@@ -26,7 +26,7 @@ function main() {
 	const formmatedCases = cases.map((pair) => pair.split(" ")).slice(0, +numTestCases)
 	const mirrorSequences = makeMirrorSequence(formmatedCases)
 
-	console.log(`${mirrorSequences.join('\n')}`)
+	console.log(mirrorSequences.join('\n'))
 }
 
 main()

@@ -35,7 +35,7 @@ function main() {
 		return trees
 	}, [])
 
-	console.log(`${trees.join('\n')}`)
+	console.log(trees.join('\n'))
 }
 
 main()

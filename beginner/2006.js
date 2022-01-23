@@ -8,7 +8,7 @@ function getCompetidorCorrectSuggestsLength(suggestsIds, correctId) {
 function main() {
 	const correctLen = getCompetidorCorrectSuggestsLength(suggestTeaIDs, correctTeaId)
 
-	console.log(`${correctLen}`)
+	console.log(correctLen)
 }
 
 main()

@@ -14,7 +14,7 @@ function getFilledBaloonsQuantities(radius, gasVolume = 0) {
 
 function main() {
 	const filledBallons = getFilledBaloonsQuantities(radius, availableGasVolume)
-	console.log(`${filledBallons}`)
+	console.log(filledBallons)
 }
 
 main()

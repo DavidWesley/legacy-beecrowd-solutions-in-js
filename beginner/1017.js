@@ -10,7 +10,7 @@ function consumeGas(t, v) {
 
 function main() {
 	const consum = consumeGas(time, velocity).toFixed(3)
-	console.log(`${consum}`)
+	console.log(consum)
 }
 
 main()

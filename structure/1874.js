@@ -24,5 +24,5 @@ while (input.length > 0) {
 	const resp = []
 	for (const level of stacks) resp.push(level.join(" "))
 
-	console.log(`${resp.join("\n")}`)
+	console.log(resp.join("\n"))
 }

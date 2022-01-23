@@ -9,7 +9,7 @@ function main() {
 		if (text === '') break // EOFile Condition Verification
 		else outputs.push(formatText(text))
 
-	console.log(`${outputs.join('\n')}`)
+	console.log(outputs.join('\n'))
 }
 
 main()

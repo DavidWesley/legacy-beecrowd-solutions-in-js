@@ -10,7 +10,7 @@ const evenNumbersCounter = (/** @type {number[]} */ ...nums) => nums.filter(isEv
 
 function main() {
 	const evenNumbersQuantity = evenNumbersCounter(...nums)
-	console.log(`${evenNumbersQuantity} valores pares`)
+	console.log("%d valores pares", evenNumbersCounter)
 }
 
 main()

@@ -4,10 +4,4 @@ const [dividend, divisor] = readFileSync("/dev/stdin", "utf8")
 	.slice(0, 2)
 	.map(num => Number.parseInt(num, 10))
 
-const rest = (num, divisor) => num % divisor
-
-function main() {
-	console.log(`${rest(dividend, divisor)}`)
-}
-
-main()
+console.log(dividend % divisor)

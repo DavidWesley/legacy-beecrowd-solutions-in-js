@@ -21,7 +21,7 @@ function main() {
 		return MEMO.get(nth)
 	})
 
-	console.log(`${iccanobiFSequence.join(" ")}`)
+	console.log(iccanobiFSequence.join(" "))
 }
 
 main()

@@ -49,7 +49,7 @@ function main() {
 		output.push(currentRow)
 	}
 
-	console.log(`${output.concat(separator).join('\n')}`)
+	console.log(output.concat(separator).join('\n'))
 }
 
 if (isSuccessfullyDefined) {

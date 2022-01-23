@@ -13,8 +13,7 @@ function distanceBetween(space = 0) {
 }
 
 function main() {
-	const distTime = distanceBetween(distance)
-	console.log(`${distTime} minutos`)
+	console.log("%d minutos", distanceBetween(distance))
 }
 
 main()

@@ -11,7 +11,7 @@ function main() {
 		.slice(0, +numActions)
 		.reduce((openedTabs, actionName) => openedTabs + (ActionsEnum[actionName] ?? 0), +numTabs)
 
-	console.log(`${opendedTabs}`)
+	console.log(opendedTabs)
 }
 
 main()

@@ -5,4 +5,5 @@ const [desiredPressure, pressureRead] = readFileSync("/dev/stdin", "utf8")
 	.map((pressure) => Number.parseInt(pressure, 10))
 
 const pressureDifference = desiredPressure - pressureRead
-console.log(`${pressureDifference}`)
+
+console.log(pressureDifference)

@@ -28,7 +28,7 @@ const toRomanNumeral = num => {
 
 function main() {
 	const romanFormat = toRomanNumeral(+numeral)
-	console.log(`${romanFormat}`)
+	console.log(romanFormat)
 }
 
 main()

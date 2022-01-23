@@ -14,7 +14,7 @@ function convertNumberToExponentialForm(number, precision, exponentiaLength = 0)
 
 function main() {
 	const scientificNotation = convertNumberToExponentialForm(input, 4, 2)
-	console.log(`${scientificNotation}`)
+	console.log(scientificNotation)
 }
 
 main()

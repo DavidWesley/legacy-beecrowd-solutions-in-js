@@ -6,4 +6,4 @@ const sumValues = (/** @type {number[]} */[...values], initialValue = 0) => valu
 const totalSum = sumValues(sockets)
 const availableSockets = totalSum - (sockets.length - 1)
 
-console.log(`${availableSockets}`)
+console.log(availableSockets)

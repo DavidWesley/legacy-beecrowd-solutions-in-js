@@ -15,7 +15,7 @@ function main() {
 		return total + +quantity * menu.get(prodCode)
 	}, 0)
 
-	console.log(`${totalPrice.toFixed(2)}`)
+	console.log(totalPrice.toFixed(2))
 }
 
 main()

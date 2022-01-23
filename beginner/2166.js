@@ -13,7 +13,7 @@ function sumContinuousFracs(repeat, tax, intPart = 0) {
 
 function main() {
 	const sqrt2FromContinuosFrac = sumContinuousFracs(+repeatTimes, 2, 1)
-	console.log(`${sqrt2FromContinuosFrac.toFixed(10)}`)
+	console.log(sqrt2FromContinuosFrac.toFixed(10))
 }
 
 main()

@@ -14,7 +14,7 @@ function main() {
 	const foods = lines.slice(0, +numLines).map(Number.parseFloat)
 	const messages = foods.map(food => `${daysToFinishFood(food, TAX)} dias`)
 
-	console.log(`${messages.join('\n')}`)
+	console.log(messages.join('\n'))
 }
 
 main()

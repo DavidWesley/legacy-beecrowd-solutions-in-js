@@ -5,7 +5,7 @@ function main() {
 	const numClicks = Number.parseInt(clicks, 10)
 	const numClicksOnFirstLink = numClicks * 4
 
-	console.log(`${numClicksOnFirstLink}`)
+	console.log(numClicksOnFirstLink)
 }
 
 main()

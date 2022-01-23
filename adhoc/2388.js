@@ -9,7 +9,7 @@ function main() {
 		.slice(0, numLines)
 		.reduce((total, [time, velocity]) => total + (time * velocity), 0)
 
-	console.log(`${distance}`)
+	console.log(distance)
 }
 
 main()

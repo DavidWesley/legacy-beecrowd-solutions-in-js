@@ -15,7 +15,7 @@ function main() {
 		return isStrictHex(num) ? toDec(num) : toHex(num)
 	})
 
-	console.log(`${convertedNumbers.join('\n')}`)
+	console.log(convertedNumbers.join('\n'))
 }
 
 main()

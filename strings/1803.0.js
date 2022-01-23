@@ -19,4 +19,4 @@ const M = nums
 
 const chars = M.map(m => String.fromCharCode((F * m + L) % 257))
 
-console.log(`${chars.join('')}`)
+console.log(chars.join(''))

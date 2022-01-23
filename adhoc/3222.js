@@ -93,7 +93,7 @@ function main() {
 	const playfairCypher = PlayfairCypher(keyPhrase) // cria a cifra e armazena
 	const encryptedText = playfairCypher.encryptText(text) // encripta o texto inserido
 
-	console.log(`${encryptedText}`)
+	console.log(encryptedText)
 }
 
 main()

@@ -4,4 +4,4 @@ const [firstNote, average] = readFileSync("/dev/stdin", "utf8")
 	.slice(0, 2)
 	.map((line) => Number.parseInt(line))
 
-console.log(`${2 * average - firstNote}`)
+console.log(2 * average - firstNote)

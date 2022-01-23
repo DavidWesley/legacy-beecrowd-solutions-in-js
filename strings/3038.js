@@ -29,7 +29,7 @@ function main() {
 	const { decryptChristimasText } = ChristmasCypher
 	const decryptedTexts = encryptedChristmasTexts.map(decryptChristimasText)
 
-	console.log(`${decryptedTexts.join("\n")}`)
+	console.log(decryptedTexts.join("\n"))
 }
 
 main()

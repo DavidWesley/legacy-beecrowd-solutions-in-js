@@ -11,8 +11,7 @@ function kamenetskyFormula(n) {
 	if (n <= 1) return 1
 
 	// Use Kamenetsky formula to calculate the number of digits
-	const numDigits =
-		n * (Math.log10(n) - Math.LOG10E) + Math.log10(2 * Math.PI * n) / 2.0
+	const numDigits = n * (Math.log10(n) - Math.LOG10E) + Math.log10(2 * Math.PI * n) / 2.0
 
 	return Math.floor(numDigits) + 1
 }
@@ -20,4 +19,4 @@ function kamenetskyFormula(n) {
 const { readFileSync } = require("fs")
 const [N] = readFileSync("/dev/stdin", "utf8").split("\n")
 
-console.log(`${kamenetskyFormula(+N)}`)
+console.log(kamenetskyFormula(+N))

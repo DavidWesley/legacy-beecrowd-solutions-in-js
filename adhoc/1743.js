@@ -25,7 +25,7 @@ const Connector = {
 
 function main() {
 	const isCompatible = Connector.isCompatible(connectorA, connectorB)
-	console.log(`${isCompatible ? 'Y' : 'N'}`)
+	console.log(isCompatible ? 'Y' : 'N')
 }
 
 main()

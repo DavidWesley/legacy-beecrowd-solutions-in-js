@@ -59,7 +59,7 @@ function main() {
 	const matrix = createMatrixFromModel(model, matrixValues)
 	const response = selectedInfAreaToOperateFromSquareMatrix(matrix, (CMD === 'S' ? 'S' : 'M'))
 
-	console.log(`${response.toFixed(1)}`)
+	console.log(response.toFixed(1))
 }
 
 main()

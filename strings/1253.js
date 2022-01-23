@@ -34,7 +34,7 @@ function main() {
 		decodedTextList.push(decodedText)
 	}
 
-	console.log(`${decodedTextList.join('\n')}`)
+	console.log(decodedTextList.join('\n'))
 }
 
 main()

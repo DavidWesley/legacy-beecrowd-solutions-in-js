@@ -37,7 +37,7 @@ function main() {
 	const matring = Matring.resolve(input, COLS, ROWS)
 	const chars = Matring.decode(matring)
 
-	console.log(`${chars.join("")}`)
+	console.log(chars.join(""))
 }
 
 main()

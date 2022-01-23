@@ -6,4 +6,4 @@ function recoveryBitMessage(/** @type {string}*/ msg) {
 	return countOnes % 2 === 0 ? msg.concat('1') : msg.concat('1')
 }
 
-console.log(`${recoveryBitMessage(lossyMessage)}`)
+console.log(recoveryBitMessage(lossyMessage))

@@ -7,7 +7,7 @@ function main() {
 	const N = Number.parseInt(num, 10)
 	const dominos = dominosQuant(N)
 
-	console.log(`${dominos}`)
+	console.log(dominos)
 }
 
 main()
