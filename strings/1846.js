@@ -98,9 +98,11 @@ function convertNumberToPortugueseNomenclature() {
 				else if (index === 1)
 					return ["0", "1"].includes(value) ? "" : `${mapDozensNames.get(value)}`
 
+				else if (arr[index - 1] === "1")
+					return mapUnitsNames.get(`1${value}`)
+
 				else
-					if (arr[index - 1] === "1") return mapUnitsNames.get(`1${value}`)
-					else return `${value === "0" || arr[index - 1] === "0" ? "" : customJoinCharacter + " "}${mapUnitsNames.get(value)}`
+					return `${value === "0" || arr[index - 1] === "0" ? "" : customJoinCharacter + " "}${mapUnitsNames.get(value)}`
 
 			})
 				.filter(value => Boolean(value))
@@ -115,7 +117,8 @@ function convertNumberToPortugueseNomenclature() {
 
 		const [simpleOrderNum, thounsandOrderNum, milionOrderNum] = numberFormatterInstance
 			.format(num)
-			.split(/[\,]/).reverse()
+			.split(",")
+			.reverse()
 
 		const simpleOrderText = convertOrderNumberIntoTextName(simpleOrderNum, customJoinCharacter)
 		const thousandOrderText = convertOrderNumberIntoTextName(thounsandOrderNum, customJoinCharacter, { plural: "mil", single: "mil" })
