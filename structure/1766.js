@@ -6,17 +6,18 @@ const input = (function* (lines) {
 })(lines)
 
 /** @typedef {[string, number, number, number]} reindeerType */
-/** @param {reindeerType[]} reindeerList */
 
-function sortReindeer(reindeerList) {
-	return reindeerList.sort((reindeerA, reindeerB) => {
-		if (reindeerA[1] !== reindeerB[1]) return reindeerB[1] - reindeerA[1]										// Weights 	- DESC
-		else if (reindeerA[2] !== reindeerB[2]) return reindeerA[2] - reindeerB[2]							// Ages 		- ASC
-		else if (reindeerA[3] !== reindeerB[3]) return reindeerA[3] - reindeerB[3]							// Heigths 	- ASC
-		else if (reindeerA[0] !== reindeerB[0]) return reindeerA[0].localeCompare(reindeerB[0])	// Names 		-	ASC
+/**
+ * @param { reindeerType } reindeerA
+ * @param { reindeerType } reindeerB
+ */
 
-		else return 0
-	})
+function compareReindeer(reindeerA, reindeerB) {
+	if (reindeerA[1] !== reindeerB[1]) return reindeerB[1] - reindeerA[1]										// Weights 	- DESC
+	else if (reindeerA[2] !== reindeerB[2]) return reindeerA[2] - reindeerB[2]							// Ages 		- ASC
+	else if (reindeerA[3] !== reindeerB[3]) return reindeerA[3] - reindeerB[3]							// Heigths 	- ASC
+	else if (reindeerA[0] !== reindeerB[0]) return reindeerA[0].localeCompare(reindeerB[0])	// Names 		-	ASC
+	else return 0
 }
 
 function main() {
@@ -30,7 +31,7 @@ function main() {
 			return [name, +weight, +age, +height]
 		})
 
-		const sortedReindeerList = sortReindeer(reindeerList)
+		const sortedReindeerList = reindeerList.sort(compareReindeer)
 			.slice(0, +M)
 			.map(([name], index) => `${index + 1} - ${name}`)
 
