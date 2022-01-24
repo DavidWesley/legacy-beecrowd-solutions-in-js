@@ -9,8 +9,8 @@ function main() {
 		const [wordA, wordB] = lines[lineIndex].split(' ')
 
 		for (let charIndex = 0; charIndex < wordA.length; charIndex++) {
-			const charCodeA = wordA[charIndex].charCodeAt(0)
-			const charCodeB = wordB[charIndex].charCodeAt(0)
+			const charCodeA = wordA.charCodeAt(charIndex)
+			const charCodeB = wordB.charCodeAt(charIndex)
 
 			sum += (ALPHABET_SIZE - (charCodeA - charCodeB)) % ALPHABET_SIZE
 		}
