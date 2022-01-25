@@ -25,6 +25,7 @@ function main() {
 
 	for (let i = 0; i < lines.length; i += 2) {
 		const [H, M] = lines[i + 0]
+
 		if (isNaN(H) || isNaN(M)) break // EOF
 
 		const size = Math.floor(H * 60 / M)
