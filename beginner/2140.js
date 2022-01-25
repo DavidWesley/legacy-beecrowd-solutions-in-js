@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
-const input = readFileSync('/dev/stdin', "utf8").split("\n")
-
-const stopAtIndex = input.indexOf("0 0")
+const input = readFileSync("/dev/stdin", "utf8")
+	.split("\n")
+	.map(line => line.split(" ").map(value => Number.parseInt(value, 10)))
 
 /**
  * @template U
@@ -24,17 +24,14 @@ function combinations(set, k) {
 }
 
 function main() {
-	const changesList = input.slice(0, stopAtIndex).map((pairNote) => {
-		const [N, M] = pairNote.split(" ")
-		return +M - +N
-	})
+	const BANK_NOTES = [2, 5, 10, 20, 50, 100]
+	const possibleDoubleNotesSumList = combinations(BANK_NOTES, 2).map(([n1, n2]) => n1 + n2)
 
-	const bankNotes = [2, 5, 10, 20, 50, 100]
-	const possibleDoubleNotesSumList = combinations(bankNotes, 2).reduce((list, [n1, n2]) => (list.push(n1 + n2), list), [])
+	const responses = new Array()
 
-	const responses = changesList.map((change) => {
-		return possibleDoubleNotesSumList.includes(change) ? "possible" : "impossible"
-	})
+	for (const [noteA, noteB] of input)
+		if (noteA == 0 && noteB == 0) break
+		else responses.push(possibleDoubleNotesSumList.includes(noteB - noteA) ? "possible" : "impossible")
 
 	console.log(responses.join("\n"))
 }
