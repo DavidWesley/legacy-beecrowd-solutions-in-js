@@ -19,7 +19,7 @@ function main() {
 	const size = Number.parseInt(numCases, 10)
 	const responses = Array(size)
 
-	for (let index = 0; index < Number.parseInt(numCases, 10); index++) {
+	for (let index = 0; index < size; index++) {
 		const [numA, numB] = lines[2 * index + 1]
 		const [nameA, PA, nameB, PB] = lines[2 * index + 0]
 
