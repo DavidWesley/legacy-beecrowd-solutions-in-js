@@ -2,7 +2,7 @@ const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const convertPortugueseNomenclatureToNumber = (function () {
-	const UNITS_NAMES = [
+	const UNITS_NAMES_ENTRIES = [
 		["zero", 0],
 		["um", 1],
 		["dois", 2],
@@ -27,7 +27,7 @@ const convertPortugueseNomenclatureToNumber = (function () {
 		["dezenove", 19]
 	]
 
-	const DOZENS_NAMES = [
+	const DOZENS_NAMES_ENTRIES = [
 		["dez", 10],
 		["vinte", 20],
 		["trinta", 30],
@@ -40,7 +40,7 @@ const convertPortugueseNomenclatureToNumber = (function () {
 		["cem", 100]
 	]
 
-	const HUNDREDS_NAMES = [
+	const HUNDREDS_NAMES_ENTRIES = [
 		["cento", 100],
 		["duzentos", 200],
 		["trezentos", 300],
@@ -52,7 +52,7 @@ const convertPortugueseNomenclatureToNumber = (function () {
 		["novecentos", 900],
 	]
 
-	const GROUPS_NAMES = [
+	const GROUPS_NAMES_ENTRIES = [
 		["mil", 1e3],
 
 		["milhao", 1e6],
@@ -74,11 +74,11 @@ const convertPortugueseNomenclatureToNumber = (function () {
 
 	/** @typedef {[string, number]} nameNumType  */
 
-	const mapUnitsNames = new Map(/** @type {nameNumType[]} */(UNITS_NAMES))
-	const mapDozensNames = new Map(/** @type {nameNumType[]} */(DOZENS_NAMES))
-	const mapHundrendsNames = new Map(/** @type {nameNumType[]} */(HUNDREDS_NAMES))
+	const mapUnitsNames = new Map(/** @type {nameNumType[]} */(UNITS_NAMES_ENTRIES))
+	const mapDozensNames = new Map(/** @type {nameNumType[]} */(DOZENS_NAMES_ENTRIES))
+	const mapHundrendsNames = new Map(/** @type {nameNumType[]} */(HUNDREDS_NAMES_ENTRIES))
 
-	const mapGroupsNames = new Map(/** @type {nameNumType[]} */(GROUPS_NAMES))
+	const mapGroupsNames = new Map(/** @type {nameNumType[]} */(GROUPS_NAMES_ENTRIES))
 
 
 	/** @param {string} name */
