@@ -1,23 +1,9 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n").map(int => Number.parseInt(int, 10))
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
-const { converter } = convertNumberToPortugueseNomenclature()
 
-function main() {
-	const responses = []
-
-	for (const num of input) {
-		if (isNaN(num)) break // EOFile Condition Verification
-		responses.push(converter(num))
-	}
-
-	console.log(responses.join("\n"))
-}
-
-main()
-
-function convertNumberToPortugueseNomenclature() {
-	const unitsNames = [
+const convertNumberToPortugueseNomenclature = (function () {
+	const UNITS_NAMES_LIST = [
 		"",
 		"um",
 		"dois",
@@ -39,7 +25,8 @@ function convertNumberToPortugueseNomenclature() {
 		"dezoito",
 		"dezenove",
 	]
-	const dozensNames = [
+
+	const DOZENS_NAMES_LIST = [
 		"",
 		"dez",
 		"vinte",
@@ -52,7 +39,8 @@ function convertNumberToPortugueseNomenclature() {
 		"noventa",
 		"cem",
 	]
-	const hundredsNames = [
+
+	const HUNDREDS_NAMES_LIST = [
 		"",
 		"cento",
 		"duzentos",
@@ -65,19 +53,41 @@ function convertNumberToPortugueseNomenclature() {
 		"novecentos",
 	]
 
-	const mapUnitsNames = new Map(Object.entries(unitsNames))
-	const mapDozensNames = new Map(Object.entries(dozensNames))
-	const mapHundrendsNames = new Map(Object.entries(hundredsNames))
+	const ORDERS_ENUM = {
+		get simple() { return { plural: "", single: "" } },
+		get thousand() { return { plural: "mil", single: "mil" } },
+		get million() { return { plural: "milhões", single: "milhão" } },
+		get billion() { return { plural: "bilhões", single: "bilhão" } },
+		get trillion() { return { plural: "trilhões", single: "trilhão" } },
+		get quadrillion() { return { plural: "quatrilhões", single: "quatrilhão" } },
+		get quintillion() { return { plural: "quintilhões", single: "quintilhão" } },
+		get sextillion() { return { plural: "sextilhões", single: "sextilhão" } },
+		get setillion() { return { plural: "septilhões", single: "septilhão" } },
+		get octillion() { return { plural: "octilhões", single: "octilhão" } },
+		get nonillion() { return { plural: "nonilhões", single: "nonilhão" } },
+		get decillion() { return { plural: "decilhões", single: "decilhão" } },
+		// And so on...
+	}
 
-	const numberFormatterInstance = new Intl.NumberFormat('en-US', {
-		style: "decimal",
-		useGrouping: true,
-		minimumIntegerDigits: 9, // Limitado até 999.999.999 -> Não tente utilizar números maiores
-		maximumFractionDigits: 0
-	})
+	const ORDERS_NAME = Object.keys(ORDERS_ENUM)
+	const DEFAULT_AGREGATOR_WORD = "e"
+	const MAXIMUN_FRACTION_DIGITS = 0 // Apenas inteiros!
 
 
-	function convertOrderNumberIntoTextName(order = "000", customJoinCharacter, orderTermination = { single: "", plural: "" }) {
+	const MapUnitsNames = new Map(Object.entries(UNITS_NAMES_LIST))
+	const MapDozensNames = new Map(Object.entries(DOZENS_NAMES_LIST))
+	const MapHundrendsNames = new Map(Object.entries(HUNDREDS_NAMES_LIST))
+
+	/**
+	 * @description Essa função precisa **muito** de uma melhora
+	 * @param {string} order
+	 * @param {string} joinerWord
+	 * @param {{ single: string, plural: string }} orderTermination
+	 */
+
+	function numberToNomenclature(order = "000", joinerWord = DEFAULT_AGREGATOR_WORD, orderTermination = ORDERS_ENUM.simple) {
+		order = order.length !== 3 ? order.padStart(3, "0").substring(0, 3) : order // Normalizating order
+
 		const num = Number.parseInt(order, 10)
 		const terminationText = ` ${num >= 2 ? orderTermination.plural : orderTermination.single}`
 
@@ -85,53 +95,70 @@ function convertNumberToPortugueseNomenclature() {
 			return ""
 
 		else if (num === 100)
-			return `${customJoinCharacter} ${mapDozensNames.get("10").concat(terminationText)}`
+			return `${joinerWord} ${MapDozensNames.get("10").concat(terminationText)}`
 
 		else if (num % 100 === 0 && num !== 0)
-			return `${customJoinCharacter} ${mapHundrendsNames.get(order[0])}${terminationText}`
+			return `${joinerWord} ${MapHundrendsNames.get(order[0])}${terminationText}`
 
 		else
 			return [...order].map((value, index, arr) => {
 				if (index === 0)
-					return `${mapHundrendsNames.get(value).concat(value !== "0" ? " " : "")}${customJoinCharacter}`
+					return `${MapHundrendsNames.get(value).concat(value !== "0" ? " " : "")}${joinerWord}`
 
 				else if (index === 1)
-					return ["0", "1"].includes(value) ? "" : `${mapDozensNames.get(value)}`
+					return ["0", "1"].includes(value) ? "" : `${MapDozensNames.get(value)}`
 
 				else if (arr[index - 1] === "1")
-					return mapUnitsNames.get(`1${value}`)
+					return MapUnitsNames.get(`1${value}`)
 
 				else
-					return `${value === "0" || arr[index - 1] === "0" ? "" : customJoinCharacter + " "}${mapUnitsNames.get(value)}`
+					return `${value === "0" || arr[index - 1] === "0" ? "" : joinerWord + " "}${MapUnitsNames.get(value)}`
 
 			})
 				.filter(value => Boolean(value))
 				.join(" ")
-				.replace(RegExp(`(\\s+${customJoinCharacter})$`, 'g'), "")
+				.replace(RegExp(`(\\s+${joinerWord})$`, "g"), "")
 				.concat(terminationText)
 	}
 
+	/** @param {Parameters<BigIntConstructor>[0]} num */
 
-	function converter(/** @type {number | bigint} */ num, customJoinCharacter = "e") {
-		if (num === 0) return "zero"
+	function converter(num) {
+		num = BigInt(num)
+		if (num === 0n) return "zero"
 
-		const [simpleOrderNum, thounsandOrderNum, milionOrderNum] = numberFormatterInstance
-			.format(num)
-			.split(",")
-			.reverse()
+		const orders = num
+			.toLocaleString("fullwide", { maximumFractionDigits: MAXIMUN_FRACTION_DIGITS })
+			.split(/\D/)
 
-		const simpleOrderText = convertOrderNumberIntoTextName(simpleOrderNum, customJoinCharacter)
-		const thousandOrderText = convertOrderNumberIntoTextName(thounsandOrderNum, customJoinCharacter, { plural: "mil", single: "mil" })
-		const milionOrderText = convertOrderNumberIntoTextName(milionOrderNum, customJoinCharacter, { plural: "milhões", single: "milhão" })
-
-		const portugueseNomenclatureText = [milionOrderText, thousandOrderText, simpleOrderText]
+		const portugueseNomenclatureText = orders
+			.map((order, index, arr) => {
+				return numberToNomenclature(order, DEFAULT_AGREGATOR_WORD, ORDERS_ENUM[ORDERS_NAME[arr.length - index - 1]])
+			})
 			.join(" ")
 			.trim()
-			.replace(RegExp(`^${customJoinCharacter}\\s+`), "") // Solving second bug in Portuguese Language => {e ;e}
-			.replace(/(^um mil\b)/, "mil") // SOlving first Bug in Portuguese Language => {um mil ; mil}
+			.replace(RegExp(`^${DEFAULT_AGREGATOR_WORD}\\s+`), "") // Solving second bug in Portuguese Language => {e ;e}
+			.replace(/(^um mil\b)/, "mil") // Solving first Bug in Portuguese Language => {um mil ; mil}
 
 		return portugueseNomenclatureText
 	}
 
 	return { converter }
+
+})() // Payload First Operation <-> PAGANDO TUDO NUMA TACADA só. O LADO RUIM? REFERENCING HELLLLL! Mas quem liga?
+
+
+const { converter } = convertNumberToPortugueseNomenclature
+
+function main() {
+	const responses = []
+
+	for (const num of input) {
+		if (num == "") break // EOF
+		responses.push(converter(num))
+	}
+
+	console.log(responses.join("\n"))
 }
+
+main()
