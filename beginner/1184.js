@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [CMD, ...values] = readFileSync("../dev/stdin", "utf8").split("\n")
+const [CMD, ...values] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 /** @param {number[]} values */
 const sumValues = ([...values], initialValue = 0) => values.reduce((acc, cur) => acc + cur, initialValue)
@@ -33,8 +33,11 @@ function selectedAreaBelowMainDiagonaToOperateFromSquareMatrix(matrix, operation
 		for (let colIndex = 0; colIndex < rowIndex; colIndex++)
 			selectedValues.push(matrix[rowIndex][colIndex])
 
-	if (operation === "S") return sumValues(selectedValues)
-	else if (operation === "M") return mediaValues(selectedValues)
+	switch (operation) {
+		case "S": return sumValues(selectedValues)
+		case "M": return mediaValues(selectedValues)
+		default: return 0
+	}
 }
 
 
