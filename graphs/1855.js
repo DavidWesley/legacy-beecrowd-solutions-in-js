@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 const [numCols, numLines, ...map] = readFileSync("/dev/stdin", "utf8").split(/\s/g)
 
-const Symbol = Object.freeze({
+const NamedChars = Object.freeze({
 	chest: "*",
 	dot: ".",
 	invalid: "!",
@@ -21,7 +21,7 @@ function main() {
 			plainIndex = 0,
 			rowIndex = 0,
 			colIndex = 0,
-			currDirectionSymbol = Symbol.Directions.right;
+			currDirectionSymbol = NamedChars.Directions.right;
 
 		plainIndex < flattedGraph.length;
 
@@ -36,24 +36,24 @@ function main() {
 			rowIndex < 0 ||
 			char == ""
 		) {
-			console.log(Symbol.invalid)
+			console.log(NamedChars.invalid)
 			break
-		} else if (char == Symbol.chest) {
-			console.log(Symbol.chest)
+		} else if (char == NamedChars.chest) {
+			console.log(NamedChars.chest)
 			break
-		} else if (char == Symbol.dot) {
-			if (currDirectionSymbol == Symbol.Directions.down) rowIndex++
-			else if (currDirectionSymbol == Symbol.Directions.up) rowIndex--
-			else if (currDirectionSymbol == Symbol.Directions.left) colIndex--
-			else if (currDirectionSymbol == Symbol.Directions.right) colIndex++
+		} else if (char == NamedChars.dot) {
+			if (currDirectionSymbol == NamedChars.Directions.down) rowIndex++
+			else if (currDirectionSymbol == NamedChars.Directions.up) rowIndex--
+			else if (currDirectionSymbol == NamedChars.Directions.left) colIndex--
+			else if (currDirectionSymbol == NamedChars.Directions.right) colIndex++
 		}
 
 		// UPDATING DIRECTIONS
 		else {
-			if (char == Symbol.Directions.down) rowIndex++
-			else if (char == Symbol.Directions.up) rowIndex--
-			else if (char == Symbol.Directions.left) colIndex--
-			else if (char == Symbol.Directions.right) colIndex++
+			if (char == NamedChars.Directions.down) rowIndex++
+			else if (char == NamedChars.Directions.up) rowIndex--
+			else if (char == NamedChars.Directions.left) colIndex--
+			else if (char == NamedChars.Directions.right) colIndex++
 			else break
 
 			currDirectionSymbol = char
