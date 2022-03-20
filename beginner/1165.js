@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numTestCases, ...nums] = readFileSync("/dev/stdin", "utf8").split('\n')
+const [numTestCases, ...nums] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const isEven = (num = 1) => Math.abs(Number(num)) % 2 === 0
 
@@ -16,7 +16,7 @@ const isPrime = (/** @type {number}*/ num) => {
 function main() {
 	const numbersList = nums.slice(0, +numTestCases).map(num => Number.parseInt(num, 10))
 	const responses = numbersList.map(num => {
-		return `${num}${isPrime(num) ? '' : ' nao'} eh primo`
+		return `${num}${isPrime(num) ? "" : " nao"} eh primo`
 	})
 
 	console.log(responses.join("\n"))

@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const ChristmasMessagesFromCountries = {
 	"brasil": "Feliz Natal!",
@@ -32,7 +32,7 @@ function main() {
 	const responses = []
 
 	for (const country of input) {
-		if (country === '') break // EOFile
+		if (country === "") break // EOFile
 
 		const translatedMessage = ChristmasMessagesFromCountries[country] ?? "--- NOT FOUND ---"
 		responses.push(translatedMessage)

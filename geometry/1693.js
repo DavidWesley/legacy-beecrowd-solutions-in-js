@@ -16,7 +16,7 @@ function main() {
 		if ([R, H, V, G].includes(NaN)) break // EOFile Condition
 
 		const maxDist = ObliqueThrow.maxHorizontalDistance(V, H, G)
-		responses.push(maxDist >= R ? 'Y' : 'N')
+		responses.push(maxDist >= R ? "Y" : "N")
 	}
 
 	console.log(responses.join("\n"))

@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const numbers = readFileSync("/dev/stdin", "utf8").split(' ').map(Number.parseFloat)
+const numbers = readFileSync("/dev/stdin", "utf8").split(" ").map(Number.parseFloat)
 
 const biggerNumber = (nums) => Reflect.apply(Math.max, null, nums)
 

@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numLines, ...lines] = readFileSync("/dev/stdin", "utf8").split('\n')
+const [numLines, ...lines] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const RA = {
 	G: 0,
@@ -58,9 +58,9 @@ const RA = {
 
 function convertToRAPass(str) {
 	return str
-		.replace(/[ ]/g, '')
+		.replace(/[ ]/g, "")
 		.substring(0, 12)
-		.replace(/./g, (char) => RA[char] ?? '')
+		.replace(/./g, (char) => RA[char] ?? "")
 }
 
 function main() {

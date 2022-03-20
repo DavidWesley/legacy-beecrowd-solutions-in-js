@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 
 const [distance] = readFileSync("/dev/stdin", "utf8")
-	.split('\n')
+	.split("\n")
 	.slice(0, 1)
 	.map(Number.parseFloat)
 

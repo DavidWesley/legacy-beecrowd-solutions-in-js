@@ -5,7 +5,7 @@ const input = (function* (lines) {
 	for (const line of lines) yield line
 })(lines)
 
-function simplePolinomialDerivation(equation = '') {
+function simplePolinomialDerivation(equation = "") {
 	return equation.replace(/(\d*)([A-z]+)(\d*)/g, (_, cof, base, exp) => {
 		if (cof == "") cof = "1"
 		if (exp == "") exp = "1"

@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numTestCases, ...positions] = readFileSync("/dev/stdin", "utf8").split('\n')
+const [numTestCases, ...positions] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function binetFormule(nth) {
 	if (nth < 0) return 0

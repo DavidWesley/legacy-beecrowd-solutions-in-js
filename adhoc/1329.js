@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function main() {
 	const responses = []
@@ -9,9 +9,9 @@ function main() {
 
 		if (numGames == "0") break
 
-		const scoreboard = input[index + 1].split(' ').reduce((wons, value) => {
-			if (value === '0') wons.mary += 1
-			else if (value === '1') wons.john += 1
+		const scoreboard = input[index + 1].split(" ").reduce((wons, value) => {
+			if (value === "0") wons.mary += 1
+			else if (value === "1") wons.john += 1
 
 			return wons
 		}, { mary: 0, john: 0 })

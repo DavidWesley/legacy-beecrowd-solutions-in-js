@@ -28,7 +28,7 @@ const AnimalTree = {
 
 const handler = {
 	get(target, prop, receiver) {
-		if (typeof target[prop] === 'object' && target[prop] !== null) return new Proxy(target[prop], handler)
+		if (typeof target[prop] === "object" && target[prop] !== null) return new Proxy(target[prop], handler)
 		else return target[prop]
 
 	},

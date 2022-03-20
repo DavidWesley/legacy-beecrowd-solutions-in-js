@@ -1,8 +1,7 @@
 const { readFileSync } = require("fs")
 const inputs = readFileSync("/dev/stdin", "utf8").split("\n")
 
-const inputValues = inputs.map((input) =>
-	input.split(" ").map((num) => Number.parseInt(num))
+const inputValues = inputs.map((input) => input.split(" ").map((num) => Number.parseInt(num))
 )
 
 const isPositive = (num = 0) => Number(num) > 0

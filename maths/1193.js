@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 const [[entriesLength], ...entries] = readFileSync("/dev/stdin", "utf8")
 	.split("\n")
-	.map(entry => entry.split(' '))
+	.map(entry => entry.split(" "))
 
 
 const ConvertBase = (num) => ({
@@ -13,9 +13,9 @@ const ConvertBase = (num) => ({
 /** @type {[string, number][]} */
 const radixesEntries = [
 	// ['oct', 8],
-	['dec', 10],
-	['hex', 16],
-	['bin', 2]
+	["dec", 10],
+	["hex", 16],
+	["bin", 2]
 ] // Ordenado dessa forma para sair como o Udebug aceita
 
 const radixes = Object.fromEntries(radixesEntries)
@@ -42,7 +42,7 @@ function main() {
 		})
 
 		responses.push(
-			`${currentArray.map(line => line.concat('\n')).join('')}`
+			`${currentArray.map(line => line.concat("\n")).join("")}`
 		)
 	}
 

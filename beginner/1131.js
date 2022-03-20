@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 /** @param {Array<string>} teams*/
 
@@ -18,11 +18,11 @@ function main() {
 
 	for (let index = 0; index < input.length; index += 2) {
 		const [interGoals, gremioGoals] = input[index]
-			.split(' ')
+			.split(" ")
 			.slice(0, 2)
 			.map(Number)
 
-		const hasNext = input[index + 1] == '1'
+		const hasNext = input[index + 1] == "1"
 
 		GrenaisScoreBoard.games += 1
 
@@ -32,7 +32,7 @@ function main() {
 
 		if (!hasNext) {
 			responses.push(
-				...Array(GrenaisScoreBoard.games).fill(`Novo grenal (1-sim 2-nao)`),
+				...Array(GrenaisScoreBoard.games).fill("Novo grenal (1-sim 2-nao)"),
 				`${GrenaisScoreBoard.games} grenais`,
 				`Inter:${GrenaisScoreBoard.wons.inter}`,
 				`Gremio:${GrenaisScoreBoard.wons.gremio}`,

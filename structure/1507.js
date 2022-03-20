@@ -1,9 +1,9 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 const numTestCases = Number.parseInt(input.shift())
 
-function isASubSequence(subsequence = '', targetWord = '') {
-	let finalSubsequence = ''
+function isASubSequence(subsequence = "", targetWord = "") {
+	let finalSubsequence = ""
 
 	for (
 		let currentLetterIndex = 0, fromIndex = 0;
@@ -22,7 +22,7 @@ function isASubSequence(subsequence = '', targetWord = '') {
 	return finalSubsequence === subsequence
 }
 
-function validateSubsequencesFromWord(subsequenceList = [''], targetWord = '') {
+function validateSubsequencesFromWord(subsequenceList = [""], targetWord = "") {
 	return subsequenceList.map(subsequence => isASubSequence(subsequence, targetWord))
 }
 
@@ -39,7 +39,7 @@ function main() {
 			.forEach(response => { responses.push(response) })
 	}
 
-	console.log(responses.join('\n'))
+	console.log(responses.join("\n"))
 }
 
 main()

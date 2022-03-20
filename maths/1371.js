@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function Doors(doorsList = []) {
 	const numSquares = []
@@ -19,11 +19,11 @@ function Doors(doorsList = []) {
 }
 
 function main() {
-	const brokenAtIndex = input.indexOf('0')
+	const brokenAtIndex = input.indexOf("0")
 	const doorsList = input.slice(0, brokenAtIndex).map(doors => Number.parseInt(doors, 10))
 
 	const openedDoors = Doors(doorsList)
-	const responses = doorsList.map(doors => openedDoors(doors).join(' '))
+	const responses = doorsList.map(doors => openedDoors(doors).join(" "))
 
 	console.log(responses.join("\n"))
 }

@@ -37,14 +37,14 @@ function splitList(multineString = "") {
 		.map((line) => line.split(" "))
 }
 
-function distanceBetweenPlaces(places = ['', '', ''], coordList) {
+function distanceBetweenPlaces(places = ["", "", ""], coordList) {
 	if (places.every(place => coordList.has(place))) return 0
 	// 	TODO: PRECISO CALCULAR A DISTÂNCIA
 	return NaN
 }
 
-function message([A, B, M] = ['', '', ''], dist) {
-	return `${M} is ${Number.isInteger(dist) ? dist : '?'} km off ${A}\/${B} equidistance.`
+function message([A, B, M] = ["", "", ""], dist) {
+	return `${M} is ${Number.isInteger(dist) ? dist : "?"} km off ${A}\/${B} equidistance.`
 }
 
 function main() {

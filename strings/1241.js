@@ -1,10 +1,10 @@
 const { readFileSync } = require("fs")
 
 const [[numCases], ...pairTextList] = readFileSync("/dev/stdin", "utf8")
-	.split('\n')
-	.map((line) => line.split(' '))
+	.split("\n")
+	.map((line) => line.split(" "))
 
-function fitIn([firstValueString = '', secondValueString = '']) {
+function fitIn([firstValueString = "", secondValueString = ""]) {
 	const diffLength = firstValueString.length - secondValueString.length
 
 	if (diffLength < 0) return false

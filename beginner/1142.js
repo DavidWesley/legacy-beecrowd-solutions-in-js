@@ -14,7 +14,7 @@ function chunkArray(myArray = [], chunkSize = myArray.length) {
  * @param {string} replaceText
  */
 
-function moldedArray(limit, forEachNum, replaceText = '') {
+function moldedArray(limit, forEachNum, replaceText = "") {
 	const results = []
 
 	for (let value = 1; value <= limit; value++)
@@ -29,7 +29,7 @@ function main() {
 	const size = 4
 	const len = size * rows
 
-	const model = moldedArray(len, size, 'PUM')
+	const model = moldedArray(len, size, "PUM")
 	const chunksArr = chunkArray(model, size)
 
 	for (const chunk of chunksArr)

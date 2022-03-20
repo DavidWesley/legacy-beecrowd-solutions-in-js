@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [[numCases], ...pairsList] = readFileSync("/dev/stdin", "utf8").split('\n').map(line => line.split(' '))
+const [[numCases], ...pairsList] = readFileSync("/dev/stdin", "utf8").split("\n").map(line => line.split(" "))
 
 /** @typedef { { x: number, y: number } } PointType */
 /** @typedef { { firstPos: PointType, lastPos: PointType } } CircumferenceCoordsType */

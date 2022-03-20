@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
-const coordenates = input.map(coord => coord.split(' '))
+const coordenates = input.map(coord => coord.split(" "))
 
 function quadrantsIndex(x = 0, y = 0) {
 	if (x === 0 || y === 0) return
@@ -11,7 +11,7 @@ function quadrantsIndex(x = 0, y = 0) {
 
 function main() {
 	const responses = []
-	const quadrantsName = ['primeiro', 'segundo', 'terceiro', 'quarto']
+	const quadrantsName = ["primeiro", "segundo", "terceiro", "quarto"]
 
 	for (const [x, y] of coordenates) {
 		const quadrant = quadrantsIndex(+x, +y)
@@ -20,7 +20,7 @@ function main() {
 		responses.push(quadrantsName[quadrant])
 	}
 
-	console.log(responses.join('\n'))
+	console.log(responses.join("\n"))
 }
 
 main()

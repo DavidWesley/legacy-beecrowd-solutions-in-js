@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [CMD, ...values] = readFileSync("/dev/stdin", "utf8").split('\n')
+const [CMD, ...values] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 
 /** @param {number[]} values */
@@ -40,8 +40,8 @@ function selectedSupAreaToOperateFromSquareMatrix(matrix, operation) {
 		}
 	}
 
-	if (operation === 'S') return sumValues(selectedValues)
-	else if (operation === 'M') return mediaValues(selectedValues)
+	if (operation === "S") return sumValues(selectedValues)
+	else if (operation === "M") return mediaValues(selectedValues)
 }
 
 // * [0][1] -> [0][10]
@@ -55,7 +55,7 @@ function main() {
 
 	const model = createSquareModel(12)
 	const matrix = createMatrixFromModel(model, matrixValues)
-	const response = selectedSupAreaToOperateFromSquareMatrix(matrix, (CMD === 'S' ? 'S' : 'M'))
+	const response = selectedSupAreaToOperateFromSquareMatrix(matrix, (CMD === "S" ? "S" : "M"))
 
 	console.log(response.toFixed(1))
 }

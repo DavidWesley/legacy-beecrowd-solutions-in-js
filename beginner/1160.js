@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 const [[numCases], ...cases] = readFileSync("/dev/stdin", "utf8")
-	.split('\n')
-	.map(line => line.split(' ').map(Number.parseFloat))
+	.split("\n")
+	.map(line => line.split(" ").map(Number.parseFloat))
 
 for (let index = 0; index < numCases; index++) {
 	const [pA, pB, tA, tB] = cases[index]

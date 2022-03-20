@@ -1,6 +1,6 @@
 const { readFileSync } = require("fs")
 const [numLines, ...numbers] = readFileSync("/dev/stdin", "utf8")
-	.split('\n')
+	.split("\n")
 	.map(num => Number.parseInt(num, 10))
 
 function getLimits(settedLimits = [0, 0]) {
@@ -33,7 +33,7 @@ function main() {
 		`${outRange.length} out`
 	)
 
-	console.log(responses.join('\n'))
+	console.log(responses.join("\n"))
 }
 
 main()

@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
-const countOccurrencesOfCharsIntoText = (msg, chars = '') => msg.match(new RegExp(`[${chars}]`, 'gi')).length
+const countOccurrencesOfCharsIntoText = (msg, chars = "") => msg.match(new RegExp(`[${chars}]`, "gi")).length
 
 function main() {
 	const responses = []
@@ -10,7 +10,7 @@ function main() {
 		const vowels = input[i]
 		const message = input[i + 1]
 
-		if (vowels == '' || message == '') break
+		if (vowels == "" || message == "") break
 
 		responses.push(countOccurrencesOfCharsIntoText(message, vowels))
 	}

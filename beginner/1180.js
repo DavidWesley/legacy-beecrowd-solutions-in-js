@@ -14,7 +14,7 @@ function main() {
 		`Posicao: ${minValueIndex}`
 	)
 
-	console.log(responses.join('\n'))
+	console.log(responses.join("\n"))
 }
 
 main()

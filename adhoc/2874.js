@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
-const BinFormmater = new Intl.NumberFormat('en-US', {
+const BinFormmater = new Intl.NumberFormat("en-US", {
 	useGrouping: false,
 	minimumIntegerDigits: 8,
 	maximumFractionDigits: 0,
@@ -9,7 +9,7 @@ const BinFormmater = new Intl.NumberFormat('en-US', {
 
 while (input.length > 0) {
 	const line = input.shift()
-	if (line == '') break
+	if (line == "") break
 
 	const quantities = Number.parseInt(line, 10)
 

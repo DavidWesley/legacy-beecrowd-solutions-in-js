@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numLines, ...lines] = readFileSync("/dev/stdin", "utf8").split('\n')
+const [numLines, ...lines] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 class Morse {
 	/**
@@ -60,7 +60,7 @@ class Morse {
 	}
 
 	/** @param {string} msg */
-	static morseToText(msg, code = { symbol: { unit: '=', space: '.' } }) {
+	static morseToText(msg, code = { symbol: { unit: "=", space: "." } }) {
 		const { unit, space } = code.symbol
 		const MorseToCharMap = new Map(Morse.#dictionary(unit, space).map(([char, morseCode]) => [morseCode, char]))
 
@@ -68,16 +68,16 @@ class Morse {
 		const _sepChars = space.repeat(3)
 
 		return msg.split(_sepWords).map((morseWord) => {
-			return morseWord.split(_sepChars).map(code => MorseToCharMap.get(code) ?? code).join('')
-		}).join(' ')
+			return morseWord.split(_sepChars).map(code => MorseToCharMap.get(code) ?? code).join("")
+		}).join(" ")
 	}
 
 	/** @param {string} msg */
-	static textToMorse(msg, code = { symbol: { unit: '=', space: '.' } }) {
+	static textToMorse(msg, code = { symbol: { unit: "=", space: "." } }) {
 		const { unit, space } = code.symbol
 		const CharToMorseMap = new Map(Morse.#dictionary(unit, space).map(([char, morseCode]) => [char, morseCode]))
 
-		CharToMorseMap.set(' ', space) // Need solving some bug
+		CharToMorseMap.set(" ", space) // Need solving some bug
 		const _sepChars = space.repeat(3)
 
 		return [...msg.toLowerCase()].map(char => CharToMorseMap.get(char) ?? char).join(_sepChars)

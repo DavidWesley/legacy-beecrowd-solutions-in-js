@@ -2,7 +2,7 @@ const isSuccessfullyDefined = Reflect.defineProperty(String.prototype, "pad", {
 	value(pad, from = 0) {
 		const splited = [...this]
 		splited.splice(from, pad.length, ...pad)
-		return splited.join('').substr(0, this.length)
+		return splited.join("").substr(0, this.length)
 	},
 	writable: false,
 	configurable: false,
@@ -12,9 +12,9 @@ const isSuccessfullyDefined = Reflect.defineProperty(String.prototype, "pad", {
 const UNTIL = 15
 const ROW_SIZE = 39
 
-const SPACE = ' '
-const DIV = '|'
-const DASH = '-'
+const SPACE = " "
+const DIV = "|"
+const DASH = "-"
 
 function main() {
 	const separator = DASH.repeat(ROW_SIZE) // 	"---------------------------------------"
@@ -49,7 +49,7 @@ function main() {
 		output.push(currentRow)
 	}
 
-	console.log(output.concat(separator).join('\n'))
+	console.log(output.concat(separator).join("\n"))
 }
 
 if (isSuccessfullyDefined) {

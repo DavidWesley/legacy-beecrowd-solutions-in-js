@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 
 const quantitiesPerNames = readFileSync("/dev/stdin", "utf8")
-	.split('\n')
+	.split("\n")
 	.slice(0, 5)
 	.map(line => Number.parseInt(line, 10))
 

@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n').shift()
+const input = readFileSync("/dev/stdin", "utf8").split("\n").shift()
 
 function formatDuration(dur) {
 	let s = (dur % 60)

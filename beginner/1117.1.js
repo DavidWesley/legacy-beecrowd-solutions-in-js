@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const media = ([...nums] = [0]) => nums.reduce((a, b) => a + b, 0) / nums.length
 
@@ -26,10 +26,10 @@ function main() {
 
 	const mediaNotes = media(validNotes)
 
-	invalidNotes.forEach(() => { responses.push('nota invalida') })
+	invalidNotes.forEach(() => { responses.push("nota invalida") })
 	responses.push(`media = ${mediaNotes.toFixed(2)}`)
 
-	console.log(responses.join('\n'))
+	console.log(responses.join("\n"))
 }
 
 main()

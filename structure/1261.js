@@ -1,14 +1,14 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
-const Integer = (num = '') => Number.parseInt(num, 10)
+const Integer = (num = "") => Number.parseInt(num, 10)
 
-const [M, N] = input.shift().split(' ').map(Integer)
+const [M, N] = input.shift().split(" ").map(Integer)
 
 const dictonary = new Map()
 
 for (let lineIndex = 0; lineIndex < M; lineIndex++) {
-	const [word, value] = input.shift().split(' ')
+	const [word, value] = input.shift().split(" ")
 	dictonary.set(word, Integer(value))
 }
 
@@ -18,8 +18,8 @@ for (let lineIndex = 0; lineIndex < N; lineIndex++) {
 	let line = input.shift()
 	const keys = []
 
-	while (line !== '.') {
-		keys.push(...line.split(' ').filter(word => dictonary.has(word)))
+	while (line !== ".") {
+		keys.push(...line.split(" ").filter(word => dictonary.has(word)))
 		line = input.shift()
 	}
 

@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const FuelCodesEnum = {
 	1: "Alcool",
@@ -23,7 +23,7 @@ function main() {
 		([fuelType, quantity]) => `${fuelType}: ${quantity}`
 	)
 
-	console.log(responses.join('\n'))
+	console.log(responses.join("\n"))
 	console.log("MUITO OBRIGADO")
 }
 

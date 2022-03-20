@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n').map(Number.parseFloat)
+const input = readFileSync("/dev/stdin", "utf8").split("\n").map(Number.parseFloat)
 
 const PI = 3.14
 

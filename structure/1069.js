@@ -1,5 +1,5 @@
-const { readFileSync } = require('fs')
-const [numCases, ...cases] = readFileSync("/dev/stdin", "utf8").split('\n')
+const { readFileSync } = require("fs")
+const [numCases, ...cases] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function main() {
 	const responses = cases.slice(0, +numCases).map((_, index) => {

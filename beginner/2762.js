@@ -21,12 +21,12 @@ const DEFFAULT_VALID_MAX_VALUE_NUM = Math.pow(2, 31) - 1
 
 function revertNumParts(originalNumber) {
 	return `${originalNumber}`
-		.split('.')
+		.split(".")
 		.slice(0, 2)
-		.map(part => part.replace(/^[0]+/, '') || '0')
+		.map(part => part.replace(/^[0]+/, "") || "0")
 		.map(part => Long.min(part, DEFFAULT_VALID_MAX_VALUE_NUM))
 		.reverse()
-		.join('.')
+		.join(".")
 }
 
 console.log(revertNumParts(input))

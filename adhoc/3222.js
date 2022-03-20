@@ -11,7 +11,7 @@ function chunkArray(myArray = [], chunkSize = myArray.length) {
 function PlayfairCypher(keyPhrase) {
 	const formmatString = (str = "") => str.replaceAll(/[ ]/, "").toUpperCase()
 
-	const upperAlphabet = `ABCDEFGHIJKLMNOPRSTUVWXYZ` //Except "Q"
+	const upperAlphabet = "ABCDEFGHIJKLMNOPRSTUVWXYZ" //Except "Q"
 	const keys = formmatString(keyPhrase).concat(upperAlphabet)
 
 	const cypher = Object.freeze(chunkArray([...new Set(keys)], 5))

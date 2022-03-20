@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 const [numTestCases, ...cases] = readFileSync("/stdin", "utf8").split("\n")
 
-const reverseStr = str => [...str].reverse().join('')
+const reverseStr = str => [...str].reverse().join("")
 
 /** @param {any[][]} cases */
 
@@ -26,7 +26,7 @@ function main() {
 	const formmatedCases = cases.map((pair) => pair.split(" ")).slice(0, +numTestCases)
 	const mirrorSequences = makeMirrorSequence(formmatedCases)
 
-	console.log(mirrorSequences.join('\n'))
+	console.log(mirrorSequences.join("\n"))
 }
 
 main()

@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const limit = readFileSync("/dev/stdin", "utf8").split('\n').shift()
+const limit = readFileSync("/dev/stdin", "utf8").split("\n").shift()
 
 function main() {
 	const responses = []

@@ -1,14 +1,14 @@
 const { readFileSync } = require("fs")
 const [key, numLines, ...lines] = readFileSync("/dev/stdin", "utf8").split("\n")
 
-const ALPHABET = `ABCDEFGHIJKLMNOPQRSTUVWXYZ`.toUpperCase()
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toUpperCase()
 
 class VigenèreCipher {
 	#CIPHER_TABLE
 	#PRIVATE_KEY
 
 	constructor(private_key) {
-		this.#PRIVATE_KEY = String(private_key ?? '')
+		this.#PRIVATE_KEY = String(private_key ?? "")
 		this.#CIPHER_TABLE = this.#createTable()
 	}
 
@@ -28,7 +28,7 @@ class VigenèreCipher {
 	encryptText(key, text, from = 0) {
 		return Array
 			.from(text, (char) => this.#CIPHER_TABLE[key.charAt(from++ % key.length).toUpperCase()][char.toUpperCase()] ?? char)
-			.join('')
+			.join("")
 			.toLowerCase()
 	}
 }

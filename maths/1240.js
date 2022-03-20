@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 const [[numCases], ...lines] = readFileSync("/dev/stdin", "utf8")
-	.split('\n')
-	.map(line => line.split(' '))
+	.split("\n")
+	.map(line => line.split(" "))
 
 const fitFromEnd = (target, tail) => target.slice((-1) * tail.length) === tail
 

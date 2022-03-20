@@ -18,7 +18,7 @@ for (let [index, [B, E]] of Object.entries(cases)) {
 		result += i
 	}
 
-	result += [...result].reverse().join('')
+	result += [...result].reverse().join("")
 	results.push(result)
 }
 

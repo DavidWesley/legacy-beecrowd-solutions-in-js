@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numTestCases, ...input] = readFileSync("/dev/stdin", "utf8").split('\n')
+const [numTestCases, ...input] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 /**
  * @param {string} str1

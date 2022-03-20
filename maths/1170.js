@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numLines, ...lines] = readFileSync("/dev/stdin", "utf8").split('\n')
+const [numLines, ...lines] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function daysToFinishFood(food, tax) {
 	if (food <= 0) return 1
@@ -14,7 +14,7 @@ function main() {
 	const foods = lines.slice(0, +numLines).map(Number.parseFloat)
 	const messages = foods.map(food => `${daysToFinishFood(food, TAX)} dias`)
 
-	console.log(messages.join('\n'))
+	console.log(messages.join("\n"))
 }
 
 main()

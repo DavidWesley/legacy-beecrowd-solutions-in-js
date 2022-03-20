@@ -1,13 +1,13 @@
 const { readFileSync } = require("fs")
 const [connectorA, connectorB] = readFileSync("/dev/stdin", "utf8")
-	.split('\n')
+	.split("\n")
 	.slice(0, 2)
-	.map(line => line.split(' ').slice(0, 5).map(Number))
+	.map(line => line.split(" ").slice(0, 5).map(Number))
 
 const Connector = {
 	codes: {
-		0: 'SOCKET',
-		1: 'PLUG',
+		0: "SOCKET",
+		1: "PLUG",
 	},
 
 	/**
@@ -25,7 +25,7 @@ const Connector = {
 
 function main() {
 	const isCompatible = Connector.isCompatible(connectorA, connectorB)
-	console.log(isCompatible ? 'Y' : 'N')
+	console.log(isCompatible ? "Y" : "N")
 }
 
 main()

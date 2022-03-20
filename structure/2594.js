@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numCases, ...cases] = readFileSync("/dev/stdin", "utf8").split('\n')
+const [numCases, ...cases] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 /**
  * @param {string} word
@@ -7,7 +7,7 @@ const [numCases, ...cases] = readFileSync("/dev/stdin", "utf8").split('\n')
  */
 
 function findWordPositionsFromText(word, text) {
-	const regexGeneratedFromWord = RegExp(`\\b${word}\\b`, 'gd')
+	const regexGeneratedFromWord = RegExp(`\\b${word}\\b`, "gd")
 	const matchedIndexes = [...text.matchAll(regexGeneratedFromWord)]
 
 	return matchedIndexes.length ? matchedIndexes.map(match => match.index) : [-1]
@@ -22,7 +22,7 @@ function main() {
 		const currentSearchWord = cases[index + 1]
 		const wordIndexesOnTextList = findWordPositionsFromText(currentSearchWord, currentText)
 
-		responses.push(wordIndexesOnTextList.join(' '))
+		responses.push(wordIndexesOnTextList.join(" "))
 	}
 
 	console.log(responses.join("\n"))

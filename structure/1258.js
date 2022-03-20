@@ -1,12 +1,12 @@
-const { readFileSync } = require('fs')
-const inputs = readFileSync('/dev/stdin', 'utf8').split('\n')
+const { readFileSync } = require("fs")
+const inputs = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function main() {
 	const classes = getterClasses(inputs)
 	const shirtsSorted = shirtSorter(classes)
 	const output = printShirtsByClasses(shirtsSorted)
 
-	console.log(output.join('\n\n'))
+	console.log(output.join("\n\n"))
 }
 
 function getterClasses(classes = []) {
@@ -23,7 +23,7 @@ function getterClasses(classes = []) {
 
 		while (shirtsData.length > 0) {
 			const [name, details] = shirtsData.splice(0, 2)
-			const [color, size] = details.split(' ')
+			const [color, size] = details.split(" ")
 
 			const shirt = { color: color, size: size, name: name }
 			thisClass.push(shirt)
@@ -44,7 +44,7 @@ function getterClasses(classes = []) {
  * @return {shirt}
  */
 
-function shirtSorter(gruopsOfClasses = [[{ color: '', size: '', name: '' }]]) {
+function shirtSorter(gruopsOfClasses = [[{ color: "", size: "", name: "" }]]) {
 	const shirtsClassifier = {
 		sizes: { P: 0, M: 1, G: 2 },
 		colours: { branco: 0, vermelho: 1 }
@@ -55,7 +55,7 @@ function shirtSorter(gruopsOfClasses = [[{ color: '', size: '', name: '' }]]) {
 			const { colours, sizes } = shirtsClassifier
 
 			const coloursOrderValue = colours[a.color] - colours[b.color]
-			const namesOrderValue = a.name.localeCompare(b.name, 'pt-BR')
+			const namesOrderValue = a.name.localeCompare(b.name, "pt-BR")
 			const sizesOrderValue = sizes[a.size] - sizes[b.size]
 
 			if (coloursOrderValue !== 0) return coloursOrderValue
@@ -73,7 +73,7 @@ function shirtSorter(gruopsOfClasses = [[{ color: '', size: '', name: '' }]]) {
  */
 
 function printShirtsByClasses(gruopsOfShirts) {
-	return gruopsOfShirts.map(shirts => shirts.map(({ name, size, color }) => `${color} ${size} ${name}`).join('\n'))
+	return gruopsOfShirts.map(shirts => shirts.map(({ name, size, color }) => `${color} ${size} ${name}`).join("\n"))
 }
 
 // RUN THE CODE

@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const SquareList = Array.from({ length: 101 }, (_, i) => Math.pow(i, 2))
 
@@ -26,7 +26,7 @@ function main() {
 	const responses = []
 
 	for (const line of input)
-		if (line === '') break // EOFile Condition
+		if (line === "") break // EOFile Condition
 		else responses.push(isSumOfTwoSquares(+line) ? "YES" : "NO")
 
 	console.log(responses.join("\n"))

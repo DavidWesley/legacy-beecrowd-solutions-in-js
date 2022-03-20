@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split(' ')
+const input = readFileSync("/dev/stdin", "utf8").split(" ")
 
 const [numOne, numTwo] = input.map(num => Number.parseInt(num))
 

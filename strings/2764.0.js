@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')[0].split('\/')
+const input = readFileSync("/dev/stdin", "utf8").split("\n")[0].split("\/")
 
 function main() {
 	const [day, month, year] = input.slice(0, 3)

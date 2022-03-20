@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [salary] = readFileSync("/dev/stdin", "utf8").split('\n')
+const [salary] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function getReadjustmentRate(currentSalary) {
 	const inRange = ((value) => (min, max = value) => value === Math.min(Math.max(min, value), max))(currentSalary)

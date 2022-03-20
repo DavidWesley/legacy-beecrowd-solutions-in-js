@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numTestCases, ...numbers] = readFileSync("/dev/stdin", "utf8").split('\n')
+const [numTestCases, ...numbers] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function getFrequenciesInQueue(list) {
 	return list.reduce((frequencies, key) => (frequencies[`${key}`] = ++frequencies[`${key}`] || 1, frequencies), {})

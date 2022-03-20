@@ -28,7 +28,7 @@ function main() {
 		currenciesValues.push(formattedCurrencyText)
 	}
 
-	console.log(currenciesValues.join('\n'))
+	console.log(currenciesValues.join("\n"))
 }
 
 main()

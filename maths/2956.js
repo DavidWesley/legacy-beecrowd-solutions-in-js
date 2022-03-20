@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 
 const [base, height] = readFileSync("/dev/stdin", "utf8")
-	.split(' ')
+	.split(" ")
 	.slice(0, 2)
 	.map(Number.parseFloat)
 

@@ -19,7 +19,7 @@ const caesarCipher = (str, shift, decrypt = false) => {
 			else if (c >= minLower && c <= maxLower) return String.fromCharCode(((c - minLower + n) % 26) + minLower)
 			else return char
 		})
-		.join('')
+		.join("")
 }
 
 function main() {
@@ -34,7 +34,7 @@ function main() {
 		decodedTextList.push(decodedText)
 	}
 
-	console.log(decodedTextList.join('\n'))
+	console.log(decodedTextList.join("\n"))
 }
 
 main()

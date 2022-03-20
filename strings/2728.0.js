@@ -8,7 +8,7 @@ const input = readFileSync("/dev/stdin", "utf8").split("\n")
 function zip(...arrs) {
 	return Array.from(
 		{ length: Math.max.apply(null, arrs.map((arr) => arr.length)) },
-		(_, index) => arrs.map((arr) => arr[index] ?? ''))
+		(_, index) => arrs.map((arr) => arr[index] ?? ""))
 }
 
 const getInitialsCharForEachWord = (words = "") => words.match(/\b\w/g)

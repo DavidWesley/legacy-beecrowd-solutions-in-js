@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 
 const input = readFileSync("/dev/stdin", "utf8")
-	.split('\n')
+	.split("\n")
 	.map(line => Number.parseInt(line, 10))
 
 function main() {

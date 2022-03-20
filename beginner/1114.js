@@ -1,8 +1,8 @@
 const { readFileSync } = require("fs")
-const inputKeys = readFileSync("/dev/stdin", "utf8").split('\n')
+const inputKeys = readFileSync("/dev/stdin", "utf8").split("\n")
 
-function validateKey(inputKey = '') {
-	const defaultPassword = '2002'
+function validateKey(inputKey = "") {
+	const defaultPassword = "2002"
 	return inputKey === defaultPassword
 }
 
@@ -16,7 +16,7 @@ function main() {
 		else { responses.push("Senha Invalida") }
 	}
 
-	console.log(responses.join('\n'))
+	console.log(responses.join("\n"))
 }
 
 main()

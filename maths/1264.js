@@ -1,9 +1,9 @@
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
-const ALPHABET = `ABCDEFGHIJKLMNOPQRSTUVWXYZ`
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-const digits = `0123456789`
+const digits = "0123456789"
 const lowers = ALPHABET.toLowerCase()
 const uppers = ALPHABET.toUpperCase()
 

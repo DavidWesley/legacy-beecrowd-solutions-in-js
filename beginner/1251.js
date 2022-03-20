@@ -22,7 +22,7 @@ function orderEntries(entries = [[0, 0]]) {
 function main() {
 	const responses = []
 
-	const charsSets = inputs.filter(input => input != '')
+	const charsSets = inputs.filter(input => input != "")
 	const charsSetsCodes = charsSets.map(returnASCIICode)
 	const charsCodesFrequenciesEntries = charsSetsCodes.map(getFrequencies)
 	const ordenedCharsFrequenciesEntries = charsCodesFrequenciesEntries.map(orderEntries)
@@ -34,7 +34,7 @@ function main() {
 		responses.push(joinedEntries.join("\n"))
 	}
 
-	console.log(responses.join('\n\n'))
+	console.log(responses.join("\n\n"))
 }
 
 main()

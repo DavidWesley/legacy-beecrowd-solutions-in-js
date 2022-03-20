@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 
 const sizes = readFileSync("/dev/stdin", "utf8")
-	.split('\n')
+	.split("\n")
 	.map(size => Number.parseInt(size, 10))
 
 function appendTrunkFromTopTree(tree = [], size = 2, from = 0) {
@@ -9,7 +9,7 @@ function appendTrunkFromTopTree(tree = [], size = 2, from = 0) {
 	return tree.concat(tree.slice(from, until))
 }
 
-function createTree(size, sheetsSymbol = '*', separatorSymbol = ' ') {
+function createTree(size, sheetsSymbol = "*", separatorSymbol = " ") {
 	sheetsSymbol = sheetsSymbol.charAt(0)
 	separatorSymbol = separatorSymbol.charAt(0)
 
@@ -24,7 +24,7 @@ function createTree(size, sheetsSymbol = '*', separatorSymbol = ' ') {
 	})
 
 	const tree = appendTrunkFromTopTree(topTreeArr)
-	return tree.join('') // tree
+	return tree.join("") // tree
 }
 
 const isOdd = (num = 0) => Math.abs(Number(num)) % 2 === 1
@@ -35,7 +35,7 @@ function main() {
 		return trees
 	}, [])
 
-	console.log(trees.join('\n'))
+	console.log(trees.join("\n"))
 }
 
 main()

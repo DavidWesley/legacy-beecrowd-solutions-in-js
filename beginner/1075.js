@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const targetNumber = +readFileSync("/dev/stdin", "utf8").split('\n').shift()
+const targetNumber = +readFileSync("/dev/stdin", "utf8").split("\n").shift()
 
 function createInterval(min = 0, max = min, step = 2) {
 	step = step >= 2 ? step : 2
@@ -20,7 +20,7 @@ function main() {
 	const max = 1e4
 	const responses = returnListFromRest(targetNumber, rest, max)
 
-	console.log(responses.join('\n'))
+	console.log(responses.join("\n"))
 }
 
 main()

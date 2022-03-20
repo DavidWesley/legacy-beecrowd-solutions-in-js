@@ -23,7 +23,7 @@ function main() {
 		const v1 = input[index]
 		const v2 = input[index + 1]
 
-		if (v1 == '' || v2 == '') break
+		if (v1 == "" || v2 == "") break
 
 		output.push(Long.xor(v1, v2))
 	}

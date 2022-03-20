@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const inputs = readFileSync("/dev/stdin", "utf8").split('\n')
+const inputs = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const isOdd = (num = 0) => Math.abs(Number(num)) % 2 === 1
 const isEven = (num = 1) => Math.abs(Number(num)) % 2 === 0
@@ -17,7 +17,7 @@ function pureOrder([...entries]) {
 		const sequenceValues = entries.splice(0, N)
 		const sortedValues = sequenceValues.sort((a, b) => compareAndSortValuesFromMod(a, b, M))
 
-		result.push(sortedValues.join('\n'))
+		result.push(sortedValues.join("\n"))
 	}
 
 	return result
@@ -28,7 +28,7 @@ function main() {
 	const formattedInputs = inputs.map(parseStringsEntriesToIntegers)
 	const responses = pureOrder(formattedInputs)
 
-	console.log(responses.join('\n'))
+	console.log(responses.join("\n"))
 }
 
 main()
@@ -51,11 +51,11 @@ function compareAndSortValuesFromMod(a = 0, b = 0, targetMod = 1) {
 	return 0 // resultado padrão
 }
 
-function parseStringsEntriesToIntegers(currentValue = '') {
-	const toInt = (value = '') => Math.trunc(Number(value))
+function parseStringsEntriesToIntegers(currentValue = "") {
+	const toInt = (value = "") => Math.trunc(Number(value))
 	const parsedToInt = toInt(currentValue)
 
-	if (Number.isNaN(parsedToInt)) return currentValue.split(' ').map(toInt)
+	if (Number.isNaN(parsedToInt)) return currentValue.split(" ").map(toInt)
 	return parsedToInt
 }
 

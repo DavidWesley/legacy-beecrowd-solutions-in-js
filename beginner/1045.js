@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split(' ')
+const input = readFileSync("/dev/stdin", "utf8").split(" ")
 
 const [A, B, C] = input.slice(0, 3).map(Number.parseFloat)
 
@@ -17,20 +17,20 @@ function getTriangleTypesFromSides(sides = [0, 0, 0]) {
 
 	const triangleTypes = []
 
-	if (!isTriangle(a, b, c)) triangleTypes.push('NAO FORMA TRIANGULO')
-	else if (Math.pow(a, 2) == Math.pow(b, 2) + Math.pow(c, 2)) triangleTypes.push('TRIANGULO RETANGULO')
-	else if (Math.pow(a, 2) > Math.pow(b, 2) + Math.pow(c, 2)) triangleTypes.push('TRIANGULO OBTUSANGULO')
-	else if (Math.pow(a, 2) < Math.pow(b, 2) + Math.pow(c, 2)) triangleTypes.push('TRIANGULO ACUTANGULO')
+	if (!isTriangle(a, b, c)) triangleTypes.push("NAO FORMA TRIANGULO")
+	else if (Math.pow(a, 2) == Math.pow(b, 2) + Math.pow(c, 2)) triangleTypes.push("TRIANGULO RETANGULO")
+	else if (Math.pow(a, 2) > Math.pow(b, 2) + Math.pow(c, 2)) triangleTypes.push("TRIANGULO OBTUSANGULO")
+	else if (Math.pow(a, 2) < Math.pow(b, 2) + Math.pow(c, 2)) triangleTypes.push("TRIANGULO ACUTANGULO")
 
-	if (sides.every(s => s === a)) triangleTypes.push('TRIANGULO EQUILATERO')
-	else if (a == b || a == c || b == c) triangleTypes.push('TRIANGULO ISOSCELES')
+	if (sides.every(s => s === a)) triangleTypes.push("TRIANGULO EQUILATERO")
+	else if (a == b || a == c || b == c) triangleTypes.push("TRIANGULO ISOSCELES")
 
 	return triangleTypes
 }
 
 function main() {
 	const responses = getTriangleTypesFromSides([A, B, C])
-	console.log(responses.join('\n'))
+	console.log(responses.join("\n"))
 }
 
 main()

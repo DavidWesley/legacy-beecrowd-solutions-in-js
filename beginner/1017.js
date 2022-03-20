@@ -1,6 +1,6 @@
 const { readFileSync } = require("fs")
 
-const [time, velocity] = readFileSync("/dev/stdin", "utf8").split('\n').slice(0, 2).map(Number.parseFloat)
+const [time, velocity] = readFileSync("/dev/stdin", "utf8").split("\n").slice(0, 2).map(Number.parseFloat)
 
 function consumeGas(t, v) {
 	const consumDefault = 12

@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numLines, ...lines] = readFileSync("/dev/stdin", "utf8").split('\n')
+const [numLines, ...lines] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function extractNumbersFromText(text, quantities = 1) {
 	return (text.match(/([1-9]\d*)/g) ?? new Array(quantities).fill(0))

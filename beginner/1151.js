@@ -34,7 +34,7 @@ function main() {
 	const fibList = FibonacciList(size)
 	const firstFibValuesArr = fibList(size)
 
-	console.log(firstFibValuesArr.join(' '))
+	console.log(firstFibValuesArr.join(" "))
 }
 
 main()

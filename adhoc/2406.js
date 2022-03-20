@@ -28,15 +28,15 @@ const Expressions = {
 	}
 }
 
-Expressions.chain = { opened: '(', closed: ')' }
-Expressions.chain = { opened: '{', closed: '}' }
-Expressions.chain = { opened: '[', closed: ']' }
+Expressions.chain = { opened: "(", closed: ")" }
+Expressions.chain = { opened: "{", closed: "}" }
+Expressions.chain = { opened: "[", closed: "]" }
 
 function main() {
 	const responses = lines
 		.slice(0, +numLines)
 		.map(Expressions.validate)
-		.map((b) => b ? 'S' : 'N')
+		.map((b) => b ? "S" : "N")
 
 	console.log(responses.join("\n"))
 }

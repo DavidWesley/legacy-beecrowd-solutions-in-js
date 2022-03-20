@@ -25,7 +25,7 @@ class FixedHashTable {
 	}
 
 	print() {
-		const print = Array.from(this.#hashTable.entries(), ([key, values]) => [key, ...values, '\\'].join(" -> "))
+		const print = Array.from(this.#hashTable.entries(), ([key, values]) => [key, ...values, "\\"].join(" -> "))
 		return print.join("\n")
 	}
 }
@@ -43,7 +43,7 @@ function main() {
 		responses.push(formattedHashTable)
 	}
 
-	console.log(responses.join('\n\n'))
+	console.log(responses.join("\n\n"))
 }
 
 main()

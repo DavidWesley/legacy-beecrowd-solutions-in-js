@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numLines, ...lines] = readFileSync("/dev/stdin", "utf8").split('\n')
+const [numLines, ...lines] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 class Morse {
 	#dot; #space
@@ -22,7 +22,7 @@ class Morse {
 		this.#MorseToCharMap = new Map(this.#dict.map(([char, morseCode]) => [morseCode, char]))
 		this.#CharToMorseMap = new Map(this.#dict.map(([char, morseCode]) => [char, morseCode]))
 
-		this.#CharToMorseMap.set(' ', this.#space) // Need solving some bug
+		this.#CharToMorseMap.set(" ", this.#space) // Need solving some bug
 	}
 
 	/**
@@ -84,8 +84,8 @@ class Morse {
 		return msg.split(this.#sepWords).map(function (morseWord) {
 			return morseWord.split(this.#sepChars).map(function (code) {
 				return this.#MorseToCharMap.get(code) ?? code
-			}, this).join('')
-		}, this).join(' ')
+			}, this).join("")
+		}, this).join(" ")
 	}
 
 	/** @param {string} msg */
@@ -97,7 +97,7 @@ class Morse {
 }
 
 function main() {
-	const morse = new Morse({ symbol: { space: '.', unit: '=' } })
+	const morse = new Morse({ symbol: { space: ".", unit: "=" } })
 	const responses = lines.slice(0, +numLines).map(morseCode => morse.morseToText(morseCode))
 
 	console.log(responses.join("\n"))

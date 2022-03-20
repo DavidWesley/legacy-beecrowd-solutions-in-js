@@ -1,13 +1,13 @@
 const { readFileSync } = require("fs")
 
 const [[numCases], ...wordsPairsList] = readFileSync("/dev/stdin", "utf8")
-	.split('\n')
-	.map(words => words.split(' '))
+	.split("\n")
+	.map(words => words.split(" "))
 
 function replaceAndJoinWords([first, last]) {
 	return Array
 		.from({ length: Math.max(first.length, last.length) }, (_, i) => `${first.charAt(i)}${last.charAt(i)}`)
-		.join('')
+		.join("")
 }
 
 function main() {

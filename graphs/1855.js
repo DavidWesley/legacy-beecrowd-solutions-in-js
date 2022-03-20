@@ -2,14 +2,14 @@ const { readFileSync } = require("fs")
 const [numCols, numLines, ...map] = readFileSync("/dev/stdin", "utf8").split(/\s/g)
 
 const Symbol = Object.freeze({
-	chest: '*',
-	dot: '.',
-	invalid: '!',
+	chest: "*",
+	dot: ".",
+	invalid: "!",
 	Directions: Object.freeze({
-		up: '^',
-		down: 'v',
-		left: '<',
-		right: '>',
+		up: "^",
+		down: "v",
+		left: "<",
+		right: ">",
 	}),
 })
 
@@ -18,10 +18,10 @@ function main() {
 
 	for (
 		let
-		plainIndex = 0,
-		rowIndex = 0,
-		colIndex = 0,
-		currDirectionSymbol = Symbol.Directions.right;
+			plainIndex = 0,
+			rowIndex = 0,
+			colIndex = 0,
+			currDirectionSymbol = Symbol.Directions.right;
 
 		plainIndex < flattedGraph.length;
 

@@ -1,7 +1,6 @@
 const { readFileSync } = require("fs")
 const inputs = readFileSync("/dev/stdin", "utf8").split("\n")
-const inputPairs = inputs.map((inputPair) =>
-	inputPair.split(" ").map((num) => Number.parseInt(num))
+const inputPairs = inputs.map((inputPair) => inputPair.split(" ").map((num) => Number.parseInt(num))
 )
 
 function orderLimits([firstLimit, secondLimit = firstLimit]) {

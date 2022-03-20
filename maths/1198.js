@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 const soldiersPairs = readFileSync("/dev/stdin", "utf8")
-	.split('\n')
-	.map(line => line.split(' ').map(value => value === '' ? '' : BigInt(value)))
+	.split("\n")
+	.map(line => line.split(" ").map(value => value === "" ? "" : BigInt(value)))
 
 /** @param {bigint[]} nums */
 function bigintAbsDiff(...nums) {
@@ -15,7 +15,7 @@ function main() {
 	const responses = []
 
 	for (const [H, O] of soldiersPairs) {
-		if (H === '' || O === '') break // EOFile Condition Verification
+		if (H === "" || O === "") break // EOFile Condition Verification
 
 		const diff = bigintAbsDiff(H, O).toString()
 		responses.push(diff)

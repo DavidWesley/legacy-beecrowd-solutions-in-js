@@ -1,5 +1,5 @@
-const { readFileSync } = require('fs')
-const [numTestCases, ...equations] = readFileSync("/dev/stdin", "utf8").split('\n')
+const { readFileSync } = require("fs")
+const [numTestCases, ...equations] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const FormattedEquationsFunctionsEnum = Object.freeze({
 	sum: (N1 = 1, D1 = 1, N2 = 0, D2 = 0) => `${(N1 * D2 + N2 * D1)}\/${(D1 * D2)}`,
@@ -36,14 +36,14 @@ function resolveEquation(equation) {
 /** @param { string } fraction */
 
 function destructFraction(fraction) {
-	return fraction.replace(/\s/gs, '').split("\/").map(Number.parseFloat)
+	return fraction.replace(/\s/gs, "").split("\/").map(Number.parseFloat)
 }
 
 /** @param {string} equation */
 
 function destructSimpleLinearEquation(equation) {
 	const equationRegex = /(\d+)\/(\d+)([\+\-\*\/])(\d+)\/(\d+)/s
-	return equation.replace(/\s/g, '').match(equationRegex).slice(1, 5)
+	return equation.replace(/\s/g, "").match(equationRegex).slice(1, 5)
 }
 
 
@@ -54,10 +54,10 @@ function destructSimpleLinearEquation(equation) {
 function defineOperation(equation) {
 	const [N1, D1, operator, N2, D2] = equation
 
-	if (operator === '+') return FormattedEquationsFunctionsEnum.sum(N1, D1, N2, D2)
-	else if (operator === '-') return FormattedEquationsFunctionsEnum.subtract(N1, D1, N2, D2)
-	else if (operator === '*') return FormattedEquationsFunctionsEnum.multiply(N1, D1, N2, D2)
-	else if (operator === '/') return FormattedEquationsFunctionsEnum.divide(N1, D1, N2, D2)
+	if (operator === "+") return FormattedEquationsFunctionsEnum.sum(N1, D1, N2, D2)
+	else if (operator === "-") return FormattedEquationsFunctionsEnum.subtract(N1, D1, N2, D2)
+	else if (operator === "*") return FormattedEquationsFunctionsEnum.multiply(N1, D1, N2, D2)
+	else if (operator === "/") return FormattedEquationsFunctionsEnum.divide(N1, D1, N2, D2)
 
 	return FormattedEquationsFunctionsEnum.multiply(N1, D1)
 }

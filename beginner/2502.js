@@ -19,7 +19,7 @@ const Chars = {
  * @param {{firstCypher: string, secondCypher: string}} cypher
  */
 
-function decryptStringsList(encryptedStrList, cypher = { firstCypher: '', secondCypher: '' }) {
+function decryptStringsList(encryptedStrList, cypher = { firstCypher: "", secondCypher: "" }) {
 	const { firstCypher, secondCypher } = cypher
 
 	const [normalizedFirstCypher, normalizedSecondCypher] = [firstCypher, secondCypher].map((cypher) => cypher.toLowerCase().replace(/\W/g, ""))

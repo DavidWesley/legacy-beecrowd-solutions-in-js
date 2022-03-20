@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 
 const [firstLimit, secondLimit] = readFileSync("/dev/stdin", "utf8")
-	.split('\n')
+	.split("\n")
 	.slice(0, 2)
 	.map((num) => Number.parseInt(num, 10))
 
@@ -23,7 +23,7 @@ function main() {
 	const [minLimit, maxLimit] = sorter([firstLimit, secondLimit])
 	const responses = returnNumFromRestValues(minLimit, maxLimit, 5, [3, 2])
 
-	console.log(responses.join('\n'))
+	console.log(responses.join("\n"))
 }
 
 main()

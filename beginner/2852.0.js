@@ -1,10 +1,10 @@
 const { readFileSync } = require("fs")
 const [key, numLines, ...lines] = readFileSync("/dev/stdin", "utf8").split("\n")
 
-const ALPHABET = `ABCDEFGHIJKLMNOPQRSTUVWXYZ`.toUpperCase()
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toUpperCase()
 
 function VigenèreCipher(private_key) {
-	const PRIVATE_KEY = String(private_key ?? '')
+	const PRIVATE_KEY = String(private_key ?? "")
 
 	function createTable() {
 		const cypherTable = {}
@@ -29,7 +29,7 @@ function VigenèreCipher(private_key) {
 			(match) => {
 				return Array
 					.from(match, (char) => CIPHER[key.charAt(index++ % key.length).toUpperCase()][char.toUpperCase()] || char)
-					.join('')
+					.join("")
 					.toLowerCase()
 			})
 

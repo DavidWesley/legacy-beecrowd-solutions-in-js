@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numCases, ...lines] = readFileSync("/dev/stdin", "utf8").split('\n')
+const [numCases, ...lines] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const output = new Array(+numCases)
 

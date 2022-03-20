@@ -47,7 +47,7 @@ function main() {
 			no: [Has.SpecialChars],
 		})
 
-		return valid ? 'Senha valida.' : 'Senha invalida.'
+		return valid ? "Senha valida." : "Senha invalida."
 	})
 
 	console.log(responses.join("\n"))

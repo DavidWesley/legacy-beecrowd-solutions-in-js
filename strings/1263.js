@@ -3,7 +3,7 @@ const cases = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function returnInittialLettersFromText(text = "") {
 	return text
-		.replace(/(?<=[A-Z])\w+/gi, '')
+		.replace(/(?<=[A-Z])\w+/gi, "")
 		.toLowerCase()
 		.split(/\s+/gim)
 }

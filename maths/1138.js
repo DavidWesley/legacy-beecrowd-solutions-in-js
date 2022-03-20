@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 
-const input = readFileSync("/dev/stdin", "utf8").split('\n').map(line => {
-	const [A, B] = line.split(' ')
+const input = readFileSync("/dev/stdin", "utf8").split("\n").map(line => {
+	const [A, B] = line.split(" ")
 	return [Number.parseInt(A, 10), Number.parseInt(B, 10)]
 })
 
@@ -83,12 +83,12 @@ function main() {
 		const min = memo[X] || countOccurrences(X)
 		const max = memo[Y] || countOccurrences(Y)
 
-		if (!Boolean(X in memo)) memo[X] = min // Trying optimazing
-		if (!Boolean(Y in memo)) memo[Y] = max // Trying optimazing
+		if (!(X in memo)) memo[X] = min // Trying optimazing
+		if (!(Y in memo)) memo[Y] = max // Trying optimazing
 
 		const result = Array.from({ length: 10 }, (_, i) => max[i] - min[i])
 
-		responses.push(result.join(' '))
+		responses.push(result.join(" "))
 	}
 
 	console.log(responses.join("\n"))

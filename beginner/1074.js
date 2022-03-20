@@ -1,6 +1,6 @@
 const { readFileSync } = require("fs")
 const [numCases, ...numbersList] = readFileSync("/dev/stdin", "utf8")
-	.split('\n')
+	.split("\n")
 	.map(num => Number.parseInt(num, 10))
 
 const isNegative = (num = 0) => Number(num) < 0
@@ -26,7 +26,7 @@ function main() {
 		.slice(0, numCases)
 		.map(defineNumberProperties)
 
-	console.log(responses.join('\n'))
+	console.log(responses.join("\n"))
 }
 
 main()

@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [income] = readFileSync("/dev/stdin", "utf8").split('\n')
+const [income] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const RangeConstructor = (value) => (min, max = Number.POSITIVE_INFINITY) => value === Math.min(Math.max(min, value), max)
 

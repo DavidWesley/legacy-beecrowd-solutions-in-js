@@ -23,7 +23,7 @@ function main() {
 	const encryptedChristmasTexts = []
 
 	for (const text of input)
-		if (text === '') break
+		if (text === "") break
 		else encryptedChristmasTexts.push(text)
 
 	const { decryptChristimasText } = ChristmasCypher

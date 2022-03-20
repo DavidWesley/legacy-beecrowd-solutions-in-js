@@ -1,10 +1,10 @@
 const { readFileSync } = require("fs")
-const [input] = readFileSync("/dev/stdin", "utf8").split('\n')
+const [input] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function convertNumberToExponentialForm(number, precision, exponentiaLength = 0) {
-	const sign = (s) => s ? '-' : '+' // Transforming BUG into Feature
+	const sign = (s) => s ? "-" : "+" // Transforming BUG into Feature
 
-	const exponentialForm = new Intl.NumberFormat('en-US', {
+	const exponentialForm = new Intl.NumberFormat("en-US", {
 		notation: "scientific",
 		signDisplay: "always",
 		style: "decimal",
@@ -17,7 +17,7 @@ function convertNumberToExponentialForm(number, precision, exponentiaLength = 0)
 		.match(/(?<mantissa>[+-]\d+\.\d*E)(?<signalExpoent>[+-]*)(?<exponent>\d*)$/i)
 		.groups
 
-	return `${mantissa}${sign(signalExpoent)}${exponent.padStart(exponentiaLength, '0')}`
+	return `${mantissa}${sign(signalExpoent)}${exponent.padStart(exponentiaLength, "0")}`
 }
 
 function main() {

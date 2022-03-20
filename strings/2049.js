@@ -8,7 +8,7 @@ function main() {
 		const key = input[index]
 		const sequence = input[index + 1]
 
-		if (key == '0' || sequence == '') break // EOFile Condition
+		if (key == "0" || sequence == "") break // EOFile Condition
 		const contain = new RegExp(key).test(sequence) ? "verdadeira" : "falsa"
 
 		responses.push(`Instancia ${instanceIndex}\n${contain}`)

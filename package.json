@@ -18,6 +18,6 @@
 	},
 	"homepage": "https://github.com/DavidWesley/URI-Online-Judge-Only-JS#readme",
 	"devDependencies": {
-		"eslint": "^8.6.0"
+		"eslint": "^8.11.0"
 	}
 }

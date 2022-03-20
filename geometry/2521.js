@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
-const input = readFileSync('/dev/stdin', "utf8")
-	.split('\n')
-	.map(line => line.split(' '))
+const input = readFileSync("/dev/stdin", "utf8")
+	.split("\n")
+	.map(line => line.split(" "))
 
 const toRad = (degree) => Number.parseFloat(degree) * (Math.PI / 180.0)
 
@@ -29,7 +29,7 @@ function main() {
 	const responses = []
 
 	for (const [R, La, Lo] of input) {
-		if ([R, La, Lo].includes('')) break // EOFile Condition Verification
+		if ([R, La, Lo].includes("")) break // EOFile Condition Verification
 
 		const { x, y, z } = sphericalCoordinates(R, La, Lo)
 		responses.push(`${x.toFixed(2)} ${y.toFixed(2)} ${z.toFixed(2)}`)

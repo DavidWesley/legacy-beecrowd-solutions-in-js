@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split('\n')
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 // TRIANGLES FORMULAS USING THE SIDES
 
@@ -29,13 +29,13 @@ function areaOfFlowers([...sides]) {
 function main() {
 	const responses = []
 
-	const sidesList = input.map(sides => sides.split(' ').map(size => Number.parseInt(size, 10)))
+	const sidesList = input.map(sides => sides.split(" ").map(size => Number.parseInt(size, 10)))
 
 	for (const sides of sidesList) {
 		if (sides.some(Number.isNaN)) break// EOFile Condition Verification
 		const areas = areaOfFlowers(sides).map(area => area.toFixed(4))
 
-		responses.push(areas.join(' '))
+		responses.push(areas.join(" "))
 	}
 
 	console.log(responses.join("\n"))

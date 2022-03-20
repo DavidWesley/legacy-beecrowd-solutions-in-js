@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8")
-	.split('\n')
-	.map(line => line.split(' ').map(Number.parseFloat))
+	.split("\n")
+	.map(line => line.split(" ").map(Number.parseFloat))
 
 const PI = 3.141592654
 const toRad = (degree) => Number.parseFloat(degree) * (PI / 180.0)

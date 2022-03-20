@@ -6,10 +6,10 @@ function main() {
 	const outputs = []
 
 	for (const text of textList)
-		if (text === '') break // EOFile Condition Verification
+		if (text === "") break // EOFile Condition Verification
 		else outputs.push(formatText(text))
 
-	console.log(outputs.join('\n'))
+	console.log(outputs.join("\n"))
 }
 
 main()
@@ -49,7 +49,7 @@ function formatText(text) { // Da pra melhorar essa porra!
 	return finalText
 }
 
-function insertTextFrom(index, text = '') {
+function insertTextFrom(index, text = "") {
 	let word = ""
 	let char = text.charAt(index)
 

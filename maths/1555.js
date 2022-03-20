@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numCases, ...points] = readFileSync('/dev/stdin', "utf8").split("\n")
+const [numCases, ...points] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const pow = Math.pow
 

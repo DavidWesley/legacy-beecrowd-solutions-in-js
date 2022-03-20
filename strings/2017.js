@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [Xstring, K, ...YstringsList] = readFileSync("/dev/stdin", "utf8").split('\n').slice(0, 7)
+const [Xstring, K, ...YstringsList] = readFileSync("/dev/stdin", "utf8").split("\n").slice(0, 7)
 
 /**
  * @param {string} str1
@@ -20,7 +20,7 @@ function main() {
 		.pop()
 
 	if (minDistance > +K)
-		console.log('-1')
+		console.log("-1")
 	else {
 		console.log(index)
 		console.log(minDistance)

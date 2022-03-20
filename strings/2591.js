@@ -1,7 +1,7 @@
 "use strict"
 
 const { readFileSync } = require("fs")
-const [numCases, ...cases] = readFileSync("../dev/stdin", "utf8").split('\n')
+const [numCases, ...cases] = readFileSync("../dev/stdin", "utf8").split("\n")
 
 function ka(word) {
 	const times = word
@@ -10,7 +10,7 @@ function ka(word) {
 		.map(m => m.length)
 		.reduce((prod, value) => prod * value, 1)
 
-	return `k${'a'.repeat(times)}`
+	return `k${"a".repeat(times)}`
 }
 
 

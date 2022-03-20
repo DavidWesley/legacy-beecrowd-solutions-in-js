@@ -1,6 +1,6 @@
 const { readFileSync } = require("fs")
 const [firstLimit, secondLimit] = readFileSync("/dev/stdin", "utf8")
-	.split('\n')
+	.split("\n")
 	.slice(0, 2)
 	.map(limitt => Number.parseInt(limitt, 10))
 

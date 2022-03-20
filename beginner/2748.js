@@ -13,9 +13,9 @@ const isSuccessfullyDefined = Reflect.defineProperty(String.prototype, "pad", {
 
 const ROW_SIZE = 39
 
-const SPACE = ' '
-const DIV = '|'
-const DASH = '-'
+const SPACE = " "
+const DIV = "|"
+const DASH = "-"
 
 function main() {
 	const separator = DASH.repeat(ROW_SIZE)

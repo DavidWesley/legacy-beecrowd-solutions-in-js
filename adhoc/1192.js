@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numTestCases, ...lines] = readFileSync("/dev/stdin", "utf8").split('\n')
+const [numTestCases, ...lines] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const isUpperCase = (str = "") => str == str.toUpperCase() && str != str.toLowerCase()
 const isLowerCase = (str = "") => str == str.toLowerCase() && str != str.toUpperCase()
