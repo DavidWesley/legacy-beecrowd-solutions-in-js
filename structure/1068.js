@@ -18,7 +18,7 @@ main()
 
 function parenthesesValidate(ps = "") {
 	const balance = {
-		matches: [...(ps.match(/[\(\)]/g) || [])],
+		matches: [...(ps.match(/[()]/g) || [])],
 		codes: {
 			opened: String.fromCharCode(40), // (
 			closed: String.fromCharCode(41), // )
@@ -26,7 +26,7 @@ function parenthesesValidate(ps = "") {
 		valid: false
 	}
 
-	const getIndexesOfSymbolsFromMatch = (symbol, symbols = []) => {
+	function getIndexesOfSymbolsFromMatch(symbol, symbols = []) {
 		return symbols.reduce((list, match, index) => {
 			if (match[0] === symbol) list.push(index)
 			return list
@@ -39,11 +39,11 @@ function parenthesesValidate(ps = "") {
 	}
 
 	balance.valid = (() => {
-		const { opened, closed } = stacks
-		if (opened.length !== closed.length) return false
+		if (stacks.opened.length !== stacks.closed.length)
+			return false
 
-		for (const [index, openedSymbolPosition] of Object.entries(opened))
-			if (openedSymbolPosition >= closed[index]) return false
+		for (const [index, openedSymbolPosition] of Object.entries(stacks.opened))
+			if (openedSymbolPosition >= stacks.closed[index]) return false
 
 		return true
 	})()
