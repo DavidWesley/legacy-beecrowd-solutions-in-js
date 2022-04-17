@@ -3,7 +3,10 @@
 	"version": "1.0.0",
 	"description": "Question codes approved in URI Online Judge using only Javascript with modern syntax (ES2016 - ES2020)",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"lint": "eslint  **/*.js --ignore-pattern node_modules/ --ignore-pattern dev/ --fix"
+	},
+	"engines": {
+		"node": "12.18.3"
 	},
 	"type": "commonjs",
 	"repository": {
