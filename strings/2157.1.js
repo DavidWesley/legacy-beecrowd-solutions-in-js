@@ -1,32 +1,30 @@
 const { readFileSync } = require("fs")
-const [numTestCases, ...cases] = readFileSync("/stdin", "utf8").split("\n")
+const [[numCases], ...limitsPairList] = readFileSync("/dev/stdin", "utf8")
+	.split("\n")
+	.map((line) => line.split(" ").map((num) => Number.parseInt(num, 10)))
 
-const reverseStr = str => [...str].reverse().join("")
+const reverseString = (str = "") => [...str].reverse().join("")
 
-/** @param {any[][]} cases */
+/**
+ * @param {number} min
+ * @param {number} max
+ */
 
-function makeMirrorSequence(cases) {
-	const mirrorSequencesArray = []
+function makeMirrornedNumbersSequence(min, max) {
+	const sequence = Array.from(
+		{ length: max - min + 1 },
+		(_, index) => index + min
+	).join("")
 
-	cases.forEach(([B, E], index) => {
-		let sequence = ""
-		const min = Number.parseInt(B)
-		const max = Number.parseInt(E)
-
-		for (let i = min; i <= max; i++) sequence += i
-
-		const mirrorSequence = sequence.concat(reverseStr(sequence))
-		mirrorSequencesArray.push(mirrorSequence)
-	})
-
-	return mirrorSequencesArray
+	return sequence.concat(reverseString(sequence))
 }
 
 function main() {
-	const formmatedCases = cases.map((pair) => pair.split(" ")).slice(0, +numTestCases)
-	const mirrorSequences = makeMirrorSequence(formmatedCases)
+	const responses = limitsPairList
+		.slice(0, numCases)
+		.map(([min, max]) => makeMirrornedNumbersSequence(min, max))
 
-	console.log(mirrorSequences.join("\n"))
+	console.log(responses.join("\n"))
 }
 
 main()
