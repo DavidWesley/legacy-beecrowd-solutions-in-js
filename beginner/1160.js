@@ -5,7 +5,7 @@ const [[numCases], ...cases] = readFileSync("/dev/stdin", "utf8")
 
 for (let index = 0; index < numCases; index++) {
 	const [pA, pB, tA, tB] = cases[index]
-	if (pA == NaN) break
+	if (isNaN(pA)) break
 
 	let years = Math.log(pA / pB) / Math.log((1 + tB / 100) / (1 + tA / 100))
 
