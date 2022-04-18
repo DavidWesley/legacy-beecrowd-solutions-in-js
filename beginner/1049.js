@@ -3,6 +3,22 @@ const [phylumName, className, nutritionTypeName] = readFileSync("/dev/stdin", "u
 	.split("\n")
 	.slice(0, 3)
 
+/** @param {object} obj */
+
+function DeepFreezeObject(obj) {
+	Object.freeze(obj)
+
+	Object.getOwnPropertyNames(obj).forEach((prop) => {
+		if (
+			Reflect.has(obj, prop) &&
+			typeof obj[prop] === "object" &&
+			Object.isFrozen(obj[prop]) === false
+		) {
+			DeepFreezeObject(obj[prop])
+		}
+	})
+}
+
 const AnimalTree = {
 	vertebrado: {
 		ave: {
@@ -26,23 +42,8 @@ const AnimalTree = {
 	},
 }
 
-const handler = {
-	get(target, prop, receiver) {
-		if (typeof target[prop] === "object" && target[prop] !== null) return new Proxy(target[prop], handler)
-		else return target[prop]
+DeepFreezeObject(AnimalTree)
 
-	},
-	set(target, key, value, receiver) {
-		return false
-	}
-}
-
-const AnimalTreeDeeplyFrozen = new Proxy(AnimalTree, handler)
-
-function main() {
-	console.log(
-		AnimalTreeDeeplyFrozen[phylumName][className][nutritionTypeName]
-	)
-}
-
-main()
+console.log(
+	AnimalTree[phylumName][className][nutritionTypeName]
+)

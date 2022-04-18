@@ -1,8 +1,6 @@
 const { readFileSync } = require("fs")
 const [numTestCases, ...nums] = readFileSync("/dev/stdin", "utf8").split("\n")
 
-const isEven = (num = 1) => Math.abs(Number(num)) % 2 === 0
-
 const isPrime = (/** @type {number}*/ num) => {
 	if (num <= 1) return false
 	if (num == 2) return true

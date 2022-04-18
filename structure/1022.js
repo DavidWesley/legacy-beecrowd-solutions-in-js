@@ -2,10 +2,10 @@ const { readFileSync } = require("fs")
 const [numTestCases, ...equations] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const FormattedEquationsFunctionsEnum = Object.freeze({
-	sum: (N1 = 1, D1 = 1, N2 = 0, D2 = 0) => `${(N1 * D2 + N2 * D1)}\/${(D1 * D2)}`,
-	subtract: (N1 = 1, D1 = 1, N2 = 0, D2 = 0) => `${(N1 * D2 - N2 * D1)}\/${(D1 * D2)}`,
-	multiply: (N1 = 0, D1 = 0, N2 = 1, D2 = 1) => `${(N1 * N2)}\/${(D1 * D2)}`,
-	divide: (N1 = 0, D1 = 0, N2 = 1, D2 = 1) => `${(N1 * D2)}\/${(N2 * D1)}`,
+	sum: (N1 = 1, D1 = 1, N2 = 0, D2 = 0) => `${(N1 * D2 + N2 * D1)}/${(D1 * D2)}`,
+	subtract: (N1 = 1, D1 = 1, N2 = 0, D2 = 0) => `${(N1 * D2 - N2 * D1)}/${(D1 * D2)}`,
+	multiply: (N1 = 0, D1 = 0, N2 = 1, D2 = 1) => `${(N1 * N2)}/${(D1 * D2)}`,
+	divide: (N1 = 0, D1 = 0, N2 = 1, D2 = 1) => `${(N1 * D2)}/${(N2 * D1)}`,
 })
 
 // Run Call all function here
@@ -36,13 +36,13 @@ function resolveEquation(equation) {
 /** @param { string } fraction */
 
 function destructFraction(fraction) {
-	return fraction.replace(/\s/gs, "").split("\/").map(Number.parseFloat)
+	return fraction.replace(/\s/gs, "").split("/").map(Number.parseFloat)
 }
 
 /** @param {string} equation */
 
 function destructSimpleLinearEquation(equation) {
-	const equationRegex = /(\d+)\/(\d+)([\+\-\*\/])(\d+)\/(\d+)/s
+	const equationRegex = /(\d+)\/(\d+)([+\-*/])(\d+)\/(\d+)/s
 	return equation.replace(/\s/g, "").match(equationRegex).slice(1, 5)
 }
 

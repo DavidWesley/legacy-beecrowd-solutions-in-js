@@ -64,7 +64,7 @@ function BrainfuckIntepreter(code, input = "") {
 			case "[": if (buff[bIndex] === 0) pIndex = loops.find((loop) => pIndex === loop.start).end; break
 			case "]": if (buff[bIndex] !== 0) pIndex = loops.find((loop) => pIndex === loop.end).start; break
 
-			case "#": chars.push(...buff.slice(0, 11))
+			case "#": chars.push(...buff.slice(0, 11)); break
 
 			default: break
 		}

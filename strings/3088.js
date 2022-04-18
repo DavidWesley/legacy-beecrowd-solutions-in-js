@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
-const omitSpaceBeforeCommaOrPeriod = (str = "") => str.replace(/ ([\,\.])/gm, "$1")
+const omitSpaceBeforeCommaOrPeriod = (str = "") => str.replace(/ ([,.])/gm, "$1")
 
 function main() {
 	const responses = []

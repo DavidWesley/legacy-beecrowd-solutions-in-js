@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
-const WERTYU_KEYBOARD = {
+const WERTYU_KEYBOARD = Object.freeze({
 	"=": "-",
 	"-": "0",
 	"0": "9",
@@ -39,7 +39,7 @@ const WERTYU_KEYBOARD = {
 	"D": "S",
 	"S": "A",
 
-	"\/": ".",
+	"/": ".",
 	".": ",",
 	",": "M",
 	"M": "N",
@@ -50,7 +50,7 @@ const WERTYU_KEYBOARD = {
 	"X": "Z",
 
 	" ": " "
-}
+})
 
 const convertInputToWERTYUMode = (chars = "") => chars.replace(/./gi, (char) => WERTYU_KEYBOARD[char.toUpperCase()] ?? "")
 

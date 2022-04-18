@@ -11,7 +11,7 @@ while (input.length > 0) {
 
 	const replacedTags = text
 		.replace(
-			/\<([0-9a-z\=\/ ]*)\>/gi,
+			/<([0-9a-z=/ ]*)>/gi,
 			(_, group) => `<${group.replace(new RegExp(originalTag, "gi"), numericTag)}>`
 		)
 

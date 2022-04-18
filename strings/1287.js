@@ -9,7 +9,7 @@ function processInputIntoIntengers(inputInteger = "") {
 	const processedNum = inputInteger
 		.replaceAll(/[l]/, "1")
 		.replaceAll(/[Oo]/, "0")
-		.replaceAll(/[\,\s]/, "")
+		.replaceAll(/[.\s]/, "")
 
 	return processedNum.replaceAll(/\D/, "") === processedNum
 		? Number.parseInt(processedNum, 10)

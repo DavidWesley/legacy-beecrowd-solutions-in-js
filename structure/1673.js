@@ -8,7 +8,7 @@ function RunLengthEncoding(text) {
 	return text
 		.replace(/(.)\1{1,8}/g, (match) => `[${match.length}#${match.charAt(0)}]`)
 		.replace(/(?<=^|\])(?<![2-9]#)[a-zA-Z0-9 \-.,:;?!]+(?=(\[|$))/gm, (match) => `1${match.replace(/1/g, "11")}1`)
-		.replace(/[\[\]#]/g, "")
+		.replace(/[[\]#]/g, "")
 }
 
 function main() {
