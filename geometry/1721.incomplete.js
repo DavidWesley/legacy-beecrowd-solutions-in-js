@@ -26,9 +26,9 @@ const stdin = path.join(__dirname, "..", "dev", "stdin")
 
 const { readFileSync } = require("fs")
 const [coordenates, places] = readFileSync(stdin, "utf8").split("#")
-// const input = readFileSync("../dev/stdin", "utf8").split('\n')
+// const input = readFileSync("/dev/stdin", "utf8").split('\n')
 
-const RADIUS_EARTH = 6378
+// const RADIUS_EARTH = 6378
 
 function splitList(multineString = "") {
 	return multineString
@@ -44,7 +44,7 @@ function distanceBetweenPlaces(places = ["", "", ""], coordList) {
 }
 
 function message([A, B, M] = ["", "", ""], dist) {
-	return `${M} is ${Number.isInteger(dist) ? dist : "?"} km off ${A}\/${B} equidistance.`
+	return `${M} is ${Number.isInteger(dist) ? dist : "?"} km off ${A}/${B} equidistance.`
 }
 
 function main() {
