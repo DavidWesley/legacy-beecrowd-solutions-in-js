@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [numCases, ...numbersList] = readFileSync("/dev/stdin", "utf8")
+const [numLines, ...lines] = readFileSync("/dev/stdin", "utf8")
 	.split("\n")
 	.map(num => Number.parseInt(num, 10))
 
@@ -10,20 +10,20 @@ const isEven = (num = 1) => Math.abs(Number(num)) % 2 === 0 && num
 
 
 function defineNumberProperties(num = 0) {
-	let prop = ""
+	const props = []
 
-	if (isOdd(num)) prop = "ODD"
-	else if (isEven(num)) prop = "EVEN"
+	if (isOdd(num)) props.push("ODD")
+	else if (isEven(num)) props.push("EVEN")
 
-	if (isPositive(num)) return `${prop} POSITIVE`
-	else if (isNegative(num)) return `${prop} NEGATIVE`
+	if (isPositive(num)) props.push("POSITIVE")
+	else if (isNegative(num)) props.push("NEGATIVE")
 
-	return "NULL"
+	return props.length ? props.join(" ") : "NULL"
 }
 
 function main() {
-	const responses = numbersList
-		.slice(0, numCases)
+	const responses = lines
+		.slice(0, numLines)
 		.map(defineNumberProperties)
 
 	console.log(responses.join("\n"))
