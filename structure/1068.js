@@ -41,9 +41,8 @@ function parenthesesValidate(ps = "") {
 		}
 	}
 
-	const parenthesesMatchesArray = Array.from(ps.match(/[()]/g) || [])
-
 	const openedParenthesesStack = new Stack()
+	const parenthesesMatchesArray = Array.from(ps.match(/[()]/g) || [])
 
 	for (const parenthesis of parenthesesMatchesArray) {
 		if (parenthesis === details.codes.parenthesis.opened)
