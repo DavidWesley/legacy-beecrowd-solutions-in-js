@@ -34,6 +34,7 @@ class Queue {
 	get peek() { return this.#first ?? null }
 	get isEmpty() { return this.size === 0 }
 
+	/** @param {Array<any> | Generator<any, any, any>} arr */
 	static fromArray(arr) {
 		const queue = new Queue()
 		for (const data of arr) queue.enqueue(data)
@@ -65,12 +66,23 @@ function main() {
 }
 
 /**
- * @param {number} start
- * @param {number} [end]
+ * @param {number} start The start of the range.
+ * @param {number} stop The stop of the range.
+ * @param {number} step The value to increment or decrement by.
  */
-function range(start, end, step = 1) {
-	const length = Math.floor((end - start + 1) / step) + (Math.sign(Math.min(start, end)) === -1 ? 1 : 0)
-	return Array.from({ length }, (_, i) => start + step * i)
+function* range(start = 0, stop, step = 1) {
+	if (isNaN(stop)) {
+		// one param defined
+		[stop, start] = [start, 0]
+	}
+
+	for (
+		let value = start;
+		step > 0 ? value < stop : value > stop;
+		value += step
+	) {
+		yield value
+	}
 }
 
 /** @param {Queue} deck */

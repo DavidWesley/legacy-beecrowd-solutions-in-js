@@ -10,7 +10,8 @@ class Stack {
 	get size() { return this.#items.length }
 	get peek() { return this.#items.at(-1) }
 
-	static fromArray(arr = []) {
+	/** @param {Array<any> | Generator<any, any, any>} arr */
+	static fromArray(arr) {
 		const stack = new Stack()
 		for (const item of arr) stack.push(item)
 		return stack
@@ -20,15 +21,24 @@ class Stack {
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
-function range(start, end, step = 1) {
-	const result = []
-	const hasSameSign = Math.sign(end - start) === Math.sign(step)
+/**
+ * @param {number} start The start of the range.
+ * @param {number} stop The stop of the range.
+ * @param {number} step The value to increment or decrement by.
+ */
+function* range(start = 0, stop, step = 1) {
+	if (isNaN(stop)) {
+		// one param defined
+		[stop, start] = [start, 0]
+	}
 
-	if (hasSameSign)
-		if (step < 0) for (let i = start; i >= end; i += step) result.push(i)
-		else if (step > 0) for (let i = start; i <= end; i += step) result.push(i)
-
-	return result
+	for (
+		let value = start;
+		step > 0 ? value < stop : value > stop;
+		value += step
+	) {
+		yield value
+	}
 }
 
 const output = []
