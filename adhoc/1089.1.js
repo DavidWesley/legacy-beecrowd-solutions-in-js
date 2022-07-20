@@ -1,5 +1,11 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n").map((line) => line.split(" "))
+
+const input = readFileSync("/dev/stdin", "utf8")
+	.split("\n")
+	.map(line => line
+		.split(" ")
+		.map(value => Number.parseInt(value, 10))
+	)
 
 /** @param {number[]} nums  */
 
@@ -29,10 +35,13 @@ function main() {
 
 	for (let index = 0; index < input.length; index += 2) {
 		const [N] = input[index]
-		if (N == "0") break
 
-		const nums = input[index + 1].slice(0, +N).map((n) => Number.parseInt(n, 10))
-		responses.push(countInflections(nums))
+		if (N === 0)
+			break
+
+		responses.push(
+			countInflections(input[index + 1].slice(0, N))
+		)
 	}
 
 	console.log(responses.join("\n"))
