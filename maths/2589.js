@@ -1,5 +1,6 @@
 //// FUNCTIONS ////
 
+
 /**
  * Return 0 <= i <= array.length such that !pred(array[i - 1]) && pred(array[i]).
  * @param {Array<number>} arr
@@ -30,14 +31,17 @@ function upperBound(arr, item) {
 }
 
 
-const STEPS = [
+//// PRIMES ////
+
+
+const PRIMES_STEPS_ARR = [
 	2, 3, 5, 11, 29, 97, 127, 541, 907, 1151, 1361, 9587, 15727,
 	19661, 31469, 156007, 360749, 370373, 492227, 1349651, 1357333,
 	2010881, 4652507, 17051887, 20831533, 47326913, 122164969, 189695893,
 	191913031, 387096383, 436273291, Math.pow(10, 9) + 1
 ]
 
-const PRIMES_DISTANCES_MAP = new Map([
+const BIGGERS_CONSUCUTIVES_PRIMES_DISTANCES_MAP = new Map([
 	[2, 0], [3, 1], [5, 2], [11, 4], [29, 6], [97, 8], [127, 14], [541, 18],
 	[907, 20], [1151, 22], [1361, 34], [9587, 36], [15727, 44],
 	[19661, 52], [31469, 72], [156007, 86], [360749, 96], [370373, 112],
@@ -46,6 +50,7 @@ const PRIMES_DISTANCES_MAP = new Map([
 	[189695893, 234], [191913031, 248], [387096383, 250], [436273291, 282], [Math.pow(10, 9) + 1, 282]
 ])
 
+
 /**
  * retorna a maior distância entre primos consecutivos, de 1 a N.
  *
@@ -53,7 +58,7 @@ const PRIMES_DISTANCES_MAP = new Map([
  * @param {number} num
  */
 function findBiggestDistanceBetweenConsecutivePrimesUpToNum(num) {
-	return PRIMES_DISTANCES_MAP.get(STEPS[upperBound(STEPS, num) - 1])
+	return BIGGERS_CONSUCUTIVES_PRIMES_DISTANCES_MAP.get(PRIMES_STEPS_ARR[upperBound(PRIMES_STEPS_ARR, num) - 1])
 }
 
 
