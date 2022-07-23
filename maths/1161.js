@@ -1,43 +1,43 @@
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n")
+const { readFileSync } = require("node:fs")
 
-function Factorial() {
-	const factorialValues = new Map([
-		[0, 1n],
-		[1, 1n],
+const input = readFileSync("/dev/stdin", "utf8")
+	.split("\n")
+	.map((pair) => pair
+		.split(" ", 2)
+		.map((value) => Number.parseInt(value, 10))
+	)
+
+class Factorial {
+	static #list = new Map([
+		[0, 1n], [1, 1n]
 	])
 
-	/** @param {number} num */
+	/** @param {number} nth */
+	static get(nth) {
+		if (Factorial.#list.has(nth))
+			return Factorial.#list.get(nth)
 
-	function fact(num) {
-		let returnedValue = 1
-		for (let f = 2; f <= num; f++) returnedValue *= f
-		return BigInt(returnedValue)
-	}
+		let value = Factorial.#list.get(Factorial.#list.size - 1)
 
-	/** @param {number} num */
+		for (let f = Factorial.#list.size; f <= nth; f++) {
+			value *= BigInt(f)
+			Factorial.#list.set(f, value)
+		}
 
-	return function (num) {
-		if (!factorialValues.has(num)) factorialValues.set(num, fact(num))
-		return factorialValues.get(num)
+		return Factorial.#list.get(nth)
 	}
 }
 
+
 function main() {
 	const responses = []
-
 	const MAX_LIMIT_FACTORIAL = 20
-	const factorialsPairList = input.map((factorialPair) => factorialPair.split(" ").map((int) => Number.parseInt(int, 10)))
 
-	const factorialListInstance = Factorial()
+	for (const [factA, factB] of input) {
+		if (Number.isNaN(factA) || Number.isNaN(factB)) break // EOFile Condition Verification
+		if (Math.max(factA, factB) > MAX_LIMIT_FACTORIAL) continue // No Greater than 20 Condition verification
 
-	for (const [firstFact, secondFact] of factorialsPairList) {
-		if (typeof firstFact !== "number" || typeof secondFact !== "number") break // EOFile Condition Verification
-		if (Math.max(firstFact, secondFact) > MAX_LIMIT_FACTORIAL) continue // No Greater than 20 Condition verification
-
-		responses.push(
-			`${factorialListInstance(firstFact) + factorialListInstance(secondFact)}`
-		)
+		responses.push(Factorial.get(factA) + Factorial.get(factB))
 	}
 
 	console.log(responses.join("\n"))
