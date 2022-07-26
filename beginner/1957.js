@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [num] = readFileSync("/dev/stdin", "utf8").split("\n")
+const [num] = readFileSync("/dev/stdin", "utf8").split("\n", 1)
 
 const ConvertBase = (num) => ({
 	from: (baseFrom) => ({
@@ -7,6 +7,6 @@ const ConvertBase = (num) => ({
 	})
 })
 
-const hexString = ConvertBase(num).from(10).to(16).toUpperCase()
+const hexStr = ConvertBase(num).from(10).to(16).toUpperCase()
 
-console.log(hexString)
+console.log(hexStr)
