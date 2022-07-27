@@ -20,12 +20,19 @@ const MyMath = Object.create(Math, {
 	}
 })
 
+/**
+ * Binet formula implementation to calculate fibonacci numbers
+ * @param {number} nth
+ */
 function binetFormule(nth) {
-	if (nth < 0) return 0
-	const sqrt5 = Math.sqrt(5)
-	const nthPower = (equation) => Math.pow(equation / 2, nth) / sqrt5
+	nth = Math.floor(Math.max(0, nth))
+	if (nth <= 0) return 0
 
-	return Math.round(nthPower(1 + sqrt5) - nthPower(1 - sqrt5))
+	const sqrt5 = Math.sqrt(5)
+	const A = Math.pow((1 + sqrt5) / 2, nth) / sqrt5
+	const B = Math.pow((1 - sqrt5) / 2, nth) / sqrt5
+
+	return Math.round(A + B)
 }
 
 function main() {
