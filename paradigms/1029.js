@@ -19,42 +19,48 @@
  * * F(n) = F(n - 2) + F(n - 1)
  */
 
+const { format } = require("util")
 const { readFileSync } = require("fs")
+
 const [numCases, ...nthFibonacciList] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 /** @typedef {{ calls: number, value: number }} countableFibProp */
 
 /** @type { Map<number, countableFibProp> } */
-const fibonacciList = new Map()
+const FibonacciList = new Map([
+	[0, { calls: 0, value: 0 }],
+	[1, { calls: 0, value: 1 }],
+	[2, { calls: 2, value: 1 }]
+])
 
-fibonacciList.set(0, { calls: 0, value: 0 })
-fibonacciList.set(1, { calls: 0, value: 1 })
-fibonacciList.set(2, { calls: 2, value: 1 })
 
 function recusiveFibonacciWithCallsCounter(nth = 0) {
-	nth = Math.max(0, nth) // is nth leq 0? So set nth to 0
+	nth = Math.floor(Math.max(0, nth)) // is nth leq 0? So set nth to 0
 
-	if (fibonacciList.has(nth) === false) {
+	if (FibonacciList.has(nth) === false) {
 		// If not included, set it
 		const fibA = recusiveFibonacciWithCallsCounter(nth - 2)
 		const fibB = recusiveFibonacciWithCallsCounter(nth - 1)
 
-		fibonacciList.set(nth, {
-			calls: (fibA.calls && fibA.calls + 1) + (fibB.calls && fibB.calls + 1),
+		FibonacciList.set(nth, {
+			calls: (fibA.calls + 1) + (fibB.calls + 1),
 			value: fibA.value + fibB.value
 		})
 	}
 
-	return fibonacciList.get(nth)
+	return FibonacciList.get(nth)
 }
 
 function main() {
-	const responses = nthFibonacciList.slice(0, +numCases).map((nthFib) => {
-		const { calls, value } = recusiveFibonacciWithCallsCounter(Number.parseInt(nthFib, 10))
-		return `fib(${nthFib}) = ${calls} calls = ${value}`
-	})
+	const output = nthFibonacciList
+		.slice(0, Number.parseInt(numCases, 10))
+		.map(value => Number.parseInt(value, 10))
+		.map(nth => {
+			const { calls, value } = recusiveFibonacciWithCallsCounter(nth)
+			return format("fib(%d) = %d calls = %d", nth, calls, value)
+		})
 
-	console.log(responses.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()
