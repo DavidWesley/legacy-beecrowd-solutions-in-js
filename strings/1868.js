@@ -35,7 +35,7 @@ const DirectionsEnum = Object.freeze({
 
 
 function main() {
-	const responses = []
+	const output = []
 
 	for (const size of sizes) {
 		if (size === 0) break
@@ -49,9 +49,10 @@ function main() {
 		let move = DirectionsEnum.RIGHT
 		const matrix = new SquareMatrix(size, "O")
 
+		// eslint-disable-next-line no-constant-condition
 		while (true) {
 			matrix.set(i, j, "X")
-			responses.push(SquareMatrix.format(matrix))
+			output.push(SquareMatrix.format(matrix), "@")
 			if (i == size - 1 && j == size - 1) break// End of matrix
 			matrix.set(i, j, "O")
 
@@ -69,8 +70,7 @@ function main() {
 		}
 	}
 
-	console.log(responses.join("\n@\n"))
-	console.log("@")
+	console.log(output.join("\n"))
 }
 
 main()
