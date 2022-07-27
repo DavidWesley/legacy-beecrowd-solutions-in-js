@@ -1,40 +1,51 @@
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8")
+const { readFileSync } = require("node:fs")
+const [size] = readFileSync("/dev/stdin", "utf8")
+	.split("\n", 1)
+	.map(value => Number.parseInt(value, 10))
 
-function FibonacciList(size = 0) {
 
-	const fibonacciList = new Map()
-		.set(0, { value: 0 })
-		.set(1, { value: 1 })
-		.set(2, { value: 1 });
+class Fibonacci {
+	static #list = new Map([[0, 0], [1, 1], [2, 1]])
 
-	(function fibonacci(nth = 0) {
-		if (nth < 0) return 0
-		if (fibonacciList.has(nth)) return fibonacciList.get(nth)
+	/**
+	 * Binet formula implementation to calculate fibonacci numbers
+	 * @param {number} nth
+	 */
+	static calc(nth) {
+		nth = Math.floor(Math.max(0, nth))
+		if (nth <= 0) return 0
 
-		const fibA = fibonacci(nth - 2)?.value ?? 0
-		const fibB = fibonacci(nth - 1)?.value ?? 0
+		const sqrt5 = Math.sqrt(5)
+		const A = Math.pow((1 + sqrt5) / 2, nth) / sqrt5
+		const B = Math.pow((1 - sqrt5) / 2, nth) / sqrt5
 
-		fibonacciList.set(nth, { value: fibA + fibB })
+		return Math.round(A + B)
+	}
 
-		return fibonacciList.get(nth)
+	/** @param {number} nth */
+	static get(nth) {
+		const fList = Fibonacci.#list
+		nth = Math.floor(Math.max(0, nth))
 
-	}(size = (size < 0) ? 0 : (size > 50) ? 50 : size))
+		if (nth === 0) return 0
+		else if (fList.has(nth)) return fList.get(nth)
+		else if (fList.has(nth - 1) && fList.get(nth - 2)) fList.set(nth, fList.get(nth - 1) + fList.get(nth - 2))
+		else fList.set(nth, Fibonacci.calc(nth)) // Linear Method, prevent long time recursive calls
 
-	return function nthFirstFibonnaciValues(nth = 0) {
-		nth = (nth > size) ? size : (nth < 0) ? 0 : nth
-		const valuesList = Array.from(fibonacciList.values(), ({ value }) => value)
+		return fList.get(nth)
+	}
 
-		return valuesList.slice(0, nth)
+	/** @param {number} size */
+	static sequence(size) {
+		// Calc and save in memory
+		return Array.from({ length: size }, (_, index) => Fibonacci.get(index))
 	}
 }
 
-function main() {
-	const size = Number.parseInt(input)
-	const fibList = FibonacciList(size)
-	const firstFibValuesArr = fibList(size)
 
-	console.log(firstFibValuesArr.join(" "))
+function main() {
+	const fibonacciSequence = Fibonacci.sequence(size)
+	console.log(fibonacciSequence.join(" "))
 }
 
 main()
