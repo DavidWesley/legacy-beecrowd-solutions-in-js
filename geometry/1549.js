@@ -112,13 +112,13 @@ function coneTrunkVolumeFromRelativeHeight(base, Base, Height, volume) {
 	if (Base === base)
 		return volume / (Math.PI * Base * Base)
 
-	const a = K * K
-	const b = 3 * base * K
-	const c = 3 * base * base
-	const d = -(3 * volume / Math.PI)
+	const cofA = K * K
+	const cofB = 3 * base * K
+	const cofC = 3 * base * base
+	const cofD = -(3 * volume / Math.PI)
 
 	return CubicEquationSolver.TartagliaCardanoFormule
-		.solve(a, b, c, d)
+		.solve(cofA, cofB, cofC, cofD)
 		.filter(root => typeof root === "number")
 		.map(Number)
 		.shift()
