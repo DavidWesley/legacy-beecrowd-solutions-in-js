@@ -1,7 +1,7 @@
 {
 	"name": "uri-online-judge",
 	"version": "1.0.0",
-	"description": "Question codes approved in URI Online Judge using only Javascript with modern syntax (ES2016 - ES2020)",
+	"description": "Question codes approved in URI Online Judge using only Javascript with modern syntax (ES2016+)",
 	"scripts": {
 		"lint": "eslint  **/*.js --ignore-pattern node_modules/ --ignore-pattern dev/ --fix"
 	},
@@ -14,7 +14,11 @@
 		"url": "git+https://github.com/DavidWesley/URI-Online-Judge-Only-JS.git"
 	},
 	"keywords": [],
-	"author": "David Wesley",
+	"author": {
+		"name": "David Wesley",
+		"email": "contato.dwesley@outlook.com",
+		"url": "https://github.com/DavidWesley"
+	},
 	"license": "ISC",
 	"bugs": {
 		"url": "https://github.com/DavidWesley/URI-Online-Judge-Only-JS/issues"
