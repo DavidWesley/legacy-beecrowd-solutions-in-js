@@ -8,7 +8,7 @@ function main() {
 		const numElements = input[index]
 		if (numElements == "0") break
 
-		const suspectList = input[index + 1].split(" ").slice(0, +numElements)
+		const suspectList = input[index + 1].split(" ", +numElements)
 		const [, secondIndex] = nextBiggestNum(suspectList)
 
 		responses.push(secondIndex + 1)

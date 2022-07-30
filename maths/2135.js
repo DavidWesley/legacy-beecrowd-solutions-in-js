@@ -9,7 +9,7 @@ for (
 	const intQuantities = Number.parseInt(input.shift(), 10)
 	if (isNaN(intQuantities)) break
 
-	const intengerList = input.shift().split(" ").slice(0, intQuantities)
+	const intengerList = input.shift().split(" ", intQuantities)
 	console.log("Instancia %d", instanceIndex)
 
 	for (let index = 0, sum = 0; index < intengerList.length; index++) {

@@ -14,7 +14,7 @@ function findWordPositionsFromText(word, text) {
 }
 
 function main() {
-	const wordsList = joinedWords.split(" ").slice(0, +wordsQuantities)
+	const wordsList = joinedWords.split(" ", +wordsQuantities)
 
 	const responses = wordsList.map(word => {
 		const wordIndexesOnTextList = findWordPositionsFromText(word, text)

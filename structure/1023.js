@@ -20,7 +20,7 @@ for (let index = 0, cityIndex = 1; index < input.length; index++) {
 
 	for (let i = startHouseListIndex; i < endHouseListIndex; i++, index++) { // housesByCityList
 		const house = input[i] //=
-		const [residents, consumed] = house.split(" ").slice(0, 2).map(toInt)
+		const [residents, consumed] = house.split(" ", 2).map(toInt)
 		const consumedByResidents = Math.floor(consumed / residents)
 
 		totalResidents += residents

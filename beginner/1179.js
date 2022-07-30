@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const nums = readFileSync("/dev/stdin", "utf8").split("\n").slice(0, 15).map(num => Number.parseInt(num, 10))
+const nums = readFileSync("/dev/stdin", "utf8").split("\n", 15).map(num => Number.parseInt(num, 10))
 
 function main() {
 	const odds = []

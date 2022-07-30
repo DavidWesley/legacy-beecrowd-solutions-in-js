@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8")
 	.split("\n")
-	.map((line) => line.split(" ").slice(0, 4).map(Number.parseFloat))
+	.map((line) => line.split(" ", 4).map(Number.parseFloat))
 
 class ObliqueThrow {
 	static maxHorizontalDistance(velocity, height, acceleration = 9.8) {

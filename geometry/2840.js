@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [radius, availableGasVolume] = readFileSync("/dev/stdin", "utf8").split(" ").slice(0, 2).map(Number.parseFloat)
+const [radius, availableGasVolume] = readFileSync("/dev/stdin", "utf8").split(" ", 2).map(Number.parseFloat)
 
 function volumeSphere(radius = 0, PI = Math.PI) {
 	const volume = (4 / 3) * Math.pow(radius, 3) * PI

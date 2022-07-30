@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [A, B, C] = readFileSync("/dev/stdin", "utf8").split(" ").slice(0, 3).map(Number.parseFloat)
+const [A, B, C] = readFileSync("/dev/stdin", "utf8").split(" ", 3).map(Number.parseFloat)
 
 function baskharaRoots(a, b = 0, c = 0) {
 	let [first, second] = [null, null]

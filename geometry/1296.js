@@ -1,7 +1,7 @@
 const { readFileSync } = require("fs")
 const sidesList = readFileSync("/dev/stdin", "utf8")
 	.split("\n")
-	.map(line => line.split(" ").slice(0, 3).map(Number.parseFloat))
+	.map(line => line.split(" ", 3).map(Number.parseFloat))
 
 function perimeter([...sides]) {
 	return sides.reduce((sum, side) => sum + side, 0)

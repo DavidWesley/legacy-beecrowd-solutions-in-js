@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const [A, B, C, D] = readFileSync("/dev/stdin", "utf8").split("\n").slice(0, 4).map(Number.parseFloat)
+const [A, B, C, D] = readFileSync("/dev/stdin", "utf8").split("\n", 4).map(Number.parseFloat)
 
 function isAcceptable(a, b, c, d) {
 	return ((b > c) && (d > a) && (c + d > a + b) && (c > 0) && (d > 0) && (a % 2 == 0)) ? true : false

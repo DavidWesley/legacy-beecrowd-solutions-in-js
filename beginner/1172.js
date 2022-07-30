@@ -1,5 +1,5 @@
 const { readFileSync } = require("fs")
-const nums = readFileSync("/dev/stdin", "utf8").split("\n").slice(0, 10).map(Number.parseFloat)
+const nums = readFileSync("/dev/stdin", "utf8").split("\n", 10).map(Number.parseFloat)
 
 const isNegative = (num = 0) => Number(num) < 0
 
