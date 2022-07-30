@@ -20,13 +20,23 @@ function createReadLineInterface(path, encoding) {
 
 const RLI = createReadLineInterface(PATH, ENCODING)
 
-const readLine = (function () {
+/** @param {import("readline").Interface} readLineInterface */
+const processLineByLine = function (readLineInterface) {
+	let EOF = false
+
 	const nextLineGenerator = (async function* () {
-		for await (const line of RLI) yield line
+		for await (const line of readLineInterface) yield line
+		EOF = true
 	})()
 
-	return async () => (await nextLineGenerator.next()).value
-})()
+	return {
+		hasNextLine: () => !EOF,
+		nextLine: async (fn) => {
+			const { value } = (await nextLineGenerator.next())
+			return (typeof fn === "function") ? fn(value) : value
+		}
+	}
+}
 
 //// UTILS ////
 
@@ -44,29 +54,27 @@ class Granizo {
 	 */
 	static max(h) {
 		// If the maximum value of the sequence already calculated, then return it
-		if (Reflect.has(Granizo.#memo, h))
-			return Reflect.get(Granizo.#memo, h)
+		if (Reflect.has(Granizo.#memo, h)) return Reflect.get(Granizo.#memo, h)
 
 		const H = h
-		let maxValueInSequence = 1
+		let maximum = 1
 
-		// hn = { ½ x hn-1 se hn-1 é par;
-		// hn = { 3 x hn-1 + 1 se hn-1 é ímpar.
 		while (h != 1) {
+			// hn = { ½ x hn-1 se hn-1 é par;
+			// hn = { 3 x hn-1 + 1 se hn-1 é ímpar.
 			// The biggest value in sequence always will be an even number
-			if (h > maxValueInSequence) maxValueInSequence = h
+			if (h > maximum) maximum = h
 
-			if (isEven(h)) h /= 2
-			else if (isOdd(h)) h = 3 * h + 1
+			if (isEven(h)) { h /= 2 }
+			else if (isOdd(h)) { h = 3 * h + 1 }
 
 			if (Reflect.has(Granizo.#memo, h)) {
-				maxValueInSequence = Math.max(maxValueInSequence, Reflect.get(Granizo.#memo, h))
+				maximum = Math.max(maximum, Reflect.get(Granizo.#memo, h))
 				break
 			}
 		}
 
-		Reflect.set(Granizo.#memo, H, maxValueInSequence)
-		return Reflect.get(Granizo.#memo, H)
+		return (Reflect.set(Granizo.#memo, H, maximum), Reflect.get(Granizo.#memo, H))
 	}
 
 	// static get memo() { return Granizo.#memo }
@@ -75,19 +83,19 @@ class Granizo {
 //// MAIN ////
 
 async function main() {
-	const responses = []
+	const output = []
+	const readLineInstance = processLineByLine(RLI)
+	const readLine = readLineInstance.nextLine.bind(undefined, (n = "") => Number.parseInt(n, 10))
 
-	// eslint-disable-next-line no-constant-condition
-	while (true) {
-		const line = /** @type {string}*/ (await readLine())
-		const h = Number.parseInt(line, 10)
+	while (readLineInstance.hasNextLine()) {
+		const H = await readLine()
 
-		if (h === 0) break
-		else if (1 <= h && h <= 500) responses.push(Granizo.max(h))
+		if (H === 0) break
+		else if (1 <= H && H <= 500) output.push(Granizo.max(H))
 		else continue
 	}
 
-	console.log(responses.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()

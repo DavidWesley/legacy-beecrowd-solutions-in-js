@@ -1,14 +1,14 @@
-const { createReadStream } = require("fs")
-const { createInterface } = require("readline")
+//// READING FILE | STREAMS ////
+const { createReadStream } = require("node:fs")
+const { createInterface } = require("node:readline")
 
 const PATH = "/dev/stdin"
-const ENCODING = "ascii"
+const ENCODING = "utf8"
 
 /**
  * @param {string} path
  * @param {BufferEncoding} encoding
  */
-
 function createReadLineInterface(path, encoding) {
 	return createInterface({
 		input: createReadStream(path, encoding),
@@ -17,43 +17,42 @@ function createReadLineInterface(path, encoding) {
 	})
 }
 
-const RL = createReadLineInterface(PATH, ENCODING)
+/** @param {import("readline").Interface} readLineInterface */
+const processLineByLine = function (readLineInterface) {
+	let EOF = false
 
-const nextLine = (function () {
-	const nextLineGen = (async function* () {
-		for await (const line of RL) {
-			yield line
-		}
+	const nextLineGenerator = (async function* () {
+		for await (const line of readLineInterface) yield line
+		EOF = true
 	})()
 
-	return async () => (await nextLineGen.next()).value
-})()
+	return {
+		hasNextLine: () => !EOF,
+		nextLine: async (fn) => {
+			const { value } = (await nextLineGenerator.next())
+			return (typeof fn === "function") ? fn(value) : value
+		}
+	}
+}
+
 
 async function main() {
 	const output = []
 
+	const RLI = createReadLineInterface(PATH, ENCODING)
+	const readLineInstance = processLineByLine(RLI)
+
 	/** @type {Map<string, { count: number }>} */
 	const trees = new Map()
+	const numCases = await readLineInstance.nextLine(Number.parseFloat)
+	await readLineInstance.nextLine() // Blank line
 
-	// @ts-ignore
-	let repeatTimes = Number.parseInt(await nextLine(), 10)
-	// @ts-ignore
-	// eslint-disable-next-line no-unused-vars
-	let unusedBlankLine = await nextLine() // blank line
-
-	while (repeatTimes--) {
-		let tree = ""
+	for (let repeats = numCases; repeats > 0; repeats -= 1) {
 		let total = 0
 
-		// eslint-disable-next-line no-constant-condition
-		while (true) {
-
-			tree = await nextLine() || ""
-
-			if (tree == "" || tree == undefined) {
-				if (tree == undefined) repeatTimes = 0
-				break
-			}
+		while (readLineInstance.hasNextLine()) {
+			let tree = await readLineInstance.nextLine()
+			if (!tree) break
 
 			if (trees.has(tree)) trees.get(tree).count += 1
 			else trees.set(tree, { count: 1 })
@@ -61,19 +60,18 @@ async function main() {
 			total += 1
 		}
 
-		const organizedTrees =
-			trees.size > 0
-				? [...trees.entries()]
-					.sort(([treeA], [treeB]) => treeA.localeCompare(treeB, "en-US"))
-					.map(([treeName, { count }]) => `${treeName} ${((1e2 * count) / total).toFixed(4)}`)
-					.join("\n")
-				: ""
+		const organizedTrees = trees.size > 0
+			? Array
+				.from(trees.entries())
+				.sort(([treeA], [treeB]) => treeA.localeCompare(treeB, "en-US"))
+				.map(([treeName, { count }]) => `${treeName} ${((1e2 * count) / total).toFixed(4)}`)
+			: []
 
+		// Restart the tree map to next loop iteration
 		trees.clear()
 
-		if (repeatTimes === 0) output.push(organizedTrees)
-		else if (organizedTrees.length > 0) output.push(organizedTrees, "")
-		else output.push("")
+		Reflect.apply(Array.prototype.push, output, organizedTrees)
+		if (repeats !== 1) output.push("")
 	}
 
 	console.log(output.join("\n"))

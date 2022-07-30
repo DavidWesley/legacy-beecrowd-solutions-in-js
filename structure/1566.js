@@ -1,25 +1,14 @@
-/*
-	Este código não segue os padrões de estilo dos demais arquivos
-	Já que, por se tratar de uma problema que requer multiplas otimizações
-	Alguns recursos da linguagem tiveram que ser evitados, como o parse sem ponto-e-virgula.
+//// READING FILE | STREAMS ////
+const { createReadStream } = require("node:fs")
+const { createInterface } = require("node:readline")
 
-	-> CASO FOR COPIAR ISSO, SEJA EDUCADO(A), AVISE-ME PREVIAMENTE
-	-> SUBMETA O CÓDIGO SEM OS COMENTÁRIOS (por questões de perfomance)
-*/
-
-const { createReadStream } = require("fs")
-const { createInterface } = require("readline")
-
-// Pode ser "ascii" ou "utf8"
-// "utf8" parece mais rápido
-const ENCODING = "utf8"
 const PATH = "/dev/stdin"
+const ENCODING = "utf8"
 
 /**
  * @param {string} path
  * @param {BufferEncoding} encoding
  */
-
 function createReadLineInterface(path, encoding) {
 	return createInterface({
 		input: createReadStream(path, encoding),
@@ -28,41 +17,49 @@ function createReadLineInterface(path, encoding) {
 	})
 }
 
-const RLI = createReadLineInterface(PATH, ENCODING)
+/** @param {import("readline").Interface} readLineInterface */
+const processLineByLine = function (readLineInterface) {
+	let EOF = false
 
-const nextLine = (function () {
-	const nextLineGen = (async function* () {
-		for await (const line of RLI) {
-			yield line.split(" ").map(Number.parseFloat)
-		}
+	const nextLineGenerator = (async function* () {
+		for await (const line of readLineInterface) yield line
+		EOF = true
 	})()
 
-	return async () => (await nextLineGen.next()).value
-})()
+	return {
+		hasNextLine: () => !EOF,
+		nextLine: async (fn) => {
+			const { value } = (await nextLineGenerator.next())
+			return (typeof fn === "function") ? fn(value) : value
+		}
+	}
+}
 
-const main = async function () {
-	// Número de caso de teste
-	// equivalente ao tamanho do array
-	// que será usado para impressão
-	const size = Number.parseInt((await nextLine())[0], 10)
+async function main() {
+	const RLI = createReadLineInterface(PATH, ENCODING)
+	const readLineInstance = processLineByLine(RLI)
+	const nextLine = readLineInstance.nextLine.bind(undefined, (str = "") => str.split(" ").map(value => Number.parseInt(value, 10)))
+
+	// Número de caso de teste equivalente ao tamanho do array
+	// o qual será usado para impressão
+	const size = (await nextLine()).shift()
 
 	// Criar um array in memory é mais rápido
 	// do que incrementar seu tamanho com o `.push` method
 	const output = new Array(size)
 
-	for (let i = 0; i < size; i++) {
-		// Desnecessário, para otimização,
-		// pode-se evitar atribuir essa linha a alguma variável
+	for (let index = 0; index < size; index++) {
+		// Desnecessário
+		// para otimização pode-se evitar atribuir essa linha a alguma variável
 		await nextLine()
 
-		output[i] = await nextLine()
+		output[index] = await nextLine()
 	}
 
-	for (let i = 0; i < size; i++) {
+	for (let index = 0; index < size; index++) {
 		// Nenhuma implementação hard-coded
-		// será mais perfomático que o método de
-		// sort nativo da própria linguagem
-		output[i] = output[i].sort((a, b) => a - b).join(" ")
+		// será mais perfomático que um método de sort nativo
+		output[index] = output[index].sort((a, b) => a - b).join(" ")
 	}
 
 	console.log(output.join("\n"))

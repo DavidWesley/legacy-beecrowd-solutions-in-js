@@ -1,5 +1,7 @@
-const { createReadStream } = require("fs")
-const { createInterface } = require("readline")
+//// READING FILE | STREAMS ////
+
+const { createReadStream } = require("node:fs")
+const { createInterface } = require("node:readline")
 
 const PATH = "/dev/stdin"
 const ENCODING = "utf8"
@@ -8,7 +10,6 @@ const ENCODING = "utf8"
  * @param {string} path
  * @param {BufferEncoding} encoding
  */
-
 function createReadLineInterface(path, encoding) {
 	return createInterface({
 		input: createReadStream(path, encoding),
@@ -17,24 +18,29 @@ function createReadLineInterface(path, encoding) {
 	})
 }
 
-const RLI = createReadLineInterface(PATH, ENCODING)
+/** @param {import("readline").Interface} readLineInterface */
+const processLineByLine = function (readLineInterface) {
+	let EOF = false
 
-const nextLine = (function () {
-	const nextLineGen = (async function* () {
-		for await (const line of RLI) {
-			yield line
-		}
+	const nextLineGenerator = (async function* () {
+		for await (const line of readLineInterface) yield line
+		EOF = true
 	})()
 
-	return async () => (await nextLineGen.next()).value
-})()
+	return {
+		hasNextLine: () => !EOF,
+		nextLine: async (fn) => {
+			const { value } = (await nextLineGenerator.next())
+			return (typeof fn === "function") ? fn(value) : value
+		}
+	}
+}
 
 
 /**
  * @param {string} str1
  * @param {string} str2
  */
-
 function longestCommonSubstring(str1, str2) {
 	if (str1 === str2) return str2.length
 	if (str2.split("").some((char) => str1.includes(char)) == false) return 0
@@ -59,18 +65,18 @@ function longestCommonSubstring(str1, str2) {
 }
 
 async function main() {
-	const responses = []
+	const output = []
+	const readLineInstance = processLineByLine(createReadLineInterface(PATH, ENCODING))
 
-	// eslint-disable-next-line no-constant-condition
-	while (true) {
-		const word1 = await nextLine()
-		const word2 = await nextLine()
+	while (readLineInstance.hasNextLine()) {
+		const word1 = await readLineInstance.nextLine()
+		const word2 = await readLineInstance.nextLine()
 
 		if (!word1 || !word2) break
-		else responses.push(longestCommonSubstring(word1, word2))
+		else output.push(longestCommonSubstring(word1, word2))
 	}
 
-	console.log(responses.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()
