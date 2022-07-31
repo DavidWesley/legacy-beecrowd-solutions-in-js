@@ -1,5 +1,5 @@
 /**
- *  FUNC   |   CALLS   | VALUE |
+ * FUNC   |   CALLS   | VALUE |
  * fib( 0) =   0 calls =   0
  * fib( 1) =   0 calls =   1
  * fib( 2) =   2 calls =   1
@@ -22,7 +22,7 @@
 const { format } = require("util")
 const { readFileSync } = require("fs")
 
-const [numCases, ...nthFibonacciList] = readFileSync("/dev/stdin", "utf8").split("\n")
+const [numLines, ...input] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 /** @typedef {{ calls: number, value: number }} countableFibProp */
 
@@ -52,13 +52,13 @@ function recusiveFibonacciWithCallsCounter(nth = 0) {
 }
 
 function main() {
-	const output = nthFibonacciList
-		.slice(0, Number.parseInt(numCases, 10))
-		.map(value => Number.parseInt(value, 10))
-		.map(nth => {
-			const { calls, value } = recusiveFibonacciWithCallsCounter(nth)
-			return format("fib(%d) = %d calls = %d", nth, calls, value)
-		})
+	const output = new Array(Number.parseInt(numLines, 10))
+
+	for (let index = 0; index < output.length; index += 1) {
+		const nth = Number.parseInt(input[index])
+		const { calls, value } = recusiveFibonacciWithCallsCounter(nth)
+		output[index] = format("fib(%d) = %d calls = %d", nth, calls, value)
+	}
 
 	console.log(output.join("\n"))
 }
