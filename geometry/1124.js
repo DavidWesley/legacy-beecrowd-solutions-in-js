@@ -1,5 +1,7 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n")
+const input = readFileSync("/dev/stdin", "utf8")
+	.split("\n")
+	.map(line => line.split(" ", 4).map(num => Number.parseInt(num, 10)))
 
 /** @typedef {number | bigint | string} axisType */
 
@@ -9,19 +11,19 @@ class Point {
 	 * @param {axisType} y
 	 */
 	constructor(x, y) {
-		this.x = Number.parseFloat(`${x}`)
-		this.y = Number.parseFloat(`${y}`)
+		this.x = Number.parseFloat(x.valueOf().toString(10))
+		this.y = Number.parseFloat(y.valueOf().toString(10))
 	}
 }
 
 class Coordenates {
 	/**
-	 * @param {Point} firstPoint
-	 * @param {Point} secondPoint
+	 * @param {Point} pA
+	 * @param {Point} pB
 	 */
-	static distanceBetween(firstPoint, secondPoint) {
-		const dx = firstPoint.x - secondPoint.x
-		const dy = firstPoint.y - secondPoint.y
+	static distance2D(pA, pB) {
+		const dx = pA.x - pB.x
+		const dy = pA.y - pB.y
 
 		return Math.hypot(dx, dy)
 	}
@@ -44,21 +46,17 @@ function fitInTheElevator(H, W, R1, R2) {
 	const C1 = new Point(R1, R1)
 	const C2 = new Point(W - R2, H - R2)
 
-	return Coordenates.distanceBetween(C1, C2) >= R1 + R2
+	return Coordenates.distance2D(C1, C2) >= R1 + R2
 }
 
 function main() {
-	const responses = []
+	const output = []
 
-	const stopAtIndex = input.indexOf("0 0 0 0")
-	const dimensionsList = input.slice(0, stopAtIndex).map((dimensions) => {
-		return dimensions.split(" ").map((num) => Number.parseInt(num, 10))
-	})
+	for (const [H, W, R1, R2] of input)
+		if ([H, W, R1, R2].every(x => x == 0)) break
+		else output.push(fitInTheElevator(H, W, R1, R2) ? "S" : "N")
 
-	for (const [H, W, R1, R2] of dimensionsList)
-		responses.push(fitInTheElevator(H, W, R1, R2) ? "S" : "N")
-
-	console.log(responses.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()

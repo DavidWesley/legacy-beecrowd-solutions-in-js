@@ -6,8 +6,8 @@ class Point {
 	 * @param {axisType} y
 	 */
 	constructor(x, y) {
-		this.x = Number.parseFloat(`${x || 0}`)
-		this.y = Number.parseFloat(`${y || 0}`)
+		this.x = Number.parseFloat(x.toString(10))
+		this.y = Number.parseFloat(y.toString(10))
 	}
 
 	toString() {
@@ -17,12 +17,12 @@ class Point {
 
 class Coordenates {
 	/**
-	 * @param {Point} firstPoint
-	 * @param {Point} secondPoint
+	 * @param {Point} pA
+	 * @param {Point} pb
 	 */
-	static distanceBetween(firstPoint, secondPoint) {
-		const dx = firstPoint.x - secondPoint.x
-		const dy = firstPoint.y - secondPoint.y
+	static distance(pA, pb) {
+		const dx = pA.x - pb.x
+		const dy = pA.y - pb.y
 
 		return Math.hypot(dx, dy)
 	}
@@ -44,7 +44,7 @@ class Coordenates {
 class Gauss {
 	/** @param {Point[]} points */
 	static sortPoints(points) {
-		points = points.slice(0) // copy the array, since sort() modifies it
+		// points = points.slice(0) // copy the array, since sort() modifies it
 		const center = Coordenates.midPoint(points) // finds a point in the interior of `pts`
 		const angles = new Map() // calculate the angle between each point and the centerpoint, and sort by those angles
 
@@ -55,8 +55,7 @@ class Gauss {
 			angles.set(point.toString(), angle)
 		}
 
-		points.sort((p1, p2) => angles.get(p1.toString()) - angles.get(p2.toString()))
-		return points
+		return points.sort((p1, p2) => angles.get(p1.toString()) - angles.get(p2.toString()))
 	}
 
 	/** @param {Point[]} points */
@@ -77,12 +76,12 @@ class Gauss {
 	}
 }
 
-const { readFileSync } = require("fs")
+//// MAIN ////
 
+const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8")
-	.split("\n")
-	.slice(0, 8)
-	.map((line) => line.split(" "))
+	.split("\n", 8)
+	.map((line) => line.split(" ", 2))
 	.map(([x, y]) => new Point(x, y))
 
 function main() {

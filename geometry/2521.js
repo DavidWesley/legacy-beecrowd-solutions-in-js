@@ -1,22 +1,18 @@
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8")
 	.split("\n")
-	.map(line => line.split(" "))
+	.map(line => line.split(" ", 3).map(Number.parseFloat))
 
-const toRad = (degree) => Number.parseFloat(degree) * (Math.PI / 180.0)
+const toRad = (degree) => degree * (Math.PI / 180.0)
 
 function sphericalCoordinates(radius, la, lo) {
-	const cos = Math.cos
-	const sin = Math.sin
-
+	const r = radius
 	const phi = toRad(la)
 	const theta = toRad(lo)
 
-	const r = Number.parseFloat(radius)
-
-	let x = Math.abs(r * cos(phi) * sin(theta))
-	let y = Math.abs(r * sin(phi))
-	let z = Math.abs(r * cos(phi) * cos(theta))
+	let x = Math.abs(r * Math.cos(phi) * Math.sin(theta))
+	let y = Math.abs(r * Math.sin(phi))
+	let z = Math.abs(r * Math.cos(phi) * Math.cos(theta))
 
 	if (lo < 0 && Math.round(1000 * x) >= 5) x *= -1
 	if (la < 0 && Math.round(1000 * y) >= 5) y *= -1
@@ -26,16 +22,14 @@ function sphericalCoordinates(radius, la, lo) {
 }
 
 function main() {
-	const responses = []
+	const output = []
 
 	for (const [R, La, Lo] of input) {
-		if ([R, La, Lo].includes("")) break // EOFile Condition Verification
-
-		const { x, y, z } = sphericalCoordinates(R, La, Lo)
-		responses.push(`${x.toFixed(2)} ${y.toFixed(2)} ${z.toFixed(2)}`)
+		if ([R, La, Lo].some(isNaN)) break // EOFile Condition
+		else output.push(Object.values(sphericalCoordinates(R, La, Lo)).map(v => v.toFixed(2)).join(" "))
 	}
 
-	console.log(responses.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()
