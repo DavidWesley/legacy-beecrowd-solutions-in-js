@@ -1,25 +1,20 @@
 const { readFileSync } = require("fs")
-const [firstLimit, secondLimit] = readFileSync("/dev/stdin", "utf8")
+const [limitA, limitB] = readFileSync("/dev/stdin", "utf8")
 	.split("\n", 2)
-	.map(limitt => Number.parseInt(limitt, 10))
+	.map(value => Number.parseInt(value, 10))
 
-const isOdd = (num = 0) => Math.abs(Number(num)) % 2 === 1
+/** @param {Parameters<NumberConstructor>[0]} num */
+const isOdd = (num) => Math.abs(Number(num)) % 2 === 1
 
-function getOddsNums(lowerLim, upperLim = lowerLim) {
-	const minLimVal = Math.min(lowerLim, upperLim)
-	const maxLimVal = Math.max(lowerLim, upperLim)
-
-	return Array.from(
-		{ length: Math.abs(maxLimVal - minLimVal) + 1 },
-		(_, index) => minLimVal + index
-	).filter(isOdd)
+function* selectNumsInRange(limitA, limitB, predicate) {
+	const min = Math.min(limitA, limitB)
+	const max = Math.max(limitA, limitB)
+	for (let num = min; num <= max; num++) if (predicate(num)) yield num
 }
 
 function main() {
-	const oddNumbers = getOddsNums(firstLimit, secondLimit)
-	const oddSum = oddNumbers.reduce((prev, curr) => prev + curr, 0)
-
-	console.log(oddSum)
+	const oddNumbersInRangeSum = [...selectNumsInRange(limitA, limitB, isOdd)].reduce((sum, num) => sum + num, 0)
+	console.log(oddNumbersInRangeSum)
 }
 
 main()
