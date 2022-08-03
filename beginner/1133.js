@@ -1,8 +1,7 @@
 const { readFileSync } = require("fs")
 
 const [firstLimit, secondLimit] = readFileSync("/dev/stdin", "utf8")
-	.split("\n")
-	.slice(0, 2)
+	.split("\n", 2)
 	.map((num) => Number.parseInt(num, 10))
 
 function sorter([...nums] = [0], ascending = true) {

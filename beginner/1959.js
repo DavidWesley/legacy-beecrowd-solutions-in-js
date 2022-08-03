@@ -1,7 +1,6 @@
 const { readFileSync } = require("fs")
 const [sidesQuant, sidesLength] = readFileSync("/dev/stdin", "utf8")
-	.split(/\s/)
-	.slice(0, 2)
+	.split(/\s/, 2)
 	.map(BigInt)
 
 /**

@@ -1,7 +1,6 @@
 const { readFileSync } = require("fs")
 const [phylumName, className, nutritionTypeName] = readFileSync("/dev/stdin", "utf8")
-	.split("\n")
-	.slice(0, 3)
+	.split("\n", 3)
 
 /** @param {object} obj */
 

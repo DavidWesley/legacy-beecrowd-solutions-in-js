@@ -1,7 +1,6 @@
 const { readFileSync } = require("fs")
 const [A, B] = readFileSync("/dev/stdin", "utf8")
-	.split(" ")
-	.slice(0, 2)
+	.split(" ", 2)
 	.map(Number.parseFloat)
 
 const percentage = ((B - A) / A) * 100.0

@@ -6,8 +6,7 @@ const output = []
 while (input.length > 0) {
 	const [numRows, numCols] = input
 		.shift()
-		.split(" ")
-		.slice(0, 2)
+		.split(" ", 2)
 		.map((value) => Number.parseInt(value, 10))
 
 	if (numRows == 0 || numCols == 0) break
@@ -16,8 +15,7 @@ while (input.length > 0) {
 
 	const [A, B] = input
 		.shift()
-		.split(" ")
-		.slice(0, 2)
+		.split(" ", 2)
 		.map((value) => Number.parseInt(value, 10))
 
 	const horizontalZoomTax = B / numCols

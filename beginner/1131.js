@@ -18,8 +18,7 @@ function main() {
 
 	for (let index = 0; index < input.length; index += 2) {
 		const [interGoals, gremioGoals] = input[index]
-			.split(" ")
-			.slice(0, 2)
+			.split(" ", 2)
 			.map(Number)
 
 		const hasNext = input[index + 1] == "1"

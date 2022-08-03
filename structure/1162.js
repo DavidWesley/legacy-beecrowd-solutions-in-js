@@ -27,8 +27,7 @@ function main() {
 	for (let i = 0; i < +numCases; i++) {
 		const size = lines[2 * i]
 		const wagons = lines[2 * i + 1]
-			.split(" ")
-			.slice(0, +size)
+			.split(" ", +size)
 			.map(Number.parseFloat)
 
 		const swaps = bubbleSortSwapCounter(wagons)

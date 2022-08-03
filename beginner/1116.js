@@ -10,8 +10,7 @@ function main() {
 	const numCases = Number.parseInt(input.shift(), 10)
 	const pairs = input.slice(0, numCases).map(pair => {
 		return pair
-			.split(" ")
-			.slice(0, 2)
+			.split(" ", 2)
 			.map(value => Number.parseInt(value, 10))
 	})
 

@@ -11,8 +11,7 @@ function main() {
 		const searchableText = input[index]
 
 		const chars = input[index + 2]
-			.split(" ")
-			.slice(0, Number.parseInt(input[index + 1]))
+			.split(" ", Number.parseInt(input[index + 1]))
 			.map((q) => searchableText[+q - 1])
 			.join("")
 

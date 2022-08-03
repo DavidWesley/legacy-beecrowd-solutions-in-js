@@ -16,8 +16,7 @@ function main() {
 
 		const numSlugs = Number.parseInt(lines[i], 10)
 		const slugs = lines[i + 1]
-			.split(" ")
-			.slice(0, numSlugs)
+			.split(" ", numSlugs)
 			.map((value) => Number.parseInt(value, 10))
 
 		const fasterSlug = Math.max.apply(null, slugs)

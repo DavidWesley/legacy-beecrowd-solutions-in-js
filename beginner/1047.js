@@ -1,7 +1,6 @@
 const { readFileSync } = require("fs")
 const [H1, M1, H2, M2] = readFileSync("/dev/stdin", "utf8")
-	.split(" ")
-	.slice(0, 4)
+	.split(" ", 4)
 	.map((time) => Number.parseInt(time, 10))
 
 const h = ((24 + H2 - H1) % 24) * 60

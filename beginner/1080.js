@@ -1,7 +1,6 @@
 const { readFileSync } = require("fs")
 const listNumbers = readFileSync("/dev/stdin", "utf8")
-	.split("\n")
-	.slice(0, 100)
+	.split("\n", 100)
 	.map(num => Number.parseInt(num, 10))
 
 function main() {

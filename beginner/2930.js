@@ -1,7 +1,6 @@
 const { readFileSync } = require("fs")
 const [E, D] = readFileSync("/dev/stdin", "utf8")
-	.split(" ")
-	.slice(0, 2)
+	.split(" ", 2)
 	.map((date) => Number.parseInt(date, 10))
 
 if (E > D) {

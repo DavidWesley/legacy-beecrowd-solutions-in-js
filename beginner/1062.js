@@ -52,8 +52,7 @@ while (input.length > 0) {
 	while (input.length > 0) {
 		const permutedWagons = input
 			.shift()
-			.split(" ")
-			.slice(0, numWagons)
+			.split(" ", numWagons)
 
 		if (permutedWagons[0] === "0") break
 

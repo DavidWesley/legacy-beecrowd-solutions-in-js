@@ -1,7 +1,6 @@
 const { readFileSync } = require("fs")
 const [connectorA, connectorB] = readFileSync("/dev/stdin", "utf8")
-	.split("\n")
-	.slice(0, 2)
+	.split("\n", 2)
 	.map(line => line.split(" ", 5).map(Number))
 
 const Connector = {

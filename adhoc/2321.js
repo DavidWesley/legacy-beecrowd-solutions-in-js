@@ -1,7 +1,6 @@
 const { readFileSync } = require("fs")
 const [x1, y1, x2, y2, x3, y3, x4, y4] = readFileSync("/dev/stdin", "utf8")
-	.split(/\s+/g)
-	.slice(0, 8)
+	.split(/\s+/g, 8)
 	.map((value) => Number.parseInt(value, 10))
 
 function main() {

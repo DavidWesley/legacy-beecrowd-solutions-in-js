@@ -1,7 +1,6 @@
 const { readFileSync } = require("fs")
 const [startHour, endHour] = readFileSync("/dev/stdin", "utf8")
-	.split(" ")
-	.slice(0, 2)
+	.split(" ", 2)
 	.map((hour) => Number.parseInt(hour, 10))
 
 function getDifferenceBetweenHours(init = 0, end = init) {
