@@ -1,10 +1,7 @@
 const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split(" ")
-
-const [A, B, C] = input.map(Number)
+const [A, B, C] = readFileSync("/dev/stdin", "utf8").split(" ", 3).map(value => Number.parseInt(value, 10))
 
 const isNegative = (num) => Number(num) <= 0
-
 const trianglePerimeter = (a, b, c) => a + b + c
 const trapezeArea = (b, B, h) => ((B + b) * h) / 2
 
