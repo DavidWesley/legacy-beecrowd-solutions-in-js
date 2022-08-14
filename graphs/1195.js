@@ -126,16 +126,16 @@ const [[numCases], ...input] = readFileSync("/dev/stdin", "utf8")
 function main() {
 	const output = []
 
-	for (let index = 0; index < numCases; index += 1) {
+	for (let i = 0; i < numCases; i += 1) {
 		const binaryTreee = new BinaryTree()
-		const size = input[2 * index][0]
-		const values = input[2 * index + 1]
+		const size = input[2 * i][0]
+		const values = input[2 * i + 1]
 
 		for (let j = 0; j < size; j += 1)
 			binaryTreee.add(values[j])
 
 		output.push(
-			`Case ${index + 1}:`,
+			`Case ${i + 1}:`,
 			`${"Pre."}: ${BinaryTree.values.order.prefix(binaryTreee).join(" ")}`,
 			`${"In.."}: ${BinaryTree.values.order.infix(binaryTreee).join(" ")}`,
 			`${"Post"}: ${BinaryTree.values.order.postfix(binaryTreee).join(" ")}`,
