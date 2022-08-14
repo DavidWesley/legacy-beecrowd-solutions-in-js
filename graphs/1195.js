@@ -117,7 +117,7 @@ class BinaryTree {
 
 //// MAIN ////
 
-const { readFileSync } = require("fs")
+const { readFileSync } = require("node:fs")
 const [[numCases], ...input] = readFileSync("/dev/stdin", "utf8")
 	.split("\n", 2 * 1000 + 1)
 	.map((line) => line.split(" ", 500).map(value => Number.parseInt(value, 10)))
