@@ -136,9 +136,9 @@ function main() {
 
 		output.push(
 			`Case ${i + 1}:`,
-			`${"Pre."}: ${BinaryTree.values.order.prefix(binaryTreee).join(" ")}`,
-			`${"In.."}: ${BinaryTree.values.order.infix(binaryTreee).join(" ")}`,
-			`${"Post"}: ${BinaryTree.values.order.postfix(binaryTreee).join(" ")}`,
+			`Pre.: ${BinaryTree.values.order.prefix(binaryTreee).join(" ")}`,
+			`In..: ${BinaryTree.values.order.infix(binaryTreee).join(" ")}`,
+			`Post: ${BinaryTree.values.order.postfix(binaryTreee).join(" ")}`,
 			""
 		)
 	}
