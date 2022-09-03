@@ -1,6 +1,6 @@
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8")
-	.split("\n")
+	.split("\n", 1e4)
 	.map(line => line.toLowerCase().split(/[\W\b\s_\d]+/gi))
 
 
