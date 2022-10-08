@@ -76,10 +76,11 @@ async function main() {
 			const word = await lineReader.nextLine()
 
 			for (let charIndex = 0; charIndex < word.length; charIndex += 1) {
-				const relativeToAlphabetCharIndex = ALPHABET.indexOf(word.charAt(charIndex))
+				const alphabeticCharacter = word.charAt(charIndex)
+				const relativeToAlphabetCharIndex = ALPHABET.indexOf(alphabeticCharacter)
 
 				if (relativeToAlphabetCharIndex === -1) // Error!
-					throw new Error(`[${word.charAt(charIndex)}] is not a valid alpha-character!`)
+					throw new Error(`[${alphabeticCharacter}] is not a valid alpha-character!`)
 
 				// Valor = (Posição no alfabeto) + (Elemento de entrada) + (Posição do elemento)
 				hash += relativeToAlphabetCharIndex + elementIndex + charIndex
