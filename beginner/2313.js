@@ -23,6 +23,14 @@ const Triangle = {
 		if (sides.every(s => s === a)) return "EQUILATERO"
 		else if (a == b || a == c || b == c) return "ISOSCELES"
 		else return "ESCALENO"
+	},
+
+	getTriangleTypesFromAngles(sides = [0, 0, 0]) {
+		const [a, b, c] = sides.sort((a, b) => b - a)
+
+		if (Math.pow(a, 2) == Math.pow(b, 2) + Math.pow(c, 2)) return "RETANGULO"
+		else if (Math.pow(a, 2) > Math.pow(b, 2) + Math.pow(c, 2)) return "OBTUSANGULO"
+		else if (Math.pow(a, 2) < Math.pow(b, 2) + Math.pow(c, 2)) return "ACUTANGULO"
 	}
 }
 
