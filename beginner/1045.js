@@ -1,36 +1,50 @@
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split(" ")
+const { readFileSync } = require("node:fs")
+const [A, B, C] = readFileSync("/dev/stdin", "utf8").split(" ", 3).map(Number.parseFloat)
 
-const [A, B, C] = input.slice(0, 3).map(Number.parseFloat)
 
-function isTriangle(a = 0, b = 0, c = 0) {
-	const isNegative = (num) => Number(num) < 0
-	const sides = [a, b, c].sort((a, b) => a - b)
+const Triangle = {
+	isTriangle(a, b, c) {
+		const sides = [a, b, c].sort((a, b) => a - b)
 
-	if (sides.some(side => isNegative(side) || side == 0)) return false
-	else if (sides[0] + sides[1] <= sides[2]) return false
-	else return true
-}
+		if (sides.some(side => side <= 0)) return false
+		else if (sides[0] + sides[1] <= sides[2]) return false
+		else return true
+	},
 
-function getTriangleTypesFromSides(sides = [0, 0, 0]) {
-	const [a, b, c] = sides.sort((a, b) => b - a)
+	isPitagoric(/** @type {[number, number, number]}*/[a, b, c]) {
+		return (a * a + b * b) == c * c || (a * a + c * c) == b * b || (b * b + c * c) == a * a
+	},
 
-	const triangleTypes = []
+	getTriangleTypesFromSides(sides = [0, 0, 0]) {
+		const [a, b, c] = sides.sort((a, b) => b - a)
 
-	if (!isTriangle(a, b, c)) triangleTypes.push("NAO FORMA TRIANGULO")
-	else if (Math.pow(a, 2) == Math.pow(b, 2) + Math.pow(c, 2)) triangleTypes.push("TRIANGULO RETANGULO")
-	else if (Math.pow(a, 2) > Math.pow(b, 2) + Math.pow(c, 2)) triangleTypes.push("TRIANGULO OBTUSANGULO")
-	else if (Math.pow(a, 2) < Math.pow(b, 2) + Math.pow(c, 2)) triangleTypes.push("TRIANGULO ACUTANGULO")
+		if (sides.every(s => s === a)) return "EQUILATERO"
+		else if (a == b || a == c || b == c) return "ISOSCELES"
+		else return "ESCALENO"
+	},
 
-	if (sides.every(s => s === a)) triangleTypes.push("TRIANGULO EQUILATERO")
-	else if (a == b || a == c || b == c) triangleTypes.push("TRIANGULO ISOSCELES")
+	getTriangleTypesFromAngles(sides = [0, 0, 0]) {
+		const [a, b, c] = sides.sort((a, b) => b - a)
 
-	return triangleTypes
+		if (Math.pow(a, 2) == Math.pow(b, 2) + Math.pow(c, 2)) return "RETANGULO"
+		else if (Math.pow(a, 2) > Math.pow(b, 2) + Math.pow(c, 2)) return "OBTUSANGULO"
+		else if (Math.pow(a, 2) < Math.pow(b, 2) + Math.pow(c, 2)) return "ACUTANGULO"
+	}
 }
 
 function main() {
-	const responses = getTriangleTypesFromSides([A, B, C])
-	console.log(responses.join("\n"))
+	const output = []
+	const sides = [A, B, C]
+
+	if (Triangle.isTriangle(...sides))
+		output.push(
+			`TRIANGULO ${Triangle.getTriangleTypesFromAngles(sides)}`,
+			`TRIANGULO ${Triangle.getTriangleTypesFromSides(sides)}`
+		)
+	else
+		output.push("NAO FORMA TRIANGULO")
+
+	console.log(output.join("\n"))
 }
 
 main()
