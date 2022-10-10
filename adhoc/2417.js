@@ -1,0 +1,10 @@
+const { readFileSync } = require("node:fs")
+const [Cv, Ce, Cs, Fv, Fe, Fs] = readFileSync("/dev/stdin", "utf8")
+	.split(" ", 6)
+	.map(value => Number.parseInt(value, 10))
+
+if (3 * Cv + Ce > 3 * Fv + Fe) console.log("C")
+else if (3 * Fv + Fe > 3 * Cv + Ce) console.log("F")
+else if (Cs > Fs) console.log("C")
+else if (Fs > Cs) console.log("F")
+else console.log("=")
