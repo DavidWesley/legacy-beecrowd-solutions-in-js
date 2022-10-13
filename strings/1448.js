@@ -6,8 +6,7 @@ function main() {
 	const output = []
 
 	for (let testCaseIndex = 0; testCaseIndex < Number.parseInt(numTestCases, 10); testCaseIndex += 1) {
-		const from = 3 * testCaseIndex
-		const message = input[from + 0]
+		const [message = "", teamAMessage = "", teamBMessage = ""] = input.splice(0, 3)
 
 		if (!message) break // I do not know why, but it works!
 
@@ -17,8 +16,8 @@ function main() {
 
 		for (let index = 0; index < message.length; index += 1) {
 			const char = message.charAt(index)
-			teamAMatchesCounter += input[from + 1].charAt(index) === char ? 1 : 0
-			teamBMatchesCounter += input[from + 2].charAt(index) === char ? 1 : 0
+			teamAMatchesCounter += teamAMessage.charAt(index) === char ? 1 : 0
+			teamBMatchesCounter += teamBMessage.charAt(index) === char ? 1 : 0
 
 			if (firstMatcherTeam === "") {
 				if (teamAMatchesCounter > teamBMatchesCounter) firstMatcherTeam = "time 1"
