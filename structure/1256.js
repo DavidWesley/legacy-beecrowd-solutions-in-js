@@ -1,49 +1,49 @@
-const { readFileSync } = require("fs")
-const [[numCases], ...cases] = readFileSync("/dev/stdin", "utf8")
+const { readFileSync } = require("node:fs")
+const [[numCases], ...input] = readFileSync("/dev/stdin", "utf8")
 	.split("\n")
-	.map((line) => line.split(" ").map(Number))
+	.map((line) => line.split(" ").map(value => Number.parseInt(value, 10)))
 
 class FixedHashTable {
 	#mod
-	#hashTable
+	#adjacencyList
 
 	#hash(value) { return value % this.#mod }
 
 	constructor(size) {
 		this.#mod = size
-		this.#hashTable = new Map()
-		for (let index = 0; index < size; index++) this.#hashTable.set(index, new Array())
+		this.#adjacencyList = new Map()
+
+		for (let node = 0; node < size; node++)
+			this.#adjacencyList.set(node, new Array())
 	}
 
 	insert([...values]) {
 		for (const value of values) {
-			const key = this.#hash(value)
-			this.#hashTable.get(key).push(value)
+			const node = this.#hash(value)
+			this.#adjacencyList.get(node).push(value)
 		}
 
 		return this
 	}
 
 	print() {
-		const print = Array.from(this.#hashTable.entries(), ([key, values]) => [key, ...values, "\\"].join(" -> "))
-		return print.join("\n")
+		return Array
+			.from(this.#adjacencyList.entries(), ([key, values]) => [key, ...values, "\\"].join(" -> "))
+			.join("\n")
 	}
 }
 
 function main() {
-	const responses = []
+	const output = []
 
-	for (let index = 0; cases.length > 0; index++) {
-		if (index === numCases) break
+	for (let i = 0; i < numCases && input.length > 0; i++) {
+		const [[baseAdressesNum, keysNum], keysList] = input.splice(0, 2)
+		const fixedHashTable = new FixedHashTable(baseAdressesNum).insert(keysList.slice(0, keysNum))
 
-		const [[baseAdressesNum, keysNum], keysList] = cases.splice(0, 2)
-		const hashTable = new FixedHashTable(baseAdressesNum).insert(keysList.slice(0, keysNum))
-		const formattedHashTable = hashTable.print()
-
-		responses.push(formattedHashTable)
+		output.push(fixedHashTable.print())
 	}
 
-	console.log(responses.join("\n\n"))
+	console.log(output.join("\n\n"))
 }
 
 main()
