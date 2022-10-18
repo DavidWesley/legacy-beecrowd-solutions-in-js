@@ -1,44 +1,61 @@
-//// READING FILE | STREAMS ////
-
 const { createReadStream } = require("node:fs")
 const { createInterface } = require("node:readline")
 
-const PATH = "/dev/stdin"
-const ENCODING = "utf8"
+//// READING FILE | STREAMS ////
 
-/**
- * @param {string} path
- * @param {BufferEncoding} encoding
- */
-function createReadLineInterface(path, encoding) {
-	return createInterface({
-		input: createReadStream(path, { encoding }),
-		crlfDelay: Infinity,
-		terminal: false
-	})
-}
-
-/** @param {import("readline").Interface} readLineInterface */
-const processLineByLine = function (readLineInterface) {
-	let EOF = false
-
-	const nextLineGenerator = (async function* () {
-		for await (const line of readLineInterface) { yield line }
-		EOF = true
-	})()
-
-	return {
-		hasNextLine: () => !EOF,
-		nextLine: async (fn) => {
-			const { value } = (await nextLineGenerator.next())
-			return (typeof fn === "function") ? fn(value) : value
+class LineReader {
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 * @return {import("node:readline").ReadLine}
+	 */
+	static createReadLineInterface(path, encoding = "utf8") {
+		const readStreamOptions = {
+			encoding: encoding,
+			flags: "r",
+			emitClose: true,
+			autoClose: true
 		}
+
+		return createInterface({
+			input: createReadStream(path, readStreamOptions),
+			crlfDelay: Infinity,
+			terminal: false
+		})
+	}
+
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 */
+	static create(path, encoding) {
+		const RLI = LineReader.createReadLineInterface(path, encoding)
+
+		let EOF = false
+
+		const nextLineGenerator = (async function* () {
+			for await (const line of RLI)
+				yield line
+		})()
+
+		RLI.once("close", () => { EOF = true })
+
+		return {
+			hasNextLine: () => !EOF,
+			nextLine: async (/** @type {unknown} */ fn) => {
+				const { value } = (await nextLineGenerator.next())
+				return (typeof fn === "function") ? fn(value) : value
+			},
+			close: () => RLI.close()
+		}
+
 	}
 }
 
 //// CONVERT NUM FROM A BASE TO DECIMAL ////
 
 /** @param {string} base */
+// eslint-disable-next-line no-unused-vars
 function validateBase(base) {
 	if (base.length < 2) return false
 
@@ -86,19 +103,24 @@ function atoi(str, base, mod = Number.POSITIVE_INFINITY) {
 //// MAIN ////
 
 async function main() {
-	const output = []
-	const RLI = createReadLineInterface(PATH, ENCODING)
-	const readLineInstance = processLineByLine(RLI)
+	const PATH = "/dev/stdin"
+	const ENCODING = "utf8"
 
-	const MOD = Math.pow(10, 9) + 7
+	const output = []
+	const lineReader = LineReader.create(PATH, ENCODING)
+
+	const MOD = 1e9 + 7
 	const ALPHABET_BASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-	while (readLineInstance.hasNextLine()) {
-		const str = await readLineInstance.nextLine()
+	while (lineReader.hasNextLine()) {
+		const str = await lineReader.nextLine()
 		if (Boolean(str) === false) break // EOF
 
 		output.push(atoi(str, ALPHABET_BASE, MOD))
 	}
+
+	if (lineReader.hasNextLine())
+		lineReader.close()
 
 	console.log(output.join("\n"))
 }
