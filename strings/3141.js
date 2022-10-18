@@ -1,10 +1,10 @@
 const { readFileSync } = require("node:fs")
-const [name, dateA, dateB] = readFileSync("/dev/stdin", "utf8").split("\n", 3)
+const [name, dateA, dateB] = readFileSync("../dev/stdin", "utf8").split("\n", 3)
 
 const Regexes = Object.freeze({
 	DatesFormatsTypes: Object.freeze({
-		"2D2M4Y": /(?<day>\d{2})[.,\-\\\/\s](?<month>\d{2})[.,\-\\\/\s](?<year>\d{4})/u,
-		"4Y2M2D": /(?<year>\d{4})[.,\-\\\/\s](?<month>\d{2})[.,\-\\\/\s](?<day>\d{2})/u
+		"2D2M4Y": /(?<day>\d{2})[.,\-\\/\s](?<month>\d{2})[.,\-\\/\s](?<year>\d{4})/u,
+		"4Y2M2D": /(?<year>\d{4})[.,\-\\/\s](?<month>\d{2})[.,\-\\/\s](?<day>\d{2})/u
 	})
 })
 
