@@ -17,7 +17,7 @@ function main() {
 
 		const bin = line
 			.replace(/\*/g, "1")
-			.replace(/\-/g, "0")
+			.replace(/-/g, "0")
 
 		sum += Number.parseInt(bin, 2)
 	}
