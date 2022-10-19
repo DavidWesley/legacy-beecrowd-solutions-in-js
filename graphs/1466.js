@@ -173,8 +173,8 @@ class BinarySearchTree {
 		let current = node
 
 		while (current) {
-			if (data < current.value) current = node.left
-			else if (data > current.value) current = node.right
+			if (data < current.value) current = current.left
+			else if (data > current.value) current = current.right
 			else break
 		}
 
