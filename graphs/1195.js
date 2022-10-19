@@ -36,7 +36,7 @@ class BinaryTreeNode extends Node {
 }
 
 
-class BinaryTree {
+class BinarySearchTree {
 	constructor() { this.root = null }
 
 	/**
@@ -58,13 +58,28 @@ class BinaryTree {
 			} else
 				break
 		}
+	}
 
-		return this
+	/**
+	 * search for a node with given data
+	 * @param {BinaryTreeNode} node
+	 * @param {number} data
+	 */
+	search(node, data) {
+		let current = node
+
+		while (current) {
+			if (data < current.value) current = node.left
+			else if (data > current.value) current = node.right
+			else break
+		}
+
+		return current
 	}
 
 	static get values() {
 		/**
-		 * @param {BinaryTree} tree
+		 * @param {BinarySearchTree} tree
 		 * @returns {Array<number>}
 		 */
 		const infix = (tree) => {
@@ -79,7 +94,7 @@ class BinaryTree {
 		}
 
 		/**
-		 * @param {BinaryTree} tree
+		 * @param {BinarySearchTree} tree
 		 * @returns {Array<number>}
 		 */
 		const prefix = (tree) => {
@@ -94,7 +109,7 @@ class BinaryTree {
 		}
 
 		/**
-		 * @param {BinaryTree} tree
+		 * @param {BinarySearchTree} tree
 		 * @returns {Array<number>}
 		 */
 		const postfix = (tree) => {
@@ -127,18 +142,18 @@ function main() {
 	const output = []
 
 	for (let i = 0; i < numCases; i += 1) {
-		const binaryTreee = new BinaryTree()
+		const bst = new BinarySearchTree()
 		const size = input[2 * i][0]
 		const values = input[2 * i + 1]
 
 		for (let j = 0; j < size; j += 1)
-			binaryTreee.add(values[j])
+			bst.add(values[j])
 
 		output.push(
 			`Case ${i + 1}:`,
-			`Pre.: ${BinaryTree.values.order.prefix(binaryTreee).join(" ")}`,
-			`In..: ${BinaryTree.values.order.infix(binaryTreee).join(" ")}`,
-			`Post: ${BinaryTree.values.order.postfix(binaryTreee).join(" ")}`,
+			`Pre.: ${BinarySearchTree.values.order.prefix(bst).join(" ")}`,
+			`In..: ${BinarySearchTree.values.order.infix(bst).join(" ")}`,
+			`Post: ${BinarySearchTree.values.order.postfix(bst).join(" ")}`,
 			""
 		)
 	}
