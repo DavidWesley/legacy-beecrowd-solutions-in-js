@@ -1,3 +1,57 @@
+//// REQUIRES ////
+const { createReadStream } = require("node:fs")
+const { createInterface } = require("node:readline")
+
+//// READING FILE | STREAMS ////
+class LineReader {
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 * @return {import("node:readline").ReadLine}
+	 */
+	static createReadLineInterface(path, encoding = "utf8") {
+		const readStreamOptions = {
+			encoding: encoding,
+			flags: "r",
+			emitClose: true,
+			autoClose: true
+		}
+
+		return createInterface({
+			input: createReadStream(path, readStreamOptions),
+			crlfDelay: Infinity,
+			terminal: false
+		})
+	}
+
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 */
+	static create(path, encoding) {
+		const RLI = LineReader.createReadLineInterface(path, encoding)
+
+		let EOF = false
+
+		const nextLineGenerator = (async function* () {
+			for await (const line of RLI)
+				yield line
+		})()
+
+		RLI.once("close", () => { EOF = true })
+
+		return {
+			hasNextLine: () => !EOF,
+			nextLine: async (/** @type {unknown} */ fn) => {
+				const { value } = (await nextLineGenerator.next())
+				return (typeof fn === "function") ? fn(value) : value
+			},
+			close: () => RLI.close()
+		}
+
+	}
+}
+
 //// CLASSES ////
 
 /**
@@ -132,22 +186,25 @@ class BinarySearchTree {
 
 //// MAIN ////
 
-const { readFileSync } = require("node:fs")
-const [[numCases], ...input] = readFileSync("/dev/stdin", "utf8")
-	.split("\n", 2 * 1000 + 1)
-	.map((line) => line.split(" ", 500).map(value => Number.parseInt(value, 10)))
+async function main() {
+	const PATH = "/dev/stdin"
+	const ENCODING = "utf8"
 
-
-function main() {
 	const output = []
+	const lineReader = LineReader.create(PATH, ENCODING)
 
-	for (let i = 0; i < numCases; i += 1) {
+	const numCases = Number.parseInt(await lineReader.nextLine(), 10)
+
+	for (let i = 0; i < numCases && lineReader.hasNextLine(); i += 1) {
 		const bst = new BinarySearchTree()
-		const size = input[2 * i][0]
-		const values = input[2 * i + 1]
 
-		for (let j = 0; j < size; j += 1)
-			bst.add(values[j])
+		const size = Number.parseInt(await lineReader.nextLine(), 10)
+		const values = (await lineReader.nextLine())
+			.split(" ", size)
+			.map(value => Number.parseInt(value, 10))
+
+		for (const value of values)
+			bst.add(value)
 
 		output.push(
 			`Case ${i + 1}:`,
@@ -157,6 +214,9 @@ function main() {
 			""
 		)
 	}
+
+	if (lineReader.hasNextLine())
+		lineReader.close()
 
 	console.log(output.join("\n"))
 }

@@ -269,11 +269,11 @@ async function main() {
 
 		const size = Number.parseInt(await lineReader.nextLine(), 10)
 		const values = (await lineReader.nextLine())
-			.split(" ", 500)
+			.split(" ", size)
 			.map(value => Number.parseInt(value, 10))
 
-		for (let j = 0; j < size; j += 1)
-			bst.add(values[j])
+		for (const value of values)
+			bst.add(value)
 
 		output.push(
 			`Case ${i + 1}:`,
