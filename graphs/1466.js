@@ -140,7 +140,7 @@ class BinaryTreeNode extends Node {
 	}
 }
 
-class BinaryTree {
+class BinarySearchTree {
 	constructor() { this.root = null }
 
 	/**
@@ -162,13 +162,28 @@ class BinaryTree {
 			} else
 				break
 		}
+	}
 
-		return this
+	/**
+	 * search for a node with given data
+	 * @param {BinaryTreeNode} node
+	 * @param {number} data
+	 */
+	search(node, data) {
+		let current = node
+
+		while (current) {
+			if (data < current.value) current = node.left
+			else if (data > current.value) current = node.right
+			else break
+		}
+
+		return current
 	}
 
 	static get values() {
 		/**
-		 * @param {BinaryTree} tree
+		 * @param {BinarySearchTree} tree
 		 * @returns {Array<number>}
 		 */
 		const infix = (tree) => {
@@ -183,7 +198,7 @@ class BinaryTree {
 		}
 
 		/**
-		 * @param {BinaryTree} tree
+		 * @param {BinarySearchTree} tree
 		 * @returns {Array<number>}
 		 */
 		const prefix = (tree) => {
@@ -198,7 +213,7 @@ class BinaryTree {
 		}
 
 		/**
-		 * @param {BinaryTree} tree
+		 * @param {BinarySearchTree} tree
 		 * @returns {Array<number>}
 		 */
 		const postfix = (tree) => {
@@ -250,16 +265,19 @@ async function main() {
 	const numCases = Number.parseInt(await lineReader.nextLine(), 10)
 
 	for (let i = 0; i < numCases && lineReader.hasNextLine(); i += 1) {
-		const binaryTree = new BinaryTree()
+		const bst = new BinarySearchTree()
+
 		const size = Number.parseInt(await lineReader.nextLine(), 10)
-		const values = (await lineReader.nextLine()).split(" ", 500).map(value => Number.parseInt(value, 10))
+		const values = (await lineReader.nextLine())
+			.split(" ", 500)
+			.map(value => Number.parseInt(value, 10))
 
 		for (let j = 0; j < size; j += 1)
-			binaryTree.add(values[j])
+			bst.add(values[j])
 
 		output.push(
 			`Case ${i + 1}:`,
-			`${breadthFirstSearchTree(binaryTree.root).join(" ")}`,
+			`${breadthFirstSearchTree(bst.root).join(" ")}`,
 			""
 		)
 	}
