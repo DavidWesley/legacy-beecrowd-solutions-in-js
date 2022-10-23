@@ -8,6 +8,7 @@ function main() {
 	const output = []
 
 	for (let index = 0; index < numLines; index += 1) {
+		// eslint-disable-next-line no-unused-vars
 		const [Ax, Ay, Bx, By, Cx, Cy, Dx, Dy, RX, RY] = input[index]
 
 		// Ax === Dx | Ay === By
