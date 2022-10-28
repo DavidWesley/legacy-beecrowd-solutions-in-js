@@ -11,12 +11,12 @@ class Queue {
 	#last = null
 
 	enqueue(data) {
-		const newNode = new QueueNode(data, this.#last, null)
+		const node = new QueueNode(data, this.#last, null)
 
-		if (this.isEmpty) this.#first = newNode
-		else this.#last.next = newNode
+		if (this.isEmpty) this.#first = node
+		else this.#last.next = node
 
-		this.#last = newNode
+		this.#last = node
 		this.#size++
 		return this
 	}
