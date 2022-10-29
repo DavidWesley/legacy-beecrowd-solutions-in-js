@@ -1,10 +1,12 @@
-const { readFileSync } = require("fs")
-const numbers = readFileSync("/dev/stdin", "utf8").split(" ").map(Number.parseFloat)
+const { readFileSync } = require("node:fs")
+const input = readFileSync("/dev/stdin", "utf8")
+	.split(" ", 3)
+	.map(Number.parseFloat)
 
-const biggerNumber = (nums) => Reflect.apply(Math.max, null, nums)
+const max = (values = [0]) => Reflect.apply(Math.max, null, values)
 
 function main() {
-	const bigger = biggerNumber(numbers)
+	const bigger = max(input)
 	console.log("%d eh o maior", bigger)
 }
 

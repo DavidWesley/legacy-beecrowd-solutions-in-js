@@ -11,8 +11,4 @@ function distanceBetween(space = 0) {
 	return Math.round(space / distanceTax)
 }
 
-function main() {
-	console.log("%d minutos", distanceBetween(distance))
-}
-
-main()
+console.log("%d minutos", distanceBetween(distance))

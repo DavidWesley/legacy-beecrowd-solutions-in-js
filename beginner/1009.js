@@ -1,19 +1,16 @@
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n")
+const Float = (num, precision) => Number.parseFloat(num.toFixed(precision))
 
-const name = input.shift()
-const [fixedSalary, sales] = input.map(value => Number.parseFloat(value))
-
-function finalSalary(salary = 0, sales = 0) {
-	const finalSal = salary + sales * 0.15
-	return finalSal.toFixed(2)
-}
+const { readFileSync } = require("node:fs")
+const input = readFileSync("/dev/stdin", "utf8").split("\n", 3)
 
 function main() {
-	const finalSalaryValue = finalSalary(fixedSalary, sales)
+	const name = input.shift()
+	const salary = Float(input.shift(), 2)
+	const sales = Float(input.shift(), 2)
+	const updatedSalary = 0.15 * sales + salary
 
 	console.log(name)
-	console.log(`TOTAL = R$ ${finalSalaryValue}`)
+	console.log("TOTAL = R$ %s", updatedSalary.toFixed(2))
 }
 
 main()

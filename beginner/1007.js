@@ -1,13 +1,11 @@
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n")
-
-const [A, B, C, D] = input.map(int => Number.parseInt(int))
-
-const diff = (w = 0, x = 0, y = 0, z = 0) => w * x - y * z
+const { readFileSync } = require("node:fs")
+const [A, B, C, D] = readFileSync("/dev/stdin", "utf8")
+	.split("\n", 4)
+	.map(value => Number.parseInt(value, 10))
 
 function main() {
-	const diffValue = diff(A, B, C, D)
-	console.log(`DIFERENCA = ${diffValue}`)
+	const difference = A * B - C * D
+	console.log("DIFERENCA = %d", difference)
 }
 
 main()

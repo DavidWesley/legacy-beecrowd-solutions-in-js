@@ -1,5 +1,7 @@
-const { readFileSync } = require("fs")
-const [salary] = readFileSync("/dev/stdin", "utf8").split("\n")
+const { readFileSync } = require("node:fs")
+const [input] = readFileSync("/dev/stdin", "utf8")
+	.split("\n", 1)
+	.map(Number.parseFloat)
 
 function getReadjustmentRate(currentSalary) {
 	const inRange = ((value) => (min, max = value) => value === Math.min(Math.max(min, value), max))(currentSalary)
@@ -24,15 +26,11 @@ function updateSalary(currentSalary = 0) {
 }
 
 function main() {
-	const status = updateSalary(Number.parseFloat(salary))
+	const status = updateSalary(input)
 
-	const responses = [
-		`Novo salario: ${status.updatedSalary.toFixed(2)}`,
-		`Reajuste ganho: ${status.readjustValue.toFixed(2)}`,
-		`Em percentual: ${Math.trunc(status.readjustmentRate * 100.00)} %`
-	]
-
-	console.log(responses.join("\n"))
+	console.log(`Novo salario: ${status.updatedSalary.toFixed(2)}`)
+	console.log(`Reajuste ganho: ${status.readjustValue.toFixed(2)}`)
+	console.log(`Em percentual: ${Math.trunc(status.readjustmentRate * 100.00)} %`)
 }
 
 main()

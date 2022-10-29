@@ -1,6 +1,7 @@
 const { readFileSync } = require("node:fs")
-const [A, B, C] = readFileSync("/dev/stdin", "utf8").split(" ", 3).map(Number.parseFloat)
-
+const [A, B, C] = readFileSync("/dev/stdin", "utf8")
+	.split(" ", 3)
+	.map(Number.parseFloat)
 
 const Triangle = {
 	isTriangle(a, b, c) {

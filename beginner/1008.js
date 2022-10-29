@@ -1,18 +1,17 @@
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n")
+const Float = (num, precision) => Number.parseFloat(num.toFixed(precision))
 
-const [number, hours, valueByHours] = input.map(Number)
-
-function salary(h = 0, vH = 0) {
-	const sal = h * vH
-	return sal.toFixed(2)
-}
+const { readFileSync } = require("node:fs")
+const input = readFileSync("/dev/stdin", "utf8")
+	.split("\n", 3)
+	.map(Number.parseFloat)
+	.map(value => Float(value, 2))
 
 function main() {
-	const salaryValue = salary(hours, valueByHours)
+	const [employeeNumber, workedTimeInHours, tax] = input
+	const salary = tax * workedTimeInHours
 
-	console.log(`NUMBER = ${number}`)
-	console.log(`SALARY = U$ ${salaryValue}`)
+	console.log("NUMBER = %s", employeeNumber.toFixed(1))
+	console.log("SALARY = U$ %s", salary.toFixed(2))
 }
 
 main()

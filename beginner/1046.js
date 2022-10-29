@@ -1,4 +1,4 @@
-const { readFileSync } = require("fs")
+const { readFileSync } = require("node:fs")
 const [startHour, endHour] = readFileSync("/dev/stdin", "utf8")
 	.split(" ", 2)
 	.map((hour) => Number.parseInt(hour, 10))
@@ -10,9 +10,4 @@ function getDifferenceBetweenHours(init = 0, end = init) {
 	else return HOURS_IN_DAY + end - init
 }
 
-function main() {
-	const difference = getDifferenceBetweenHours(startHour, endHour)
-	console.log(`O JOGO DUROU ${difference} HORA(S)`)
-}
-
-main()
+console.log("O JOGO DUROU %s HORA(S)", getDifferenceBetweenHours(startHour, endHour))

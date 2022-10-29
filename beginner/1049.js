@@ -1,24 +1,22 @@
-const { readFileSync } = require("fs")
-const [phylumName, className, nutritionTypeName] = readFileSync("/dev/stdin", "utf8")
-	.split("\n", 3)
+const { readFileSync } = require("node:fs")
+const [phylumName, className, nutritionTypeName] = readFileSync("/dev/stdin", "utf8").split("\n", 3)
 
 /** @param {object} obj */
-
 function DeepFreezeObject(obj) {
 	Object.freeze(obj)
-
 	Object.getOwnPropertyNames(obj).forEach((prop) => {
 		if (
-			Reflect.has(obj, prop) &&
-			typeof obj[prop] === "object" &&
-			Object.isFrozen(obj[prop]) === false
-		) {
+			Reflect.has(obj, prop)
+			&& typeof obj[prop] === "object"
+			&& Object.isFrozen(obj[prop]) === false
+		)
 			DeepFreezeObject(obj[prop])
-		}
 	})
+
+	return obj
 }
 
-const AnimalTree = {
+const AnimalTree = DeepFreezeObject({
 	vertebrado: {
 		ave: {
 			carnivoro: "aguia",
@@ -39,9 +37,7 @@ const AnimalTree = {
 			onivoro: "minhoca",
 		},
 	},
-}
-
-DeepFreezeObject(AnimalTree)
+})
 
 console.log(
 	AnimalTree[phylumName][className][nutritionTypeName]

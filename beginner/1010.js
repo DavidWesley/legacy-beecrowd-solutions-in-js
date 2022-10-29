@@ -1,23 +1,24 @@
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n")
+const Float = (num, precision) => Number.parseFloat(num.toFixed(precision))
+
+const { readFileSync } = require("node:fs")
+const input = readFileSync("/dev/stdin", "utf8")
+	.split("\n", 2)
+	.map(line => line.split(" ", 3).map(Number))
 
 function pay(part) {
-	const [, num, cost] = part.split(" ").map(Number)
-	const total = (num * cost).toFixed(2)
-
-	return Number.parseFloat(total)
+	const [, num, cost] = part
+	const total = Float(num * cost, 2)
+	return total
 }
 
+/** @param {number[]} parts */
 function cost(parts = []) {
-	const total = parts.reduce((acc, cur) => acc + cur, 0)
-	return total.toFixed(2)
+	return parts.reduce((total, value) => total + value, 0)
 }
 
 function main() {
-	const parts = input.map(pay)
-	const totalCost = cost(parts)
-
-	console.log(`VALOR A PAGAR: R$ ${totalCost}`)
+	const total = cost(input.map(pay))
+	console.log("VALOR A PAGAR: R$ %s", total.toFixed(2))
 }
 
 main()

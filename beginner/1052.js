@@ -1,11 +1,6 @@
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n")
+const { readFileSync } = require("node:fs")
+const input = readFileSync("/dev/stdin", "utf8").split("\n", 1)
 
-function main() {
-	const monthIndex = input[0]
-	const LongNameMonth = new Date(`2021-${monthIndex}-1`).toLocaleDateString("en-us", { month: "long" })
+const LONG_NAME_MONTH = new Date(`2021-${input.at(0)}-1`).toLocaleDateString("en-us", { month: "long" })
 
-	console.log(LongNameMonth)
-}
-
-main()
+console.log(LONG_NAME_MONTH)

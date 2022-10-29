@@ -7,28 +7,29 @@ const TIME_UNITS = {
 	//...
 }
 
-const { readFileSync } = require("fs")
-const [date1, time1, date2, time2] = readFileSync("/dev/stdin", "utf8").split("\n")
+const { readFileSync } = require("node:fs")
+const input = readFileSync("/dev/stdin", "utf8")
 
-const [D1] = date1.match(/\d+/)
-const [D2] = date2.match(/\d+/)
+function main() {
+	const [D1, H1, M1, S1, D2, H2, M2, S2] = input
+		.match(/\d{1,2}/gs)
+		.map(value => Number.parseInt(value, 10))
 
-const [H1, M1, S1] = time1.split(" : ")
-const [H2, M2, S2] = time2.split(" : ")
+	const resolvedTimeInMilliseconds =
+		TIME_UNITS.DAY * (D2 - D1) +
+		TIME_UNITS.HOUR * (H2 - H1) +
+		TIME_UNITS.MINUTE * (M2 - M1) +
+		TIME_UNITS.SECOND * (S2 - S1)
 
-const $d = (+D2 - +D1) * TIME_UNITS.DAY
-const $h = (+H2 - +H1) * TIME_UNITS.HOUR
-const $m = (+M2 - +M1) * TIME_UNITS.MINUTE
-const $s = (+S2 - +S1) * TIME_UNITS.SECOND
+	const days = Math.floor(resolvedTimeInMilliseconds / TIME_UNITS.DAY)
+	const hours = Math.floor((resolvedTimeInMilliseconds % TIME_UNITS.DAY) / TIME_UNITS.HOUR)
+	const minutes = Math.floor((resolvedTimeInMilliseconds % TIME_UNITS.HOUR) / TIME_UNITS.MINUTE)
+	const seconds = Math.floor((resolvedTimeInMilliseconds % TIME_UNITS.MINUTE) / TIME_UNITS.SECOND)
 
-const resolvedTimeInMilliseconds = $d + $h + $m + $s
+	console.log("%d dia(s)", days)
+	console.log("%d hora(s)", hours)
+	console.log("%d minuto(s)", minutes)
+	console.log("%d segundo(s)", seconds)
+}
 
-const days = Math.floor(resolvedTimeInMilliseconds / TIME_UNITS.DAY)
-const hours = Math.floor((resolvedTimeInMilliseconds % TIME_UNITS.DAY) / TIME_UNITS.HOUR)
-const minutes = Math.floor((resolvedTimeInMilliseconds % TIME_UNITS.HOUR) / TIME_UNITS.MINUTE)
-const seconds = Math.floor((resolvedTimeInMilliseconds % TIME_UNITS.MINUTE) / TIME_UNITS.SECOND)
-
-console.log("%d dia(s)", days)
-console.log("%d hora(s)", hours)
-console.log("%d minuto(s)", minutes)
-console.log("%d segundo(s)", seconds)
+main()

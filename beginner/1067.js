@@ -1,11 +1,14 @@
-const { readFileSync } = require("fs")
-const limit = readFileSync("/dev/stdin", "utf8").split("\n").shift()
+const { readFileSync } = require("node:fs")
+const [L] = readFileSync("/dev/stdin", "utf8")
+	.split("\n", 1)
+	.map(Number)
 
 function main() {
-	const responses = []
-	for (let num = 1; num <= Number(limit); num += 2) responses.push(num)
+	const output = []
+	for (let num = 1; num <= L; num += 2)
+		output.push(num)
 
-	console.log(responses.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()

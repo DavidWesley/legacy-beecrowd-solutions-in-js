@@ -1,19 +1,14 @@
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n").shift()
+const { readFileSync } = require("node:fs")
+const [input] = readFileSync("/dev/stdin", "utf8")
+	.split("\n", 1)
+	.map(value => Number.parseInt(value, 10))
 
-function formatDuration(dur) {
-	let s = (dur % 60)
-	let m = ((dur - s) / 60) % 60
-	let h = ((dur - m * 60 - s) / 3600)
+function formatTimeDurationToParts(duration = 0) {
+	const hours = Math.floor(duration / 3600)
+	const minutes = Math.floor(duration / 60) % 60
+	const seconds = duration % 60
 
-	return `${h}:${m}:${s}`
+	return [hours, minutes, seconds]
 }
 
-function main() {
-	const duration = Number.parseInt(input, 10)
-	const formattedDur = formatDuration(duration)
-
-	console.log(formattedDur)
-}
-
-main()
+console.log(formatTimeDurationToParts(input).join(":"))
