@@ -1,36 +1,38 @@
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n")
+const { readFileSync } = require("node:fs")
+const [input] = readFileSync("/dev/stdin", "utf8")
+	.split("\n", 1)
+	.map(Number.parseFloat)
 
-const value = Number.parseFloat(input.shift())
+/**
+ * @param {number} start The start of the range.
+ * @param {number} stop The stop of the range.
+ * @param {number} step The value to increment or decrement by.
+ */
+function* Range(start = 0, stop, step = 1) {
+	if (isNaN(stop)) {
+		// one param defined
+		[stop, start] = [start, 0]
+	}
 
-function createInterval(min = 0, max = 100, steps = 2) {
-	const stepsCounter = steps >= 2 ? steps : 2
-	const intervalArray = Array.from({ length: steps + 1 }, (_, i) => {
-		return min + ((max - min) / stepsCounter) * i // stepValue
-	})
-
-	return intervalArray
+	for (let value = start; step > 0 ? value < stop : value > stop; value += step)
+		yield value
 }
 
-function subIntervalInclude(v, min = 0, max = 100, steps = 2) {
-	const intervalSteps = createInterval(min, max, steps)
+function subIntervalIncludesStatus(value, min = 0, max = min, steps = 1) {
+	const range = Range(min, max, steps)
+	let minLocal, maxLocal = range.next().value
 
-	for (let index = 0; index < intervalSteps.length - 1; index++) {
-		const minLocal = intervalSteps[index]
-		const maxLocal = intervalSteps[index + 1]
+	for (const limit of range) {
+		[minLocal, maxLocal] = [maxLocal, limit]
 
-		if (v > minLocal && v <= maxLocal) {
-			if (minLocal === min) return `Intervalo [${minLocal}, ${maxLocal}]`
-			return `Intervalo (${minLocal}, ${maxLocal}]`
+		if (minLocal <= value && value <= maxLocal) {
+			return (min === minLocal)
+				? `Intervalo [${minLocal}, ${maxLocal}]`
+				: `Intervalo (${minLocal}, ${maxLocal}]`
 		}
 	}
 
 	return "Fora de intervalo"
 }
 
-function main() {
-	const interval = subIntervalInclude(value, 0, 100, 4)
-	console.log(interval)
-}
-
-main()
+console.log(subIntervalIncludesStatus(input, 0, 100, 25))

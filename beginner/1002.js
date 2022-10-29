@@ -1,17 +1,17 @@
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8")
+const Float = (num = 0, precision) => Number.parseFloat(num.toFixed(precision))
 
-const PI = +Math.PI.toFixed(5)
-const [radius] = input.split("\n").map(r => +Number.parseFloat(r).toFixed(2))
+const { readFileSync } = require("node:fs")
+const [input] = readFileSync("/dev/stdin", "utf8")
+	.split("\n", 1)
+	.map(Number.parseFloat)
+	.map(radius => Float(radius, 2))
 
-function circleArea(r) {
-	const area = PI * Math.pow(r, 2)
-	return area.toFixed(4)
-}
+const calculateCircleAreaFromRadius = (radius = 0, pi = Math.PI) => pi * Math.pow(radius, 2)
 
 function main() {
-	const areaCircle = circleArea(radius)
-	console.log(`A=${areaCircle}`)
+	const PI = Float(Math.PI, 5)
+	const area = calculateCircleAreaFromRadius(input, PI)
+	console.log("A=%s", area.toFixed(4))
 }
 
 main()

@@ -1,16 +1,14 @@
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n")
+const Float = (num, precision) => Number.parseFloat(num.toFixed(precision))
 
-const [A, B, C] = input.map(value => +Number.parseFloat(value).toFixed(1))
-
-function media(x = 0, y = 0, z = 0) {
-	const med = (x * 0.2) + (y * 0.3) + (z * 0.5)
-	return med.toFixed(1)
-}
+const { readFileSync } = require("node:fs")
+const [A, B, C] = readFileSync("/dev/stdin", "utf8")
+	.split("\n", 3)
+	.map(Number.parseFloat)
+	.map(value => Float(value, 1))
 
 function main() {
-	const med = media(A, B, C)
-	console.log(`MEDIA = ${med}`)
+	const average = (A * 0.2) + (B * 0.3) + (C * 0.5)
+	console.log("MEDIA = %s", average.toFixed(1))
 }
 
 main()

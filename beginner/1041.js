@@ -1,7 +1,7 @@
-const { readFileSync } = require("fs")
-const coordenates = readFileSync("/dev/stdin", "utf8").split(" ")
-
-const [xCoord, yCoord] = coordenates.map(Number.parseFloat)
+const { readFileSync } = require("node:fs")
+const [X, Y] = readFileSync("/dev/stdin", "utf8")
+	.split(" ", 2)
+	.map(Number.parseFloat)
 
 function quadrants(x = 0, y = 0) {
 	if (x === 0 && y === 0) return "Origem"
@@ -13,9 +13,4 @@ function quadrants(x = 0, y = 0) {
 	else if (y < 0) return (x < 0) ? "Q3" : "Q4"
 }
 
-function main() {
-	const quadrant = quadrants(xCoord, yCoord)
-	console.log(quadrant)
-}
-
-main()
+console.log(quadrants(X, Y))

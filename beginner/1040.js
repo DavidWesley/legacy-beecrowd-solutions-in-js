@@ -1,37 +1,29 @@
-const { readFileSync } = require("fs")
-const [N1, N2, N3, N4, N5 = 0] = readFileSync("/dev/stdin", "utf8").split(/\s+/).map(Number.parseFloat)
+const { readFileSync } = require("node:fs")
+const [N1, N2, N3, N4, N5 = 0] = readFileSync("/dev/stdin", "utf8")
+	.split(/\s+/, 5)
+	.map(Number.parseFloat)
 
 /**
- * @param {number} nA/
- * @param {number} nB
- * @param {number} nC
- * @param {number} nD
+ * @param {number} A note A's value
+ * @param {number} B note B's value
+ * @param {number} C note C's value
+ * @param {number} D note D's value
  */
-
-function studentAverageNote(nA, nB, nC, nD) {
-	return (nA * 2.0 + nB * 3.0 + nC * 4.0 + nD * 1.0) / 10.0
-}
-
-/** @param {number} avg */
-
-function printStudentStatus(avg, rec) {
-	if (avg >= 7.0) console.log("Aluno aprovado.")
-	else if (avg < 5.0) console.log("Aluno reprovado.")
-	else if (avg >= 5.0 && avg <= 6.9) {
-		const newAvg = (rec + avg) * 0.5
-
-		console.log("Aluno em exame.")
-		console.log("Nota do exame:", rec.toFixed(1))
-		console.log(newAvg >= 5.0 ? "Aluno aprovado." : "Aluno reprovado.")
-		console.log("Media final:", newAvg.toFixed(1))
-	}
-}
+const calculateStudentAverageGrade = (A, B, C, D) => (A * 2.0 + B * 3.0 + C * 4.0 + D * 1.0) / 10.0
 
 function main() {
-	const average = studentAverageNote(N1, N2, N3, N4)
-	console.log("Media:", average.toFixed(1))
+	const grade = calculateStudentAverageGrade(N1, N2, N3, N4)
+	console.log("Media: %s", grade.toFixed(1))
 
-	printStudentStatus(average, N5)
+	if (grade >= 7.0) { console.log("Aluno aprovado.") }
+	else if (grade >= 5.0) {
+		const average = (N5 + grade) / 2
+		console.log("Aluno em exame.")
+		console.log("Nota do exame: %s", N5.toFixed(1))
+		console.log(average >= 5.0 ? "Aluno aprovado." : "Aluno reprovado.")
+		console.log("Media final: %s", average.toFixed(1))
+	}
+	else { console.log("Aluno reprovado.") }
 }
 
 main()

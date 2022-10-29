@@ -1,21 +1,25 @@
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split(" ")
+const Float = (num, precision) => Number.parseFloat(num.toFixed(precision))
 
-const [A, B, C] = input.map(Number.parseFloat)
+const { readFileSync } = require("fs")
+const [A, B, C] = readFileSync("/dev/stdin", "utf8")
+	.split(" ", 3)
+	.map(Number.parseFloat)
+	.map(value => Float(value, 1))
 
 const rect = (x = 0, y = x) => x * y
 const square = (l) => rect(l)
-
 const triangle = (b, h) => (b * h) / 2
-const trapeze = (b, B, h) => ((B + b) * h) / 2
-const circle = (r) => Number(Math.PI.toFixed(5)) * Math.pow(r, 2)
+const trapeze = (b, B, h) => (B + b) * h / 2
+const circle = (r, pi = Math.PI) => pi * Math.pow(r, 2)
 
 function main() {
-	console.log(`TRIANGULO: ${triangle(A, C).toFixed(3)}`)
-	console.log(`CIRCULO: ${circle(C).toFixed(3)}`)
-	console.log(`TRAPEZIO: ${trapeze(A, B, C).toFixed(3)}`)
-	console.log(`QUADRADO: ${square(B).toFixed(3)}`)
-	console.log(`RETANGULO: ${rect(A, B).toFixed(3)}`)
+	const PI = Float(Math.PI, 5)
+
+	console.log("TRIANGULO: %s", triangle(A, C).toFixed(3))
+	console.log("CIRCULO: %s", circle(C, PI).toFixed(3))
+	console.log("TRAPEZIO: %s", trapeze(A, B, C).toFixed(3))
+	console.log("QUADRADO: %s", square(B).toFixed(3))
+	console.log("RETANGULO: %s", rect(A, B).toFixed(3))
 }
 
 main()
