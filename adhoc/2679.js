@@ -1,13 +1,8 @@
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n")
+const { readFileSync } = require("node:fs")
+const [N] = readFileSync("/dev/stdin", "utf8")
+	.split("\n", 1)
+	.map(value => Number.parseInt(value, 10))
 
 const isEven = (num = 1) => Math.abs(Number(num)) % 2 === 0
 
-function main() {
-	const num = Number.parseInt(input.shift(), 10)
-	const response = isEven(num) ? num + 2 : num + 1
-
-	console.log(response)
-}
-
-main()
+console.log(isEven(N) ? N + 2 : N + 1)
