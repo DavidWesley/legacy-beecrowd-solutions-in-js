@@ -1,17 +1,13 @@
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n").shift()
+const { readFileSync } = require("node:fs")
+const [I] = readFileSync("/dev/stdin", "utf8")
+	.split("\n", 1)
+	.map(value => Number.parseInt(value, 10))
 
-function timesTable(num, max = 10) {
-	return Array.from({ length: max }, (_, i) => {
-		return `${i + 1} x ${num} = ${num * (i + 1)}`
-	})
+function generateTimesTable(num, max = 10) {
+	return Array.from(
+		{ length: max },
+		(_, i) => `${i + 1} x ${num} = ${num * (i + 1)}`
+	)
 }
 
-function main() {
-	const integer = Number.parseInt(input)
-	const responses = timesTable(integer, 10)
-
-	console.log(responses.join("\n"))
-}
-
-main()
+console.log(generateTimesTable(I, 10).join("\n"))
