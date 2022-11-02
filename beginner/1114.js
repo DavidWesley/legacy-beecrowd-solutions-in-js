@@ -1,23 +1,33 @@
-const { readFileSync } = require("fs")
-const inputKeys = readFileSync("/dev/stdin", "utf8").split("\n")
+const { createHash } = require("node:crypto")
+const { readFileSync } = require("node:fs")
 
-function validateKey(inputKey = "") {
-	const DAFULT_PASS = "2002"
-	return inputKey === DAFULT_PASS
-}
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
+
+const validatePassword = (() => {
+	const ALGORITHM = "sha256"
+	const INPUT_ENCODING = "ascii"
+	const OUTPUT_ENCODING = "base64"
+	const CORRECT_HASH = "bJTjXMw1LU6e8LmVYs/5laV0HOjeitEbVoiSk02u42Y=" // Hard Coded correct password in base64 format
+
+	const hash = createHash(ALGORITHM).setEncoding(INPUT_ENCODING)
+
+	return (pass = "") => CORRECT_HASH === hash
+		.copy()
+		.update(pass)
+		.digest(OUTPUT_ENCODING)
+})()
 
 function main() {
-	const responses = []
+	const output = []
 
-	// eslint-disable-next-line no-constant-condition
-	while (true) {
-		const valid = validateKey(inputKeys.shift())
-
-		if (valid) { responses.push("Acesso Permitido"); break }
-		else { responses.push("Senha Invalida") }
+	for (const password of input) {
+		if (validatePassword(password)) {
+			output.push("Acesso Permitido")
+			break
+		} else output.push("Senha Invalida")
 	}
 
-	console.log(responses.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()
