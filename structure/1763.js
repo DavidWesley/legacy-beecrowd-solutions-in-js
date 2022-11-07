@@ -1,4 +1,4 @@
-const { readFileSync } = require("fs")
+const { readFileSync } = require("node:fs")
 const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 const ChristmasMessagesFromCountries = {
@@ -29,16 +29,19 @@ const ChristmasMessagesFromCountries = {
 }
 
 function main() {
-	const responses = []
+	const output = []
 
 	for (const country of input) {
 		if (country === "") break // EOFile
 
-		const translatedMessage = ChristmasMessagesFromCountries[country] ?? "--- NOT FOUND ---"
-		responses.push(translatedMessage)
+		output.push(
+			Object.hasOwn(ChristmasMessagesFromCountries, country)
+				? ChristmasMessagesFromCountries[country]
+				: "--- NOT FOUND ---",
+		)
 	}
 
-	console.log(responses.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()
