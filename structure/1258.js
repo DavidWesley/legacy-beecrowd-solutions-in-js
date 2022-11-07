@@ -1,81 +1,109 @@
-const { readFileSync } = require("fs")
-const inputs = readFileSync("/dev/stdin", "utf8").split("\n")
+const { createReadStream } = require("node:fs")
+const { createInterface } = require("node:readline")
 
-function main() {
-	const classes = getterClasses(inputs)
-	const shirtsSorted = shirtSorter(classes)
-	const output = printShirtsByClasses(shirtsSorted)
-
-	console.log(output.join("\n\n"))
-}
-
-function getterClasses(classes = []) {
-	const shirts = []
-
-	while (classes.length > 0) {
-		const shirtQuantity = Number(classes[0])
-		if (shirtQuantity === 0 || isNaN(shirtQuantity)) break
-
-		const thisClass = []
-
-		const interval = (shirtQuantity * 2) + 1
-		const [, ...shirtsData] = classes.splice(0, interval)
-
-		while (shirtsData.length > 0) {
-			const [name, details] = shirtsData.splice(0, 2)
-			const [color, size] = details.split(" ")
-
-			const shirt = { color: color, size: size, name: name }
-			thisClass.push(shirt)
+//// READING FILE | STREAMS ////
+class LineReader {
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 * @return {import("node:readline").ReadLine}
+	 */
+	static createReadLineInterface(path, encoding = "utf8") {
+		const readStreamOptions = {
+			encoding: encoding,
+			flags: "r",
+			emitClose: true,
+			autoClose: true
 		}
 
-		shirts.push(thisClass)
+		return createInterface({
+			input: createReadStream(path, readStreamOptions),
+			crlfDelay: Infinity,
+			terminal: false
+		})
 	}
 
-	return shirts
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 */
+	static create(path, encoding) {
+		const RLI = LineReader.createReadLineInterface(path, encoding)
+
+		let EOF = false
+
+		const nextLineGenerator = (async function* () {
+			for await (const line of RLI)
+				yield line
+		})()
+
+		RLI.once("close", () => { EOF = true })
+
+		return {
+			hasNextLine: () => !EOF,
+			nextLine: async (/** @type {unknown} */ fn) => {
+				const { value } = (await nextLineGenerator.next())
+				return (typeof fn === "function") ? fn(value) : value
+			},
+			close: () => RLI.close()
+		}
+	}
 }
 
-/**
- * @typedef { ({ color: string; size: string; name: string } )[][] } shirt
- */
+/** @typedef {{ color: string; size: string; name: string }} shirtPropsType */
 
 /**
- * @param {shirt} gruopsOfClasses
- * @return {shirt}
+ * @param {shirtPropsType} shirtA
+ * @param {shirtPropsType} shirtB
  */
-
-function shirtSorter(gruopsOfClasses = [[{ color: "", size: "", name: "" }]]) {
-	const shirtsClassifier = {
+function shirtCompare(shirtA, shirtB) {
+	const classifier = {
 		sizes: { P: 0, M: 1, G: 2 },
 		colours: { branco: 0, vermelho: 1 }
 	}
 
-	for (const shirtsGroup of gruopsOfClasses) {
-		shirtsGroup.sort((a, b) => {
-			const { colours, sizes } = shirtsClassifier
+	const coloursOrder = classifier.colours[shirtA.color] - classifier.colours[shirtB.color]
+	const namesOrder = shirtA.name.localeCompare(shirtB.name, "pt-BR")
+	const sizesOrder = classifier.sizes[shirtA.size] - classifier.sizes[shirtB.size]
 
-			const coloursOrderValue = colours[a.color] - colours[b.color]
-			const namesOrderValue = a.name.localeCompare(b.name, "pt-BR")
-			const sizesOrderValue = sizes[a.size] - sizes[b.size]
+	if (coloursOrder !== 0) return coloursOrder
+	else if (sizesOrder !== 0) return sizesOrder
+	else if (namesOrder !== 0) return namesOrder
+	return 0
+}
 
-			if (coloursOrderValue !== 0) return coloursOrderValue
-			else if (sizesOrderValue !== 0) return sizesOrderValue
-			else if (namesOrderValue !== 0) return namesOrderValue
+async function main() {
+	const PATH = "/dev/stdin"
+	const ENCODING = "utf8"
 
-		})
+	const output = []
+	const lineReader = LineReader.create(PATH, ENCODING)
+
+	while (lineReader.hasNextLine()) {
+		const N = Number.parseInt(await lineReader.nextLine(), 10)
+		if (N === 0) break
+
+		const /** @type {shirtPropsType[]} */ shirts = Array(N)
+
+		for (let index = 0; index < N; index++) {
+			const playerName = await lineReader.nextLine()
+			const [shirtColor, shirtSize] = (await lineReader.nextLine()).split(" ", 2)
+
+			shirts[index] = { color: shirtColor, size: shirtSize, name: playerName }
+		}
+
+		output.push(
+			shirts
+				.sort(shirtCompare)
+				.map(({ name, size, color }) => `${color} ${size} ${name}`)
+				.join("\n")
+		)
 	}
 
-	return gruopsOfClasses
+	if (lineReader.hasNextLine())
+		lineReader.close()
+
+	console.log(output.join("\n\n"))
 }
-
-/**
- * @param {shirt} gruopsOfShirts
- */
-
-function printShirtsByClasses(gruopsOfShirts) {
-	return gruopsOfShirts.map(shirts => shirts.map(({ name, size, color }) => `${color} ${size} ${name}`).join("\n"))
-}
-
-// RUN THE CODE
 
 main()
