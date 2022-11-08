@@ -1,67 +1,50 @@
-const { readFileSync } = require("fs")
-
-const textList = readFileSync("/dev/stdin", "utf8").split("\n")
+const { readFileSync } = require("node:fs")
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 function main() {
-	const outputs = []
+	const output = []
 
-	for (const text of textList)
-		if (text === "") break // EOFile Condition Verification
-		else outputs.push(formatText(text))
+	for (const line of input)
+		if (line === "") break // EOFile Condition Verification
+		else output.push(brokenKeyboardFormatter(line))
 
-	console.log(outputs.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()
 
-
-function formatText(text) { // Da pra melhorar essa porra!
-	let finalText = ""
+function brokenKeyboardFormatter(text) {
+	let result = ""
 
 	for (let index = 0; index < text.length; index++) {
 		let char = text[index]
 
 		if (char === "[") {
-			if (index + 1 >= text.length) break
-			char = text[++index]
-
-			const [wordToPutOnHome, newIndex] = insertTextFrom(index, text)
-
-			index = newIndex
-			finalText = wordToPutOnHome.concat(finalText)
-		}
-
-		else if (char === "]") {
-			if (index + 1 >= text.length) break
-			char = text[++index]
-
-			const [wordToPutOnEnd, newIndex] = insertTextFrom(index, text)
-
-			index = newIndex
-			finalText = finalText.concat(wordToPutOnEnd)
-		}
-
-		else {
-			finalText += char
+			const [strToPutOnStart, nIndex] = insertTextFrom(index + 1, text)
+			index = nIndex
+			result = strToPutOnStart.concat(result)
+		} else if (char === "]") {
+			const [strToPutOnEnd, nIndex] = insertTextFrom(index + 1, text)
+			index = nIndex
+			result = result.concat(strToPutOnEnd)
+		} else {
+			result += char
 		}
 	}
 
-	return finalText
+	return result
 }
 
-function insertTextFrom(index, text = "") {
-	let word = ""
-	let char = text.charAt(index)
-
-	while (index + 1 <= text.length) {
-		if (char === "[" || char === "]") {
-			index -= 1
+/**
+ * @param {number} from
+ * @param {string} text
+ * @return {[string, number]}
+ */
+function insertTextFrom(from, text = "") {
+	let index = from
+	for (; index < text.length; index++)
+		if (text.charAt(index) === "[" || text.charAt(index) === "]")
 			break
-		}
 
-		word += char
-		char = text[++index]
-	}
-
-	return [word, index]
+	return [text.substring(from, index), index - 1]
 }
