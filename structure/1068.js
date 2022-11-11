@@ -1,11 +1,11 @@
-const { readFileSync } = require("fs")
-const lines = readFileSync("/dev/stdin", "utf8").split("\n")
+const { readFileSync } = require("node:fs")
+const input = readFileSync("/dev/stdin", "utf8").split("\n", 1e4)
 
+//// CLASS ////
 class Stack {
 	#items = []
 	push(element) { this.#items.push(element) }
 	pop() { return this.#items.pop() }
-
 	toArray() { return this.#items }
 	isEmpty() { return this.size == 0 }
 
@@ -20,18 +20,19 @@ class Stack {
 	}
 }
 
-
 function main() {
-	const responses = lines
-		.slice(0, lines.lastIndexOf(""))
-		.map(line => parenthesesValidate(line) ? "correct" : "incorrect")
+	const output = []
 
-	console.log(responses.join("\n"))
+	for (const line of input)
+		if (line === "") break
+		else output.push(parenthesesValidate(line) ? "correct" : "incorrect")
+
+	console.log(output.join("\n"))
 }
 
 main()
 
-function parenthesesValidate(ps = "") {
+function parenthesesValidate(str = "") {
 	const details = {
 		codes: {
 			parenthesis: {
@@ -42,9 +43,8 @@ function parenthesesValidate(ps = "") {
 	}
 
 	const openedParenthesesStack = new Stack()
-	const parenthesesMatchesArray = Array.from(ps.match(/[()]/g) || [])
 
-	for (const parenthesis of parenthesesMatchesArray) {
+	for (const parenthesis of (str.match(/[()]/g) || [])) {
 		if (parenthesis === details.codes.parenthesis.opened)
 			openedParenthesesStack.push(parenthesis) // push opened parenthesis
 		else if (parenthesis === details.codes.parenthesis.closed && openedParenthesesStack.isEmpty() === false)

@@ -1,4 +1,4 @@
-const { readFileSync } = require("fs")
+const { readFileSync } = require("node:fs")
 const [[numPlayers, numTeams], ...players] = readFileSync("/dev/stdin", "utf8")
 	.split("\n")
 	.map((line) => line.split(" "))

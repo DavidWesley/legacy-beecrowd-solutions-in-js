@@ -3,8 +3,8 @@
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
-function isAValidCardinalCode(avaliadedCardinalCode = "") {
-	return Number.isInteger(+avaliadedCardinalCode)
+function validateCardinalCode(evaluatedCardinalCode = "") {
+	return Number.isInteger(Number(evaluatedCardinalCode))
 }
 
 const CardinalCodeEnum = Object.seal({
@@ -17,51 +17,53 @@ const CardinalCodeEnum = Object.seal({
 const UNSPECIFIED_CODE = "unspecified"
 
 const CardinalCodesMap = new Map(
-	Object.values(CardinalCodeEnum).map((code) => [code, new Array(0)])
+	Object
+		.values(CardinalCodeEnum)
+		.map((code) => [code, new Array(0)])
 ).set(UNSPECIFIED_CODE, new Array(0))
 
-for (let indexLine = 0, currentCardinalCode = ""; indexLine < input.length; indexLine++) {
-	const line = input[indexLine]
-	if (line === "0") break //EOFile Condition
+for (let index = 0, currentCardinalCode = ""; index < input.length; index++) {
+	const line = input[index]
+	if (line === "0") break // EOFile Condition
 
-	if (isAValidCardinalCode(line)) currentCardinalCode = line
+	if (validateCardinalCode(line)) currentCardinalCode = line
 	else if (CardinalCodesMap.has(currentCardinalCode)) CardinalCodesMap.get(currentCardinalCode).push(line)
-	else CardinalCodesMap.get(UNSPECIFIED_CODE).push(line) // Case exista um código ainda não implementado, o avião será adicionado a uma fila de direção NÂO-ESPECIFICADA
+	else CardinalCodesMap.get(UNSPECIFIED_CODE).push(line) // Caso exista um código ainda não implementado, o avião será adicionado a uma fila de direção NÂO-ESPECIFICADA
 }
 
 
 function main() {
 
-	const settledOrdenedCodesByPriorities = [
+	const settledOrdainedCodesByPriorities = [
 		CardinalCodeEnum.West,
 		CardinalCodeEnum.North,
 		CardinalCodeEnum.South,
 		CardinalCodeEnum.East
 	]
 
-	// The rest will be ordened by default position on Enum Object.
-	settledOrdenedCodesByPriorities.push(
-		...Object.values(CardinalCodeEnum).filter(cardinalCode => !settledOrdenedCodesByPriorities.includes(cardinalCode))
+	// The rest will be ordained by default position on Enum Object.
+	settledOrdainedCodesByPriorities.push(
+		...Object.values(CardinalCodeEnum).filter(cardinalCode => !settledOrdainedCodesByPriorities.includes(cardinalCode))
 	)
 
-	const ordenedAirplanes = []
+	const ordainedAirplanes = []
 	const longerAirplanesQueue = Reflect.apply(
 		Math.max,
 		null,
 		Array.from(CardinalCodesMap.values()).map(({ length }) => length)
 	)
 
-	// First In Fitst Out -> Priority Queue
+	// First In First Out -> Priority Queue
 	for (let turn = 0; turn < longerAirplanesQueue; turn++) {
-		for (const priorityCode of settledOrdenedCodesByPriorities) {
+		for (const priorityCode of settledOrdainedCodesByPriorities) {
 			if (CardinalCodesMap.get(priorityCode).length > 0) {
 				const airplaneCode = CardinalCodesMap.get(priorityCode).shift()
-				ordenedAirplanes.push(airplaneCode)
+				ordainedAirplanes.push(airplaneCode)
 			}
 		}
 	}
 
-	console.log(ordenedAirplanes.join(" "))
+	console.log(ordainedAirplanes.join(" "))
 }
 
 main()

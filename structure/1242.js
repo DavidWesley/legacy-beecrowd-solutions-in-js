@@ -1,16 +1,16 @@
-const { readFileSync } = require("fs")
+const { readFileSync } = require("node:fs")
 const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 class RNAA {
 	static #BASES = ["BS", "SB", "FC", "CF"]
 	static #BASE_REGEX = RNAA.#BASES.map((base) => new RegExp(base, "g"))
 
-	static countconnections(RNAACode = "") {
+	static countConnections(RNAACode = "") {
 		let counter = 0
 
 		while (this.#BASE_REGEX.some((reg) => reg.test(RNAACode))) {
-			for (const reg of this.#BASE_REGEX) {
-				RNAACode = RNAACode.replace(reg, () => {
+			for (const regex of this.#BASE_REGEX) {
+				RNAACode = RNAACode.replace(regex, () => {
 					counter++
 					return ""
 				})
@@ -22,13 +22,13 @@ class RNAA {
 }
 
 function main() {
-	const responses = new Array()
+	const output = new Array()
 
 	for (const RNA of input)
 		if (RNA == "") break
-		else responses.push(RNAA.countconnections(RNA))
+		else output.push(RNAA.countConnections(RNA))
 
-	console.log(responses.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()

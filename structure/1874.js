@@ -1,28 +1,96 @@
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8")
-	.split("\n")
-	.map((line) => line.split(" ").map((num) => Number.parseInt(num, 10)))
+const { createReadStream } = require("node:fs")
+const { createInterface } = require("node:readline")
 
-while (input.length > 0) {
-	const [H, P, F] = input.shift()
-
-	if ([H, P, F].includes(0)) break
-
-	const stacks = input.splice(0, H)
-	const treadMill = input.shift()
-
-	for (let stacksIndex = P - 1; stacksIndex >= 0; stacksIndex--) {
-		if (treadMill.length == 0) break
-
-		for (let stacksLevel = H - 1; stacksLevel >= 0; stacksLevel--) {
-			if (treadMill.length == 0) break
-			else if (stacks[stacksLevel][stacksIndex] == 0)
-				stacks[stacksLevel][stacksIndex] = treadMill.shift()
+//// READING FILE | STREAMS ////
+class LineReader {
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 * @return {import("node:readline").ReadLine}
+	 */
+	static createReadLineInterface(path, encoding = "utf8") {
+		const readStreamOptions = {
+			encoding: encoding,
+			flags: "r",
+			emitClose: true,
+			autoClose: true
 		}
+
+		return createInterface({
+			input: createReadStream(path, readStreamOptions),
+			crlfDelay: Infinity,
+			terminal: false
+		})
 	}
 
-	const resp = []
-	for (const level of stacks) resp.push(level.join(" "))
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 */
+	static create(path, encoding) {
+		const RLI = LineReader.createReadLineInterface(path, encoding)
 
-	console.log(resp.join("\n"))
+		let EOF = false
+
+		const nextLineGenerator = (async function* () {
+			for await (const line of RLI)
+				yield line
+		})()
+
+		RLI.once("close", () => { EOF = true })
+
+		return {
+			hasNextLine: () => !EOF,
+			nextLine: async (/** @type {unknown} */ fn) => {
+				const { value } = (await nextLineGenerator.next())
+				return (typeof fn === "function") ? fn(value) : value
+			},
+			close: () => RLI.close()
+		}
+	}
 }
+
+//// MAIN ////
+async function main() {
+	const PATH = "/dev/stdin"
+	const ENCODING = "utf8"
+
+	const output = []
+	const lineReader = LineReader.create(PATH, ENCODING)
+
+	const helper = (line = "") => line.split(" ").map(value => Number.parseInt(value, 10))
+	const nextLine = lineReader.nextLine.bind(lineReader, helper)
+
+	while (lineReader.hasNextLine()) {
+		const [H, P, F] = await nextLine()
+		if (H === 0 || P === 0 || F === 0) break
+
+		const stacks = Array(H)
+		for (let i = 0; i < stacks.length; i++)
+			stacks[i] = await nextLine()
+
+		const treadmill = await nextLine()
+
+		inner:
+		for (let position = P - 1; position >= 0; position--) {
+			for (let level = H - 1; level >= 0; level--) {
+				if (treadmill.length === 0) break inner
+				if (stacks[level][position] === 0)
+					stacks[level][position] = treadmill.shift()
+			}
+		}
+
+		Reflect.apply(
+			Array.prototype.push,
+			output,
+			stacks.map(level => level.join(" "))
+		)
+	}
+
+	if (lineReader.hasNextLine())
+		lineReader.close()
+
+	console.log(output.join("\n"))
+}
+
+main()

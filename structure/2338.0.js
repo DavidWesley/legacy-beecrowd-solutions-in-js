@@ -1,5 +1,5 @@
-const { readFileSync } = require("fs")
-const [numLines, ...lines] = readFileSync("/dev/stdin", "utf8").split("\n")
+const { readFileSync } = require("node:fs")
+const [numLines, ...input] = readFileSync("/dev/stdin", "utf8").split("\n")
 
 class Morse {
 	/**
@@ -86,9 +86,12 @@ class Morse {
 
 function main() {
 	const { morseToText } = Morse
-	const responses = lines.slice(0, +numLines).map(morseCode => morseToText(morseCode))
+	const output = Array.from(
+		{ length: Number.parseInt(numLines, 10) },
+		(_, index) => morseToText(input[index])
+	)
 
-	console.log(responses.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()

@@ -1,10 +1,30 @@
-class QueueNode {
+//// NODE ////
+/**
+ * @template T
+ */
+class Node {
+	/**
+	 * @param {T} data
+	 */
+	constructor(data) {
+		this.value = data
+	}
+}
+
+//// QUEUE ////
+class QueueNode extends Node {
+	/**
+	 * @param {unknown} data
+	 * @param {QueueNode} prev
+	 * @param {QueueNode} next
+	 */
 	constructor(data, prev = null, next = null) {
-		this.data = data
+		super(data)
 		this.prev = prev
 		this.next = next
 	}
 }
+
 class Queue {
 	#size = 0
 	#first = null
@@ -13,7 +33,7 @@ class Queue {
 	enqueue(data) {
 		const node = new QueueNode(data, this.#last, null)
 
-		if (this.isEmpty) this.#first = node
+		if (this.isEmpty()) this.#first = node
 		else this.#last.next = node
 
 		this.#last = node
@@ -22,17 +42,17 @@ class Queue {
 	}
 
 	dequeue() {
-		const removedItem = this.#first
-		this.#first = removedItem.next
+		const item = this.#first
+		this.#first = item.next
 
-		if (!this.isEmpty) this.#size--
-		return removedItem.data
+		if (!this.isEmpty()) this.#size--
+		return item.value
 	}
 
+	isEmpty() { return this.size === 0 }
 
 	get size() { return this.#size }
-	get peek() { return this.#first ?? null }
-	get isEmpty() { return this.size === 0 }
+	get peek() { return this.#first.value }
 
 	/** @param {Array<any> | Generator<any, any, any>} arr */
 	static fromArray(arr) {
@@ -42,35 +62,65 @@ class Queue {
 	}
 }
 
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n")
-
-function main() {
-	const responses = []
-
-	for (const size of input) {
-		if (size === "0") break
-
-		const deck = Queue.fromArray(range(1, +size, 1))
-		const [discardedCards, reaming] = discardCards(deck)
-
-		const messageCards = {
-			discarded: `cards: ${discardedCards.join(", ")}`,
-			remaing: `Remaining card: ${reaming}`
+//// READING FILE | STREAMS ////
+const { createReadStream } = require("node:fs")
+const { createInterface } = require("node:readline")
+class LineReader {
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 * @return {import("node:readline").ReadLine}
+	 */
+	static createReadLineInterface(path, encoding = "utf8") {
+		const readStreamOptions = {
+			encoding: encoding,
+			flags: "r",
+			emitClose: true,
+			autoClose: true
 		}
 
-		responses.push(messageCards.discarded, messageCards.remaing)
+		return createInterface({
+			input: createReadStream(path, readStreamOptions),
+			crlfDelay: Infinity,
+			terminal: false
+		})
 	}
 
-	console.log(responses.join("\n"))
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 */
+	static create(path, encoding) {
+		const RLI = LineReader.createReadLineInterface(path, encoding)
+
+		let EOF = false
+
+		const nextLineGenerator = (async function* () {
+			for await (const line of RLI)
+				yield line
+		})()
+
+		RLI.once("close", () => { EOF = true })
+
+		return {
+			hasNextLine: () => !EOF,
+			nextLine: async (/** @type {unknown} */ fn) => {
+				const { value } = (await nextLineGenerator.next())
+				return (typeof fn === "function") ? fn(value) : value
+			},
+			close: () => RLI.close()
+		}
+	}
 }
+
+//// FUNCTIONS ////
 
 /**
  * @param {number} start The start of the range.
  * @param {number} stop The stop of the range.
  * @param {number} step The value to increment or decrement by.
  */
-function* range(start = 0, stop, step = 1) {
+function* Range(start = 0, stop, step = 1) {
 	if (isNaN(stop)) {
 		// one param defined
 		[stop, start] = [start, 0]
@@ -94,7 +144,37 @@ function discardCards(deck) {
 		deck.enqueue(deck.dequeue())
 	}
 
-	return [discardedCardsArray, deck.peek.data]
+	return [discardedCardsArray, deck.peek]
+}
+
+//// MAIN ////
+async function main() {
+	const PATH = "/dev/stdin"
+	const ENCODING = "utf8"
+
+	const output = []
+	const lineReader = LineReader.create(PATH, ENCODING)
+
+	const helper = (line = "") => Number.parseInt(line, 10)
+	const nextLine = lineReader.nextLine.bind(lineReader, helper)
+
+	while (lineReader.hasNextLine()) {
+		const size = await nextLine()
+		if (size === 0) break
+
+		const deck = Queue.fromArray(Range(1, size, 1))
+		const [discardedCards, reamingCard] = discardCards(deck)
+
+		output.push(
+			`cards: ${discardedCards.join(", ")}`,
+			`Remaining card: ${reamingCard}`
+		)
+	}
+
+	if (lineReader.hasNextLine())
+		lineReader.close()
+
+	console.log(output.join("\n"))
 }
 
 main()

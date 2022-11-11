@@ -1,61 +1,80 @@
-//// READING FILE | STREAMS ////
 const { createReadStream } = require("node:fs")
 const { createInterface } = require("node:readline")
 
-const PATH = "/dev/stdin"
-const ENCODING = "utf8"
+//// READING FILE | STREAMS ////
+class LineReader {
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 * @return {import("node:readline").ReadLine}
+	 */
+	static createReadLineInterface(path, encoding = "utf8") {
+		const readStreamOptions = {
+			encoding: encoding,
+			flags: "r",
+			emitClose: true,
+			autoClose: true
+		}
 
-/**
- * @param {string} path
- * @param {BufferEncoding} encoding
- */
-function createReadLineInterface(path, encoding) {
-	return createInterface({
-		input: createReadStream(path, encoding),
-		crlfDelay: Infinity,
-		terminal: false
-	})
-}
+		return createInterface({
+			input: createReadStream(path, readStreamOptions),
+			crlfDelay: Infinity,
+			terminal: false
+		})
+	}
 
-/** @param {import("readline").Interface} readLineInterface */
-const processLineByLine = function (readLineInterface) {
-	let EOF = false
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 */
+	static create(path, encoding) {
+		const RLI = LineReader.createReadLineInterface(path, encoding)
 
-	const nextLineGenerator = (async function* () {
-		for await (const line of readLineInterface) yield line
-		EOF = true
-	})()
+		let EOF = false
 
-	return {
-		hasNextLine: () => !EOF,
-		nextLine: async (fn) => {
-			const { value } = (await nextLineGenerator.next())
-			return (typeof fn === "function") ? fn(value) : value
+		const nextLineGenerator = (async function* () {
+			for await (const line of RLI)
+				yield line
+		})()
+
+		RLI.once("close", () => { EOF = true })
+
+		return {
+			hasNextLine: () => !EOF,
+			nextLine: async (/** @type {unknown} */ fn) => {
+				const { value } = (await nextLineGenerator.next())
+				return (typeof fn === "function") ? fn(value) : value
+			},
+			close: () => RLI.close()
 		}
 	}
 }
 
-
 async function main() {
-	const output = []
+	const PATH = "/dev/stdin"
+	const ENCODING = "utf8"
 
-	const RLI = createReadLineInterface(PATH, ENCODING)
-	const readLineInstance = processLineByLine(RLI)
+	const output = []
+	const lineReader = LineReader.create(PATH, ENCODING)
 
 	/** @type {Map<string, { count: number }>} */
 	const trees = new Map()
-	const numCases = await readLineInstance.nextLine(Number.parseFloat)
-	await readLineInstance.nextLine() // Blank line
 
-	for (let repeats = numCases; repeats > 0; repeats -= 1) {
+	let size = Number.parseInt(await lineReader.nextLine(), 10)
+	await lineReader.nextLine() // Removing unnecessary blank line
+
+	while (size-- > 0) {
 		let total = 0
 
-		while (readLineInstance.hasNextLine()) {
-			let tree = await readLineInstance.nextLine()
+		while (lineReader.hasNextLine()) {
+			const tree = await lineReader.nextLine()
+
 			if (!tree) break
 
-			if (trees.has(tree)) trees.get(tree).count += 1
-			else trees.set(tree, { count: 1 })
+			if (trees.has(tree))
+				trees.get(tree).count += 1
+			else
+				trees.set(tree, { count: 1 })
 
 			total += 1
 		}
@@ -67,13 +86,12 @@ async function main() {
 				.map(([treeName, { count }]) => `${treeName} ${((1e2 * count) / total).toFixed(4)}`)
 			: []
 
-		// Restart the tree map to next loop iteration
-		trees.clear()
-
+		trees.clear() // Restart the tree map to next loop iteration
 		Reflect.apply(Array.prototype.push, output, organizedTrees)
-		if (repeats !== 1) output.push("")
+		output.push("")
 	}
 
+	output.pop() // Trim end last new line character
 	console.log(output.join("\n"))
 }
 

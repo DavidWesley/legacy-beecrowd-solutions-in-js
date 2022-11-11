@@ -1,30 +1,37 @@
-const { readFileSync } = require("fs")
+const { readFileSync } = require("node:fs")
 const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
-const Integer = (num = "") => Number.parseInt(num, 10)
+function main() {
+	const output = []
 
-const [M, N] = input.shift().split(" ").map(Integer)
+	const [M, N] = input
+		.shift()
+		.split(" ", 2)
+		.map(value => Number.parseInt(value, 10))
 
-const dictonary = new Map()
+	const hayPointProfessionsDictionary = new Map()
 
-for (let lineIndex = 0; lineIndex < M; lineIndex++) {
-	const [word, value] = input.shift().split(" ")
-	dictonary.set(word, Integer(value))
-}
+	for (let i = 0; i < M; i++) {
+		const [profession, value] = input
+			.shift()
+			.split(" ", 2)
 
-const responses = []
-
-for (let lineIndex = 0; lineIndex < N; lineIndex++) {
-	let line = input.shift()
-	const keys = []
-
-	while (line !== ".") {
-		keys.push(...line.split(" ").filter(word => dictonary.has(word)))
-		line = input.shift()
+		hayPointProfessionsDictionary.set(profession, Number.parseInt(value, 10))
 	}
 
-	const total = keys.reduce((sum, word) => sum + dictonary.get(word), 0)
-	responses.push(total)
+	for (let j = 0; j < N; j++) {
+		let amount = 0
+
+		for (let text = input.shift(); text !== "."; text = input.shift()) {
+			for (const word of text.split(" "))
+				if (hayPointProfessionsDictionary.has(word))
+					amount += hayPointProfessionsDictionary.get(word)
+		}
+
+		output.push(amount)
+	}
+
+	console.log(output.join("\n"))
 }
 
-console.log(responses.join("\n"))
+main()

@@ -1,18 +1,16 @@
-const { readFileSync } = require("fs")
-
-const lines = readFileSync("/dev/stdin", "utf8")
+const { readFileSync } = require("node:fs")
+const input = readFileSync("/dev/stdin", "utf8")
 	.split("\n")
 	.map((line) => line.split(" ").map((value) => Number.parseInt(value, 10)))
 
 const isEven = (num = 1) => Math.abs(Number(num)) % 2 === 0
 
-/** @typedef { (number[]) & { swaps?: 0 }} MergeSortArrayType */
+/** @typedef { number[] & { swaps?: 0 }} MergeSortArrayType  */
 
 /**
  * @param {MergeSortArrayType} left
  * @param {MergeSortArrayType} right
  */
-
 function merge(left, right) {
 	const merged = /** @type {MergeSortArrayType} */ ([])
 	merged.swaps = 0
@@ -37,7 +35,6 @@ function merge(left, right) {
 }
 
 /** @param {MergeSortArrayType} list */
-
 function mergeSort(list) {
 	if (list.length <= 1) return (list.swaps = 0, list)
 
@@ -54,20 +51,17 @@ function mergeSort(list) {
 }
 
 function main() {
-	const responses = []
+	const output = []
 
-	for (const line of lines) {
-		if (line[0] == 0) break
+	for (const [size, ...values] of input) {
+		if (size === 0) break
 
-		const size = line[0]
-		const values = line.slice(1, 1 + size)
+		const { swaps } = mergeSort(values.length !== size + 1 ? values.splice(1, size) : values)
 
-		const inversions = mergeSort(values).swaps
-
-		responses.push(isEven(inversions) ? "Carlos" : "Marcelo")
+		output.push(isEven(swaps) ? "Carlos" : "Marcelo")
 	}
 
-	console.log(responses.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()
