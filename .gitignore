@@ -15,9 +15,12 @@
 **/*.code-workspace
 **/*.code-snippets
 
+# User's Fleet configurations
+.fleet
+.fleet/*
+
 # Format Config Page
 .prettierrc
-
 
 # Logs
 logs
