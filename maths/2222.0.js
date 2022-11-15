@@ -132,7 +132,6 @@ class MySet extends Set {
 }
 
 //// MAIN ////
-
 async function main() {
 	const PATH = "/dev/stdin"
 	const ENCODING = "utf8"
@@ -140,26 +139,25 @@ async function main() {
 	const output = []
 	const lineReader = LineReader.create(PATH, ENCODING)
 
-	const helper = (line = "") => line.split(" ").map(value => Number.parseInt(value, 10))
+	const helper = (line = "") => line.split(" ", 60 + 1).map(value => Number.parseInt(value, 10))
 	const nextLine = lineReader.nextLine.bind(undefined, helper)
 
-	const [numCases] = await nextLine()
+	const [I] = await nextLine() // Numbers of Instances
 
 	/** @type {Map<number, MySet<number>>} */
 	const sets = new Map()
 
-	for (let cIndex = 0; cIndex < numCases && lineReader.hasNextLine(); cIndex++) {
+	for (let i = 1; i <= I; i++) {
 		const [N] = await nextLine() // Number of Sets
 
-		for (let i = 1; i <= N; i++) {
+		for (let n = 1; n <= N; n++) {
 			const set = new MySet()
-			const line = await nextLine()
-			const size = line[0]
+			const [size, ...values] = await nextLine()
 
-			for (let j = 1; j <= size; j++)
-				set.add(line[j])
+			for (let m = 0; m < size; m++)
+				set.add(values[m])
 
-			sets.set(i, new MySet(set))
+			sets.set(n, new MySet(set))
 		}
 
 		const [Q] = await nextLine() // Numbers of queries
@@ -180,6 +178,9 @@ async function main() {
 
 		sets.clear()
 	}
+
+	if (lineReader.hasNextLine())
+		lineReader.close()
 
 	console.log(output.join("\n"))
 }
