@@ -1,26 +1,67 @@
-const { createReadStream } = require("fs")
-const { createInterface } = require("readline")
+const { createReadStream } = require("node:fs")
+const { createInterface } = require("node:readline")
 
-const PATH = "/dev/stdin"
-const ENCODING = "ascii"
+//// READING FILE | STREAMS ////
+class LineReader {
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 * @return {import("node:readline").ReadLine}
+	 */
+	static createReadLineInterface(path, encoding = "utf8") {
+		const readStreamOptions = {
+			encoding: encoding,
+			flags: "r",
+			emitClose: true,
+			autoClose: true
+		}
 
+		return createInterface({
+			input: createReadStream(path, readStreamOptions),
+			crlfDelay: Infinity,
+			terminal: false
+		})
+	}
 
-/**
- * @param {string} path
- * @param {BufferEncoding} encoding
- */
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 */
+	static create(path, encoding) {
+		const RLI = LineReader.createReadLineInterface(path, encoding)
 
-function processLineByLine(path, encoding) {
+		let EOF = false
+
+		const nextLineGenerator = (async function* () {
+			for await (const line of RLI) {
+				yield line
+			}
+		})()
+
+		RLI.once("close", () => {
+			EOF = true
+		})
+
+		return {
+			hasNextLine: () => !EOF,
+			nextLine: async (/** @type {unknown} */ fn) => {
+				const { value } = (await nextLineGenerator.next())
+				return (typeof fn === "function") ? fn(value) : value
+			},
+			close: () => RLI.close()
+		}
+	}
+}
+
+//// MAIN ////
+async function main() {
+	const PATH = "/dev/stdin"
+	const ENCODING = "ascii"
+	const RLI = LineReader.createReadLineInterface(PATH, ENCODING)
+
 	let innerHTMLBody = false
 
-	const rl = createInterface({
-		input: createReadStream(path, encoding),
-		crlfDelay: Infinity,
-		terminal: false
-	})
-
-	// Prevent EOFile
-	rl.on("line", (line) => {
+	RLI.on("line", (line) => {
 		if (line.includes("<body>")) innerHTMLBody = true
 		if (line.includes("</body>")) innerHTMLBody = false
 
@@ -29,4 +70,4 @@ function processLineByLine(path, encoding) {
 	})
 }
 
-processLineByLine(PATH, ENCODING)
+main()
