@@ -1,5 +1,7 @@
-const { readFileSync } = require("fs")
-const [[numCases], ...input] = readFileSync("/dev/stdin", "utf8").split("\n").map((line) => line.split(" "))
+const { readFileSync } = require("node:fs")
+const [[numLines], ...input] = readFileSync("/dev/stdin", "utf8")
+	.split("\n", 31)
+	.map((line) => line.split(" ", 2).map((value) => Number.parseInt(value, 10)))
 
 const Josephus = {
 	/**
@@ -24,11 +26,12 @@ const Josephus = {
 }
 
 function main() {
-	const responses = input
-		.slice(0, +numCases)
-		.map(([N, K], index) => `Case ${index + 1}: ${Josephus.lastIndex(+N, +K) + 1}`)
+	const output = Array.from({ length: numLines }, (_, index) => {
+		const [N, K] = input[index]
+		return `Case ${index + 1}: ${Josephus.lastIndex(N, K) + 1}`
+	})
 
-	console.log(responses.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()
