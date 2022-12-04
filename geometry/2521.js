@@ -1,4 +1,4 @@
-const { readFileSync } = require("fs")
+const { readFileSync } = require("node:fs")
 const input = readFileSync("/dev/stdin", "utf8")
 	.split("\n")
 	.map(line => line.split(" ", 3).map(Number.parseFloat))
@@ -25,7 +25,7 @@ function main() {
 	const output = []
 
 	for (const [R, La, Lo] of input) {
-		if ([R, La, Lo].some(isNaN)) break // EOFile Condition
+		if ([R, La, Lo].some(Number.isNaN)) break // EOF
 		else output.push(Object.values(sphericalCoordinates(R, La, Lo)).map(v => v.toFixed(2)).join(" "))
 	}
 

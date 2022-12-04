@@ -1,55 +1,66 @@
-const { readFileSync } = require("fs")
-const [[numCases], ...pairsList] = readFileSync("/dev/stdin", "utf8").split("\n").map(line => line.split(" "))
+const { readFileSync } = require("node:fs")
+const [[T], ...input] = readFileSync("/dev/stdin", "utf8")
+	.split("\n", 1e4 * 4 + 1) // 40000 + 1
+	.map(line => line.split(" ", 2).map(Number.parseFloat))
 
-/** @typedef { { x: number, y: number } } PointType */
-/** @typedef { { firstPos: PointType, lastPos: PointType } } CircumferenceCoordsType */
+class Point {
+	/**
+	 * @param { number | bigint | string } x
+	 * @param { number | bigint | string } y
+	 */
+	constructor(x, y) {
+		this.x = Number.parseFloat(x.toString(10))
+		this.y = Number.parseFloat(y.toString(10))
+	}
 
-const Float = (num, precision) => Number.parseFloat(num.toFixed(precision))
+	toString() {
+		return `(${this.x}, ${this.y})`
+	}
+}
 
 /**
-* @param {CircumferenceCoordsType} firstCircumference
-* @param {CircumferenceCoordsType} secondCircumference
-*/
+ * Encontra a coordenada de centro de duas circunferências concêntricas
+ * a partir de pares de pontos pertencentes a cada uma
+ * @description find the coordinate of the center of two concentric circles
+ * @param {Array<Point>} circA
+ * @param {Array<Point>} circB
+ */
+function findCoordinateCenterBetweenConcentricCircles(circA, circB) {
+	const [{ x: Ax, y: Ay }, { x: Bx, y: By }] = circA
+	const [{ x: Cx, y: Cy }, { x: Dx, y: Dy }] = circB
 
-function findCenterCircunferenceCoordenate(firstCircumference, secondCircumference) {
-	const { firstPos: { x: x1, y: y1 }, lastPos: { x: x2, y: y2 } } = firstCircumference
-	const { firstPos: { x: x3, y: y3 }, lastPos: { x: x4, y: y4 } } = secondCircumference
+	const dxAB = Ax - Bx, dxCD = Cx - Dx
+	const dyAB = Ay - By, dyCD = Cy - Dy
 
-	const { pow } = Math
+	const SQUARED_SUM_AB = (Ax ** 2 - Bx ** 2) + (Ay ** 2 - By ** 2)
+	const SQUARED_SUM_CD = (Cx ** 2 - Dx ** 2) + (Cy ** 2 - Dy ** 2)
 
-	const dx12 = Float((x1 - x2), 2), dy12 = Float((y1 - y2), 2)
-	const dx34 = Float((x3 - x4), 2), dy34 = Float((y3 - y4), 2)
+	const X = (SQUARED_SUM_AB * dyCD - SQUARED_SUM_CD * dyAB) / (2 * (dxAB * dyCD - dxCD * dyAB))
+	const Y = (SQUARED_SUM_AB * dxCD - SQUARED_SUM_CD * dxAB) / (2 * (dyAB * dxCD - dyCD * dxAB))
 
-	const factor = Float((2.0000 * (dx12 * dy34 - dx34 * dy12)), 4)
-
-	const SQUARED_SUM_1 = Float((pow(x1, 2) - pow(x2, 2)) + (pow(y1, 2) - pow(y2, 2)), 4)
-	const SQUARED_SUM_2 = Float((pow(x3, 2) - pow(x4, 2)) + (pow(y3, 2) - pow(y4, 2)), 4)
-
-	const A = (SQUARED_SUM_1 * dy34 - SQUARED_SUM_2 * dy12) / factor
-	const B = (SQUARED_SUM_1 * dx34 - SQUARED_SUM_2 * dx12) / factor * (-1.0)
-
-	return [A || 0, B || 0]
+	return new Point(X || 0, Y || 0)
 }
 
 function main() {
-	const responses = []
+	const output = []
 
-	for (let i = 0; i < Number.parseInt(numCases, 10); i++) {
+	for (let t = 0; t < T; t++) {
+		const [XA, YA] = input[4 * t + 0]
+		const [XC, YC] = input[4 * t + 1]
+		const [XB, YB] = input[4 * t + 2]
+		const [XD, YD] = input[4 * t + 3]
 
-		const [X1, Y1] = pairsList[4 * i + 0].slice(0, 2).map(Number.parseFloat)
-		const [X3, Y3] = pairsList[4 * i + 1].slice(0, 2).map(Number.parseFloat)
-		const [X2, Y2] = pairsList[4 * i + 2].slice(0, 2).map(Number.parseFloat)
-		const [X4, Y4] = pairsList[4 * i + 3].slice(0, 2).map(Number.parseFloat)
+		const PA = new Point(XA, YA)
+		const PB = new Point(XB, YB)
+		const PC = new Point(XC, YC)
+		const PD = new Point(XD, YD)
 
-		const firstCircumference = { firstPos: { x: X1, y: Y1 }, lastPos: { x: X2, y: Y2 } }
-		const secondCircumference = { firstPos: { x: X3, y: Y3 }, lastPos: { x: X4, y: Y4 } }
+		const { x, y } = findCoordinateCenterBetweenConcentricCircles([PA, PB], [PC, PD])
 
-		const [Cx, Cy] = findCenterCircunferenceCoordenate(firstCircumference, secondCircumference)
-
-		responses.push(`Caso #${i + 1}: ${Cx.toFixed(2)} ${Cy.toFixed(2)}`)
+		output.push(`Caso #${t + 1}: ${x.toFixed(2)} ${y.toFixed(2)}`)
 	}
 
-	console.log(responses.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()

@@ -1,22 +1,71 @@
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8")
-	.split("\n")
-	.map(line => line.split(" ", 4).map(num => Number.parseInt(num, 10)))
+const { createReadStream } = require("node:fs")
+const { createInterface } = require("node:readline")
 
-/** @typedef {number | bigint | string} axisType */
-
-class Point {
+//// READING FILE | STREAMS ////
+class LineReader {
 	/**
-	 * @param {axisType} x
-	 * @param {axisType} y
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 * @return {import("node:readline").ReadLine}
 	 */
-	constructor(x, y) {
-		this.x = Number.parseFloat(x.valueOf().toString(10))
-		this.y = Number.parseFloat(y.valueOf().toString(10))
+	static createReadLineInterface(path, encoding = "utf8") {
+		const readStreamOptions = {
+			encoding: encoding,
+			flags: "r",
+			emitClose: true,
+			autoClose: true
+		}
+
+		return createInterface({
+			input: createReadStream(path, readStreamOptions),
+			crlfDelay: Infinity,
+			terminal: false
+		})
+	}
+
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 */
+	static create(path, encoding) {
+		const RLI = LineReader.createReadLineInterface(path, encoding)
+
+		let EOF = false
+
+		const nextLineGenerator = (async function* () {
+			for await (const line of RLI)
+				yield line
+		})()
+
+		RLI.once("close", () => { EOF = true })
+
+		return {
+			hasNextLine: () => !EOF,
+			nextLine: async (/** @type {unknown} */ fn) => {
+				const { value } = (await nextLineGenerator.next())
+				return (typeof fn === "function") ? fn(value) : value
+			},
+			close: () => RLI.close()
+		}
 	}
 }
 
-class Coordenates {
+class Point {
+	/**
+	 * @param { number | bigint | string } x
+	 * @param { number | bigint | string } y
+	 */
+	constructor(x, y) {
+		this.x = Number.parseFloat(x.toString(10))
+		this.y = Number.parseFloat(y.toString(10))
+	}
+
+	toString() {
+		return `(${this.x}, ${this.y})`
+	}
+}
+
+class Coordinates {
 	/**
 	 * @param {Point} pA
 	 * @param {Point} pB
@@ -30,10 +79,11 @@ class Coordenates {
 }
 
 /**
- * @param {number} H, @param {number} W
- * @param {number} R1, @param {number} R2
+ * @param {number} H
+ * @param {number} W
+ * @param {number} R1
+ * @param {number} R2
  */
-
 function fitInTheElevator(H, W, R1, R2) {
 	const [D1, D2] = [R1, R2].map((r) => r * 2)
 
@@ -46,15 +96,25 @@ function fitInTheElevator(H, W, R1, R2) {
 	const C1 = new Point(R1, R1)
 	const C2 = new Point(W - R2, H - R2)
 
-	return Coordenates.distance2D(C1, C2) >= R1 + R2
+	return Coordinates.distance2D(C1, C2) >= R1 + R2
 }
 
-function main() {
-	const output = []
+//// MAIN ////
+async function main() {
+	const PATH = "/dev/stdin"
+	const ENCODING = "utf8"
 
-	for (const [H, W, R1, R2] of input)
-		if ([H, W, R1, R2].every(x => x == 0)) break
+	const output = []
+	const lineReader = LineReader.create(PATH, ENCODING)
+
+	const helper = (line = "") => line.split(" ", 4).map(value => Number.parseInt(value, 10))
+	const nextLine = lineReader.nextLine.bind(lineReader, helper)
+
+	while (lineReader.hasNextLine()) {
+		const [H, W, R1, R2] = await nextLine()
+		if ([H, W, R1, R2].every(x => x === 0)) break
 		else output.push(fitInTheElevator(H, W, R1, R2) ? "S" : "N")
+	}
 
 	console.log(output.join("\n"))
 }

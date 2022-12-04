@@ -1,13 +1,10 @@
-const { readFileSync } = require("fs")
-const [radius, availableGasVolume] = readFileSync("/dev/stdin", "utf8").split(" ", 2).map(Number.parseFloat)
+const { readFileSync } = require("node:fs")
+const [R, L] = readFileSync("/dev/stdin", "utf8")
+	.split(" ", 2)
+	.map(value => Number.parseInt(value, 10))
 
-function volumeSphere(radius = 0, PI = Math.PI) {
-	return (4 / 3) * Math.pow(radius, 3) * PI
-}
-
-function getFilledBaloonsQuantities(radius, gasVolume = 0) {
-	return Math.floor(gasVolume / volumeSphere(radius, 3.1415))
-}
-
-const filledBallons = getFilledBaloonsQuantities(radius, availableGasVolume)
-console.log(filledBallons)
+console.log(
+	Math.floor(
+		L / ((4 / 3) * Math.pow(R, 3) * 3.1415)
+	)
+)

@@ -1,34 +1,31 @@
-const { readFileSync } = require("fs")
+const { readFileSync } = require("node:fs")
 const input = readFileSync("/dev/stdin", "utf8")
+	.split("\n")
+	.map((line) => line.split(" ", 3).map((value) => Number.parseInt(value, 10)))
 
-const rect = (x = 0, y = x) => x * y
-const hypotenuse = (a, b = 0) => Math.hypot(a, b)
-
-function rampArea(rungs = { quantities: 0, height: 0, width: 0, length: 0 }) {
-	const conversionRate = 1e-4
-	const hypot = hypotenuse(rungs.height, rungs.width)
-
-	const rampWidth = rungs.length
-	const rampLength = hypot * rungs.quantities
-
-	return rect(rampLength, rampWidth) * conversionRate
-}
+/**
+ * @param {number} Q Quantidade de degraus presentes na escada
+ * @param {number} H Altura H do degrau
+ * @param {number} W Profundidade W do degrau
+ * @param {number} L Comprimento L do degrau
+ */
+const calcRampArea = (Q, H, W, L) => Math.hypot(H, W) * Q * L
 
 function main() {
-	const responses = []
+	const output = []
 
-	const stairDimensionsRegex = /^(\s?\d+){4}$/gm
-	const stairsDimensionsList = input.match(stairDimensionsRegex).map((match) => {
-		return match.split(/\s/).map((dimension) => Number.parseInt(dimension, 10))
-	})
+	for (let index = 0; index < input.length; index += 2) {
+		const [N] = input[index + 0]
 
-	for (const [N, H, C, L] of stairsDimensionsList) {
-		const area = rampArea({ quantities: N, height: H, width: C, length: L })
+		if (isNaN(N)) break // EOF
 
-		responses.push(area.toFixed(4))
+		const [H, C, L] = input[index + 1] // dimensions in cm
+		const area = calcRampArea(N, H, C, L) * 1e-4 // cm² -> m²
+
+		output.push(area.toFixed(4))
 	}
 
-	console.log(responses.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()

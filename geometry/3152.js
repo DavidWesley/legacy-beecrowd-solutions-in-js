@@ -1,9 +1,7 @@
-/** @typedef { number | bigint | string } axisType */
-
 class Point {
 	/**
-	 * @param {axisType} x
-	 * @param {axisType} y
+	 * @param { number | bigint | string } x
+	 * @param { number | bigint | string } y
 	 */
 	constructor(x, y) {
 		this.x = Number.parseFloat(x.toString(10))
@@ -11,11 +9,11 @@ class Point {
 	}
 
 	toString() {
-		return `${this.x} ${this.y}`
+		return `(${this.x}, ${this.y})`
 	}
 }
 
-class Coordenates {
+class Coordinates {
 	/**
 	 * @param {Point} pA
 	 * @param {Point} pb
@@ -42,11 +40,13 @@ class Coordenates {
 }
 
 class Gauss {
-	/** @param {Point[]} points */
-	static sortPoints(points) {
-		// points = points.slice(0) // copy the array, since sort() modifies it
-		const center = Coordenates.midPoint(points) // finds a point in the interior of `pts`
-		const angles = new Map() // calculate the angle between each point and the centerpoint, and sort by those angles
+	/**
+	 * Sort points set from its midPoint
+	 * @param {Point[]} points
+	 */
+	static sort(points) {
+		const center = Coordinates.midPoint(points) // finds a point in the interior of `pts`
+		const angles = new Map() // calculate the angle between each point and the CenterPoint, and sort by those angles
 
 		for (let index = 0; index < points.length; index++) {
 			const point = points[index]
@@ -63,11 +63,11 @@ class Gauss {
 		let sum = 0
 		if (points.length <= 2) return sum
 
-		const sortedList = this.sortPoints(points.slice(0))
+		const sorted = this.sort(points.slice(0))
 
-		for (let index = 0; index < sortedList.length; index++) {
-			const pA = sortedList[index]
-			const pB = sortedList[(sortedList.length + index + 1) % sortedList.length]
+		for (let index = 0; index < sorted.length; index++) {
+			const pA = sorted[index]
+			const pB = sorted[(sorted.length + index + 1) % sorted.length]
 
 			sum += (pA.x * pB.y) - (pB.x * pA.y)
 		}
@@ -78,7 +78,7 @@ class Gauss {
 
 //// MAIN ////
 
-const { readFileSync } = require("fs")
+const { readFileSync } = require("node:fs")
 const input = readFileSync("/dev/stdin", "utf8")
 	.split("\n", 8)
 	.map((line) => line.split(" ", 2))
