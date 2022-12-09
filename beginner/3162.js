@@ -32,6 +32,19 @@ class Coordinates3D {
 	}
 }
 
+/**
+ * find the closest distance between a point and another multiple points
+ * @param {Point3D} point
+ * @param {number} index
+ * @param {Point3D[]} points
+ */
+const calculateClosestDistance3D = (point, index, points) => {
+	let distance = Number.POSITIVE_INFINITY
+	for (let j = 0; j < N; j++) if (index != j) distance = Math.min(distance, Coordinates3D.distance(point, points[j]))
+
+	return distance
+}
+
 const SignalIntensityEnum = Object.freeze({
 	HIGH: "A",
 	MEDIUM: "M",
@@ -47,11 +60,7 @@ const getSignalIntensityFromDistance = (distance) => {
 const output = input
 	.splice(0, N)
 	.map(([X, Y, Z]) => new Point3D(X, Y, Z))
-	.map((point, i, points) => {
-		let distance = Number.POSITIVE_INFINITY
-		for (let j = 0; j < N; j++) if (i != j) distance = Math.min(distance, Coordinates3D.distance(point, points[j]))
-		return distance
-	})
+	.map(calculateClosestDistance3D)
 	.map(getSignalIntensityFromDistance)
 
 console.log(output.join("\n"))
