@@ -1,24 +1,24 @@
-const { readFileSync } = require("fs")
-const [[numLines], ...lines] = readFileSync("/dev/stdin", "utf8")
+const { readFileSync } = require("node:fs")
+const [[N], ...input] = readFileSync("/dev/stdin", "utf8")
 	.split("\n")
 	.map((line) => line.split(" ", 3).map(value => Number.parseInt(value, 10)))
 
-/** @typedef {number | bigint | string} axisType */
 
 class Point3D {
 	/**
+	 * @typedef {number | bigint | string} axisType
 	 * @param {axisType} x
 	 * @param {axisType} y
 	 * @param {axisType} z
 	 */
 	constructor(x, y, z) {
-		this.x = Number.parseFloat(x.valueOf().toString())
-		this.y = Number.parseFloat(y.valueOf().toString())
-		this.z = Number.parseFloat(z.valueOf().toString())
+		this.x = Number.parseFloat(x.toString(10))
+		this.y = Number.parseFloat(y.toString(10))
+		this.z = Number.parseFloat(z.toString(10))
 	}
 }
 
-class Coordenates3D {
+class Coordinates3D {
 	/**
 	 * @param {Point3D} pointA
 	 * @param {Point3D} pointB
@@ -44,17 +44,14 @@ const getSignalIntensityFromDistance = (distance) => {
 	if (50 <= distance) return SignalIntensityEnum.LOW
 }
 
-function main() {
-	const output = []
-	const points3DList = lines.slice(0, numLines).map((coord) => new Point3D(...coord))
-
-	for (let i = 0; i < numLines; i++) {
+const output = input
+	.splice(0, N)
+	.map(([X, Y, Z]) => new Point3D(X, Y, Z))
+	.map((point, i, points) => {
 		let distance = Number.POSITIVE_INFINITY
-		for (let j = 0; j < numLines; j++) if (i != j) distance = Math.min(distance, Coordenates3D.distance(points3DList[i], points3DList[j]))
-		output.push(getSignalIntensityFromDistance(distance))
-	}
+		for (let j = 0; j < N; j++) if (i != j) distance = Math.min(distance, Coordinates3D.distance(point, points[j]))
+		return distance
+	})
+	.map(getSignalIntensityFromDistance)
 
-	console.log(output.join("\n"))
-}
-
-main()
+console.log(output.join("\n"))
