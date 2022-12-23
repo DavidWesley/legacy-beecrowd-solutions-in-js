@@ -1,5 +1,54 @@
-const { readFileSync } = require("fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n")
+const { createReadStream } = require("node:fs")
+const { createInterface } = require("node:readline")
+
+//// READING FILE | STREAMS ////
+class LineReader {
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 * @return {import("node:readline").ReadLine}
+	 */
+	static createReadLineInterface(path, encoding = "utf8") {
+		const readStreamOptions = {
+			encoding: encoding,
+			flags: "r",
+			emitClose: true,
+			autoClose: true
+		}
+
+		return createInterface({
+			input: createReadStream(path, readStreamOptions),
+			crlfDelay: Infinity,
+			terminal: false
+		})
+	}
+
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 */
+	static create(path, encoding) {
+		const RLI = LineReader.createReadLineInterface(path, encoding)
+
+		let EOF = false
+
+		const nextLineGenerator = (async function* () {
+			for await (const line of RLI)
+				yield line
+		})()
+
+		RLI.once("close", () => { EOF = true })
+
+		return {
+			hasNextLine: () => !EOF,
+			nextLine: async (/** @type {unknown} */ fn) => {
+				const { value } = (await nextLineGenerator.next())
+				return (typeof fn === "function") ? fn(value) : value
+			},
+			close: () => RLI.close()
+		}
+	}
+}
 
 const RegexesEnum = {
 	get numbers() { return /\d+/gi },
@@ -16,61 +65,73 @@ const Chars = {
 
 /**
  * @param {string[]} encryptedStrList
- * @param {{firstCypher: string, secondCypher: string}} cypher
+ * @param {{first: string, second: string}} cypher
  */
 
-function decryptStringsList(encryptedStrList, cypher = { firstCypher: "", secondCypher: "" }) {
-	const { firstCypher, secondCypher } = cypher
+function decryptor(cypher = { first: "", second: "" }) {
+	const [normalizedCypherA, normalizedCypherB] = [
+		cypher.first,
+		cypher.second
+	].map((c) => c.toLowerCase().replace(/\W/g, ""))
 
-	const [normalizedFirstCypher, normalizedSecondCypher] = [firstCypher, secondCypher].map((cypher) => cypher.toLowerCase().replace(/\W/g, ""))
-	const defaultCyphersLength = Math.min(normalizedFirstCypher.length, normalizedSecondCypher.length)
+	const hash = new Map()
+	const length = Math.min(normalizedCypherA.length, normalizedCypherB.length)
 
-	const cypherMap = new Map()
+	for (let index = 0; index < length; index++) {
+		const normalizedCypherCharA = normalizedCypherA.charAt(index)
+		const normalizedCypherCharB = normalizedCypherB.charAt(index)
 
-	for (let index = 0; index < defaultCyphersLength; index++) {
-		const normalizedCharFromFirstCypher = normalizedFirstCypher.charAt(index)
-		const normalizedCharFromSecondCypher = normalizedSecondCypher.charAt(index)
-
-		cypherMap.set(normalizedCharFromFirstCypher, normalizedCharFromSecondCypher)
-		cypherMap.set(normalizedCharFromSecondCypher, normalizedCharFromFirstCypher)
+		hash.set(normalizedCypherCharA, normalizedCypherCharB)
+		hash.set(normalizedCypherCharB, normalizedCypherCharA)
 	}
 
-	return encryptedStrList.map((text) => {
-		const modifiedText = text.replace(/\w/g, (char) => {
-			const normalizedChar = char.toLowerCase()
+	return (text = "") => {
+		return text.replace(/\w/g, (char) => {
 
-			if (cypherMap.has(normalizedChar)) {
-				const replacedText = cypherMap.get(normalizedChar)
+			if (hash.has(char.toLowerCase())) {
+				const replaced = hash.get(char.toLowerCase())
 
-				if (Chars.isDigit(char)) return replacedText
-				else if (Chars.isLowercase(char)) return replacedText
-				else if (Chars.isUppercase(char)) return replacedText.toUpperCase()
-				else return replacedText
+				// if (Chars.isDigit(char)) return replaced
+				// if (Chars.isLowercase(char)) return replaced
+				if (Chars.isUppercase(char)) return replaced.toUpperCase()
+				else return replaced
 			}
 
 			return char
 		})
-
-		return modifiedText
-	})
+	}
 }
 
-function main() {
-	const responses = []
+async function main() {
+	const PATH = "/dev/stdin"
+	const ENCODING = "utf8"
 
-	while (input.length > 0) {
-		if (input.includes("")) break //= EOF condition
+	const output = []
+	const lineReader = LineReader.create(PATH, ENCODING)
 
-		const [, N] = input.shift().split(" ").map((value) => Number.parseInt(value, 10))
-		const [firstCypher, secondCypher] = input.splice(0, 2)
+	while (lineReader.hasNextLine()) {
+		const [, N = NaN] = (await lineReader.nextLine())
+			.split(" ", 2)
+			.map(value => Number.parseInt(value, 10))
 
-		const encryptedPhrasesList = input.splice(0, N)
-		const decryptedPhrasesList = decryptStringsList(encryptedPhrasesList, { firstCypher: firstCypher, secondCypher: secondCypher })
+		if (Number.isNaN(N)) break // EOF
 
-		responses.push(decryptedPhrasesList.join("\n"), "")
+		const cypherA = await lineReader.nextLine()
+		const cypherB = await lineReader.nextLine()
+
+		const decryptedMessagesList = new Array(N)
+		const decryptorFunctionInstance = decryptor({ first: cypherA, second: cypherB })
+
+		for (let index = 0; index < N; index++)
+			decryptedMessagesList[index] = decryptorFunctionInstance(await lineReader.nextLine())
+
+		output.push(decryptedMessagesList.join("\n"), "")
 	}
 
-	console.log(responses.join("\n"))
+	if (lineReader.hasNextLine())
+		lineReader.close()
+
+	console.log(output.join("\n"))
 }
 
 main()
