@@ -17,18 +17,23 @@ function main() {
 		const str = input.at(i).substring(0, 2000)
 
 		while (j < str.length) {
-			if (str.charAt(j) == "0") {
-				let count = 0
-				while (str.charAt(j) == "0" && count < 255) { j++; count++ }
-				if (count > 2) { print("#"); print(count) }
-				else print("0".repeat(count))
-			} else if (str.charAt(j) == " ") {
-				let count = 0
-				while (str.charAt(j) == " " && count < 255) { j++; count++ }
-				if (count > 2) { print("$"); print(count) }
-				else print(" ".repeat(count))
-			} else {
-				print(str.charAt(j++))
+			switch (str.charAt(j)) {
+				case "0": {
+					let count = 0
+					while (str.charAt(j) == "0" && count < 255) { j++; count++ }
+					if (count > 2) { print("#"); print(count) }
+					else { print("0".repeat(count)) }
+					break
+				}
+				case " ": {
+					let count = 0
+					while (str.charAt(j) == " " && count < 255) { j++; count++ }
+					if (count > 2) { print("$"); print(count) }
+					else { print(" ".repeat(count)) }
+					break
+				}
+				default:
+					print(str.charAt(j++)); break
 			}
 		}
 
