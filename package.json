@@ -1,20 +1,27 @@
 {
-	"name": "uri-online-judge",
-	"version": "1.0.0",
-	"description": "Question codes approved in URI Online Judge using only Javascript with modern syntax (ES2016+)",
+	"name": "beecrowd-solutions-in-js",
+	"version": "2.0.0",
+	"description": "Question codes approved in URI Online Judge (or Beecrowd) site using only modern Javascript syntax (ES2016+)",
+	"private": true,
 	"scripts": {
 		"lint": "eslint  **/*.js --ignore-pattern node_modules/ --ignore-pattern dev/",
 		"lint:fix": "eslint  **/*.js --ignore-pattern node_modules/ --ignore-pattern dev/ --fix"
 	},
 	"engines": {
-		"node": "12.18.3"
+		"node": ">=12.18.3"
 	},
 	"type": "commonjs",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/DavidWesley/URI-Online-Judge-Only-JS.git"
+		"url": "git+https://github.com/DavidWesley/beecrowd-solutions-in-js.git"
 	},
-	"keywords": [],
+	"keywords": [
+		"javascript",
+		"ECMAScript",
+		"uri-online-judge",
+		"beecrowd",
+		"beecrowd-solutions"
+	],
 	"author": {
 		"name": "David Wesley",
 		"email": "contato.dwesley@outlook.com",
@@ -22,9 +29,9 @@
 	},
 	"license": "ISC",
 	"bugs": {
-		"url": "https://github.com/DavidWesley/URI-Online-Judge-Only-JS/issues"
+		"url": "https://github.com/DavidWesley/beecrowd-solutions-in-js/issues"
 	},
-	"homepage": "https://github.com/DavidWesley/URI-Online-Judge-Only-JS#readme",
+	"homepage": "https://github.com/DavidWesley/beecrowd-solutions-in-js#readme",
 	"devDependencies": {
 		"eslint": "^8.11.0"
 	}

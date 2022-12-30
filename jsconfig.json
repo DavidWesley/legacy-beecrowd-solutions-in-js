@@ -1,20 +1,4 @@
 {
-	"compilerOptions": {
-		"checkJs": true,
-		"resolveJsonModule": true,
-		"moduleResolution": "node",
-		"target": "ESNext",
-		"module": "ESNext",
-		"lib": [
-			"ESNext"
-		],
-		"baseUrl": ".",
-		"useDefineForClassFields": true,
-		"strict": true,
-		"allowUnreachableCode": false,
-		"strictNullChecks": false,
-		"noImplicitAny": false,
-	},
 	"exclude": [
 		"dist",
 		"node_modules",
@@ -27,8 +11,5 @@
 		"bower_components",
 		".npm",
 		".yarn"
-	],
-	"typeAcquisition": {
-		"enable": true
-	}
+	]
 }
