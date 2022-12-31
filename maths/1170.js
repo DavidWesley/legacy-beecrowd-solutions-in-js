@@ -1,20 +1,13 @@
-const { readFileSync } = require("fs")
-const [numLines, ...lines] = readFileSync("/dev/stdin", "utf8").split("\n")
+const { readFileSync } = require("node:fs")
+const [N, ...input] = readFileSync("/dev/stdin", "utf8")
+	.split("\n", 1000 + 1)
+	.map(Number.parseFloat)
 
-function daysToFinishFood(food, tax) {
-	if (food <= 0) return 1
-	const exponent = Math.log(1 / food) / Math.log(tax)
+const daysToFinishFood = (food, tax) => (food <= 0) ? 1 : Math.ceil(Math.log(1 / food) / Math.log(tax))
 
-	return Math.ceil(exponent)
-}
+const output = Array
+	.from({ length: N }, (_, i) => input[i])
+	.map(food => daysToFinishFood(food, 0.5))
+	.map(days => `${days} dias`)
 
-function main() {
-	const TAX = 0.5
-
-	const foods = lines.slice(0, +numLines).map(Number.parseFloat)
-	const messages = foods.map(food => `${daysToFinishFood(food, TAX)} dias`)
-
-	console.log(messages.join("\n"))
-}
-
-main()
+console.log(output.join("\n"))
