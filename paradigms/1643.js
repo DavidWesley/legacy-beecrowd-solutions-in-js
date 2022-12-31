@@ -1,3 +1,8 @@
+const { readFileSync } = require("node:fs")
+const [T, ...input] = readFileSync("/dev/stdin", "utf8")
+	.split("\n", 2.5e4 + 1)
+	.map((value) => Number.parseInt(value, 10))
+
 /**
  * Binet formula implementation to calculate fibonacci numbers
  * @param {number} nth
@@ -15,46 +20,41 @@ function binetFormule(nth) {
 
 class BruceAlgorithm {
 	static #SIZE = 22
-	static #FIBS = new Map(Array.from({ length: this.#SIZE }, (_, i) => [i + 1, binetFormule(i + 2)]))
 
 	static decToFibNotation(num = 0) {
-		const notation = new Array(this.#SIZE).fill(0)
-
-		for (let index = this.#SIZE - 1; index > 0 && num > 0; index--) {
-			const fib = this.#FIBS.get(index)
-			if (num - fib >= 0) {
-				notation[this.#SIZE - index] = 1
+		const notation = new Uint8Array(this.#SIZE)
+		for (let index = this.#SIZE; index > 0 && num > 0; index--) {
+			const fib = binetFormule(index + 1)
+			if (num >= fib) {
+				Atomics.store(notation, this.#SIZE - index, 1)
 				num -= fib
 			}
 		}
+
 		return notation
 	}
 
-	static fibToDecNumber(notation = Array(this.#SIZE).fill(0)) {
-		let res = 0
+	/** @param {ArrayLike<number>} notation */
+	static fibToDecNotation(notation) {
+		let result = 0
 		for (let index = 1; index < notation.length; index++)
-			res += notation[notation.length - index] * this.#FIBS.get(index)
+			result += notation.at(-index) * binetFormule(index + 1)
 
-		return res
+		return result
 	}
 }
 
-function convertKilometersToMilesFromBruceAlgorithm(num) {
-	const fibNotation = BruceAlgorithm.decToFibNotation(num)
-	fibNotation.pop()
-
-	return BruceAlgorithm.fibToDecNumber(fibNotation)
+function convertKilometersToMilesFromBruceAlgorithm(distance = 0) {
+	return BruceAlgorithm.fibToDecNotation(BruceAlgorithm.decToFibNotation(distance).subarray(0, -1))
 }
 
-const { readFileSync } = require("fs")
-const [numLines, ...lines] = readFileSync("/dev/stdin", "utf8").split("\n")
-
 function main() {
-	const responses = lines
-		.slice(0, +numLines)
-		.map((line) => convertKilometersToMilesFromBruceAlgorithm(+line))
+	const output = Array.from(
+		{ length: T },
+		(_, index) => convertKilometersToMilesFromBruceAlgorithm(input.at(index))
+	)
 
-	console.log(responses.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()
