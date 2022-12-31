@@ -1,8 +1,8 @@
-const { readFileSync } = require("fs")
-const [min, max] = readFileSync("/dev/stdin", "utf8").split(" ")
+const { readFileSync } = require("node:fs")
+const [A, B] = readFileSync("/dev/stdin", "utf8")
+	.split(" ", 2)
+	.map(value => Number.parseInt(value, 10))
 
-function PA(min, max = min, step = 1) {
-	return 0.5 * ((max + min) * ((max - min) / step + 1))
-}
+const getSum = (a, b) => (Math.abs(a - b) + 1) * (a + b) / 2
 
-console.log(PA(+min, +max))
+console.log(getSum(A, B))
