@@ -1,18 +1,29 @@
 const { readFileSync } = require("node:fs")
-const input = readFileSync("/dev/stdin", "utf8").split("\n")
+const input = readFileSync("/dev/stdin", "utf8")
+	.split("\n")
+	.map(line => line.split(" ", 1e5).map(value => Number.parseInt(value, 10)))
+
+/** @param {number[]} votes  */
+function isImpeachment(votes, size = votes.length) {
+	let inFavourVotesCounter = 0
+
+	for (let index = 0; index < size; index++)
+		if (votes[index] === 1)
+			inFavourVotesCounter += 1
+
+	return 3 * inFavourVotesCounter >= 2 * size
+}
 
 function main() {
 	const output = []
 
-	for (let i = 0; i < input.length; i += 2) {
-		if (input[i] == "") break // EOFile Condition
-
-		const votesQuantity = Number.parseInt(input[i], 10)
-		const positiveVotesQuantity = input[i + 1].split(" ", votesQuantity).filter(v => v == "1").length
-		output.push(votesQuantity * 2 > 3 * positiveVotesQuantity ? "acusacao arquivada" : "impeachment")
+	for (let index = 0; index < input.length; index += 2) {
+		const [N] = input[index]
+		if (Number.isNaN(N)) break // EOF
+		output.push(isImpeachment(input[index + 1], N) ? "impeachment" : "acusacao arquivada")
 	}
 
 	console.log(output.join("\n"))
 }
 
-main()
+main();
