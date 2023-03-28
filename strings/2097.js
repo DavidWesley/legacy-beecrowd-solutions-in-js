@@ -1,7 +1,8 @@
-const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
-const convertPortugueseNomenclatureToNumber = (function () {
+//// CONVERTER ////
+
+const convertPortugueseNumeralNomenclatureToNumber = (function PortugueseNumeralNomenclatureConverter() {
 	const UNITS_NAMES_ENTRIES = [
 		["zero", 0],
 		["um", 1],
@@ -77,9 +78,7 @@ const convertPortugueseNomenclatureToNumber = (function () {
 	const mapUnitsNames = new Map(/** @type {nameNumType[]} */(UNITS_NAMES_ENTRIES))
 	const mapDozensNames = new Map(/** @type {nameNumType[]} */(DOZENS_NAMES_ENTRIES))
 	const mapHundrendsNames = new Map(/** @type {nameNumType[]} */(HUNDREDS_NAMES_ENTRIES))
-
 	const mapGroupsNames = new Map(/** @type {nameNumType[]} */(GROUPS_NAMES_ENTRIES))
-
 
 	/** @param {string} name */
 	function nameToNumber(name) {
@@ -87,65 +86,55 @@ const convertPortugueseNomenclatureToNumber = (function () {
 		else if (mapUnitsNames.has(name)) return mapUnitsNames.get(name)
 		else if (mapDozensNames.has(name)) return mapDozensNames.get(name)
 		else if (mapHundrendsNames.has(name)) return mapHundrendsNames.get(name)
-		else 0
+		// else throw new Error(`The name "${name}" is not a valid argument`)
+		else return Number.NaN
 	}
-
-	const DEFAULT_AGREGATOR_WORD = "e"
 
 	function converter(name = "") {
 		name = name.toLowerCase()
+		const DEFAULT_AGREGATOR_WORD = "e"
 
-		// Lidando com o caso especial: mil e alguma coisa depois
-		if (name.startsWith("mil ")) name = "um " + name
-		if (name.includes(" ") == false) return nameToNumber(name)
+		if (name.startsWith("mil ")) name = "um ".concat(name)
+		if (name.includes(" ") === false) return nameToNumber(name)
 
-		const numberNames = name
+		let total = 0
+		let partial = 0
+
+		name
 			.replace(RegExp(`\\b${DEFAULT_AGREGATOR_WORD}\\b`, "gi"), "")
 			.replace(/w+/g, (s) => nameToNumber(s).toString(10))
 			.split(/\s+/)
+			.forEach((label) => {
+				if (mapGroupsNames.has(label)) {
+					const factor = nameToNumber(label)
+					if (partial === 0 && factor === 1e3) partial = 1
 
-		let tGroup = 0
-		let result = 0
+					partial *= factor
+					total += partial
+					partial = 0
+				} else { partial += nameToNumber(label); }
+			})
 
-		for (const NN of numberNames) {
-			if (mapGroupsNames.has(NN)) {
-				const factor = nameToNumber(NN)
-
-				/**
-				* Para o caso onde apenas o grupo existe
-				* como o nosso querido mil
-				* o caso mais problematico de todos
-				* para nomear corretamente
-				*/
-
-				if (tGroup == 0 && factor == 1e3) tGroup = 1
-
-				tGroup *= factor
-				result += tGroup
-				tGroup = 0
-			} else {
-				tGroup += nameToNumber(NN)
-			}
-		}
-
-		result += tGroup
-
-		return result
+		return total + partial
 	}
 
-	return { converter }
-})() // Carrega tudo o que for necessario apenas uma vez -> PayLoad Operation
+	return Object.freeze({ convert: converter.bind(PortugueseNumeralNomenclatureConverter) })
+})(); // Carrega tudo o que for necessario apenas uma vez -> PayLoad Operation
 
-const { converter } = convertPortugueseNomenclatureToNumber
+
+//// MAIN ////
 
 function main() {
-	const responses = []
+	const output = []
 
-	for (const name of input)
-		if (name == "") break
-		else responses.push(converter(name))
+	const { convert } = convertPortugueseNumeralNomenclatureToNumber
 
-	console.log(responses.join("\n"))
+	for (const text of input) {
+		if (text === "") break; // EOF
+		output.push(convert(text))
+	}
+
+	console.log(output.join("\n"))
 }
 
 main()
