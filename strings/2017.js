@@ -1,30 +1,25 @@
 const { readFileSync } = require("fs")
-const [Xstring, K, ...YstringsList] = readFileSync("/dev/stdin", "utf8").split("\n", 7)
+const [strX, K, ...stringsList] = readFileSync("/dev/stdin", "utf8").split("\n", 7)
 
-/**
- * @param {string} str1
- * @param {string} str2
- */
-function hammingDistance(str1, str2 = str1) {
-	const [longerWord, shorterWord] = str1.length >= str2.length ? [str1, str2] : [str2, str1]
+function hammingDistance(strA = "", strB = strA) {
+	let distance = 0
+	const [longer, shorter] = strA.length >= strB.length ? [strA, strB] : [strB, strA]
 
-	return Array
-		.from(longerWord)
-		.reduce((counter, char, index) => (char !== shorterWord.charAt(index) ? counter++ : counter, counter), 0)
+	for (let index = 0; index < longer.length; index += 1)
+		if (longer.charCodeAt(index) !== shorter.charCodeAt(index))
+			distance += 1
+
+	return distance
 }
 
 function main() {
-	const [minDistance, index] = [...YstringsList]
-		.map((YStr, index) => [hammingDistance(Xstring, YStr), index + 1])
-		.sort(([distanceA], [distanceB]) => distanceB - distanceA)
+	const [minimalDistance, position] = stringsList
+		.map((str, index) => [hammingDistance(strX, str), index + 1])
+		.sort(([distA], [distB]) => distB - distA)
 		.pop()
 
-	if (minDistance > +K)
-		console.log("-1")
-	else {
-		console.log(index)
-		console.log(minDistance)
-	}
+	if (minimalDistance > Number.parseInt(K, 10)) console.log("-1")
+	else console.log("%d\n%d", position, minimalDistance)
 }
 
 main()
