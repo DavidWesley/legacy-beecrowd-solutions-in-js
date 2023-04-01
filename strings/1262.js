@@ -1,24 +1,24 @@
 const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
-function countOperations(operations = "", type, size = 1) {
+function countMinimumNeededMachineCycles(operations = "", type, size = 1) {
 	const reg = new RegExp(`${type}{1,${size}}`, "gi")
 	return operations.replace(reg, type).length
 }
 
 function main() {
-	const responses = []
+	const output = []
 
-	while (input.length > 0) {
-		const processes = input.shift()
-		const simultaneousProcessesSize = input.shift()
+	for (let index = 0; index < input.length; index += 2) {
+		const processes = input[index + 0]
+		const simultaneousProcessesSize = Number.parseInt(input[index + 1], 10)
 
-		if (processes === "" || simultaneousProcessesSize === "") break // EOFile Condition
+		if (processes === "" || Number.isNaN(simultaneousProcessesSize)) break // EOF
 
-		responses.push(countOperations(processes, "R", +simultaneousProcessesSize))
+		output.push(countMinimumNeededMachineCycles(processes, "R", simultaneousProcessesSize))
 	}
 
-	console.log(responses.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()
