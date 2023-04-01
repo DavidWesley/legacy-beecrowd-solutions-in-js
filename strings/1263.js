@@ -1,7 +1,7 @@
-const { readFileSync } = require("fs")
-const cases = readFileSync("/dev/stdin", "utf8").split("\n")
+const { readFileSync } = require("node:fs")
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
-function returnInittialLettersFromText(text = "") {
+function returnInitialLettersFromText(text = "") {
 	return text
 		.replace(/(?<=[A-Z])\w+/gi, "")
 		.toLowerCase()
@@ -9,15 +9,19 @@ function returnInittialLettersFromText(text = "") {
 }
 
 function countAlliterations(text = "") {
-	const letters = returnInittialLettersFromText(text)
+	const initialsLetters = returnInitialLettersFromText(text)
 
-	let key = ""
 	let counter = 0
-	let isAlliteration = false
 
-	for (const letter of letters) {
+	for (
+		let index = 0, key = "", isAlliteration = false;
+		index < initialsLetters.length;
+		index += 1
+	) {
+		const letter = initialsLetters[index]
+
 		if (letter === key) {
-			if (!isAlliteration) counter++
+			if (isAlliteration === false) counter += 1
 			isAlliteration = true
 		} else {
 			key = letter
@@ -29,14 +33,14 @@ function countAlliterations(text = "") {
 }
 
 function main() {
-	const responses = []
+	const output = []
 
-	for (const text of cases) {
-		if (text === "") break // EOFile Condition Verification
-		responses.push(countAlliterations(text))
+	for (const text of input) {
+		if (text === "") break // EOF
+		output.push(countAlliterations(text))
 	}
 
-	console.log(responses.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()
