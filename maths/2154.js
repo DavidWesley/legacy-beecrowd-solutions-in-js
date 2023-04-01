@@ -73,7 +73,7 @@ function simplePolynomialDerivation(equation = "") {
 }
 
 async function main() {
-	const PATH = "../dev/stdin"
+	const PATH = "/dev/stdin"
 	/** @type {BufferEncoding} */
 	const ENCODING = "utf8"
 
