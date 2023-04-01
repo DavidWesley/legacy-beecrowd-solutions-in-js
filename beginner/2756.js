@@ -1,13 +1,9 @@
-const output = [
-	"       A",
-	"      B B",
-	"     C   C",
-	"    D     D",
-	"   E       E",
-	"    D     D",
-	"     C   C",
-	"      B B",
-	"       A",
-]
-
-console.log(output.join("\n"))
+console.log("       A");
+console.log("      B B");
+console.log("     C   C");
+console.log("    D     D");
+console.log("   E       E");
+console.log("    D     D");
+console.log("     C   C");
+console.log("      B B");
+console.log("       A");
