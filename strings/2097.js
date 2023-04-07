@@ -74,6 +74,9 @@ const convertPortugueseNumeralNomenclatureToNumber = function PortugueseNumeralN
 		// ...
 	]
 
+	const PORTUGUESE_DEFAULT_AGGREGATOR_WORD = "e"
+	const PORTUGUESE_NUMERAL_SEPARATOR_REGEX = new RegExp(`\\s*\\b${PORTUGUESE_DEFAULT_AGGREGATOR_WORD}?\\b\\s*`, "gi")
+
 	/** @typedef {[string, number]} nomenclatureNumType  */
 
 	const PortugueseUnitsNamesMap = new Map(/** @type {nomenclatureNumType[]} */(PORTUGUESE_UNITS_NAMES_ENTRIES))
@@ -92,8 +95,9 @@ const convertPortugueseNumeralNomenclatureToNumber = function PortugueseNumeralN
 	}
 
 	function converter(name = "") {
-		name = name.toLowerCase()
-		const DEFAULT_AGREGATOR_WORD = "e"
+		name = name
+			.trim()
+			.toLowerCase()
 
 		if (name.includes(" ") === false) return toNumber(name)
 
@@ -102,9 +106,7 @@ const convertPortugueseNumeralNomenclatureToNumber = function PortugueseNumeralN
 		let partialHasChanged = false
 
 		name
-			.replace(RegExp(`\\b${DEFAULT_AGREGATOR_WORD}\\b`, "gi"), "")
-			.replace(/w+/g, (s) => nameToNumber(s).toString(10))
-			.split(/\s+/)
+			.split(PORTUGUESE_NUMERAL_SEPARATOR_REGEX)
 			.forEach((label) => {
 				if (PortugueseGroupsNamesMap.has(label)) {
 					const factor = toNumber(label)
