@@ -1,8 +1,9 @@
+const { readFileSync } = require("fs")
 const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
 //// CONVERTER ////
 
-const convertPortugueseNumeralNomenclatureToNumber = (function PortugueseNumeralNomenclatureConverter() {
+const convertPortugueseNumeralNomenclatureToNumber = function PortugueseNumeralNomenclatureConverter() {
 	const UNITS_NAMES_ENTRIES = [
 		["zero", 0],
 		["um", 1],
@@ -70,7 +71,7 @@ const convertPortugueseNumeralNomenclatureToNumber = (function PortugueseNumeral
 		["trilhão", 1e12],
 		["trilhoes", 1e12],
 		["trilhões", 1e12],
-		// Poderia aumentar se usassemos bigints
+		// ...
 	]
 
 	/** @typedef {[string, number]} nameNumType  */
@@ -119,18 +120,17 @@ const convertPortugueseNumeralNomenclatureToNumber = (function PortugueseNumeral
 	}
 
 	return Object.freeze({ convert: converter.bind(PortugueseNumeralNomenclatureConverter) })
-})(); // Carrega tudo o que for necessario apenas uma vez -> PayLoad Operation
-
+}
 
 //// MAIN ////
 
 function main() {
 	const output = []
 
-	const { convert } = convertPortugueseNumeralNomenclatureToNumber
+	const { convert } = convertPortugueseNumeralNomenclatureToNumber()
 
 	for (const text of input) {
-		if (text === "") break; // EOF
+		if (text === "") break // EOF
 		output.push(convert(text))
 	}
 
