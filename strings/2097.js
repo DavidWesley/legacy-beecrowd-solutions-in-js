@@ -4,7 +4,7 @@ const input = readFileSync("/dev/stdin", "utf8").split("\n")
 //// CONVERTER ////
 
 const convertPortugueseNumeralNomenclatureToNumber = function PortugueseNumeralNomenclatureConverter() {
-	const UNITS_NAMES_ENTRIES = [
+	const PORTUGUESE_UNITS_NAMES_ENTRIES = [
 		["zero", 0],
 		["um", 1],
 		["dois", 2],
@@ -29,7 +29,7 @@ const convertPortugueseNumeralNomenclatureToNumber = function PortugueseNumeralN
 		["dezenove", 19]
 	]
 
-	const DOZENS_NAMES_ENTRIES = [
+	const PORTUGUESE_DOZENS_NAMES_ENTRIES = [
 		["dez", 10],
 		["vinte", 20],
 		["trinta", 30],
@@ -42,7 +42,7 @@ const convertPortugueseNumeralNomenclatureToNumber = function PortugueseNumeralN
 		["cem", 100]
 	]
 
-	const HUNDREDS_NAMES_ENTRIES = [
+	const PORTUGUESE_HUNDREDS_NAMES_ENTRIES = [
 		["cento", 100],
 		["duzentos", 200],
 		["trezentos", 300],
@@ -54,7 +54,7 @@ const convertPortugueseNumeralNomenclatureToNumber = function PortugueseNumeralN
 		["novecentos", 900],
 	]
 
-	const GROUPS_NAMES_ENTRIES = [
+	const PORTUGUESE_GROUPS_NAMES_ENTRIES = [
 		["mil", 1e3],
 
 		["milhao", 1e6],
@@ -74,19 +74,19 @@ const convertPortugueseNumeralNomenclatureToNumber = function PortugueseNumeralN
 		// ...
 	]
 
-	/** @typedef {[string, number]} nameNumType  */
+	/** @typedef {[string, number]} nomenclatureNumType  */
 
-	const mapUnitsNames = new Map(/** @type {nameNumType[]} */(UNITS_NAMES_ENTRIES))
-	const mapDozensNames = new Map(/** @type {nameNumType[]} */(DOZENS_NAMES_ENTRIES))
-	const mapHundrendsNames = new Map(/** @type {nameNumType[]} */(HUNDREDS_NAMES_ENTRIES))
-	const mapGroupsNames = new Map(/** @type {nameNumType[]} */(GROUPS_NAMES_ENTRIES))
+	const PortugueseUnitsNamesMap = new Map(/** @type {nomenclatureNumType[]} */(PORTUGUESE_UNITS_NAMES_ENTRIES))
+	const PortugueseDozensNamesMap = new Map(/** @type {nomenclatureNumType[]} */(PORTUGUESE_DOZENS_NAMES_ENTRIES))
+	const PortugueseHundredsNamesMap = new Map(/** @type {nomenclatureNumType[]} */(PORTUGUESE_HUNDREDS_NAMES_ENTRIES))
+	const PortugueseGroupsNamesMap = new Map(/** @type {nomenclatureNumType[]} */(PORTUGUESE_GROUPS_NAMES_ENTRIES))
 
 	/** @param {string} name */
-	function nameToNumber(name) {
-		if (mapGroupsNames.has(name)) return mapGroupsNames.get(name)
-		else if (mapUnitsNames.has(name)) return mapUnitsNames.get(name)
-		else if (mapDozensNames.has(name)) return mapDozensNames.get(name)
-		else if (mapHundrendsNames.has(name)) return mapHundrendsNames.get(name)
+	function toNumber(name) {
+		if (PortugueseGroupsNamesMap.has(name)) return PortugueseGroupsNamesMap.get(name)
+		else if (PortugueseUnitsNamesMap.has(name)) return PortugueseUnitsNamesMap.get(name)
+		else if (PortugueseDozensNamesMap.has(name)) return PortugueseDozensNamesMap.get(name)
+		else if (PortugueseHundredsNamesMap.has(name)) return PortugueseHundredsNamesMap.get(name)
 		// else throw new Error(`The name "${name}" is not a valid argument`)
 		else return Number.NaN
 	}
@@ -95,25 +95,31 @@ const convertPortugueseNumeralNomenclatureToNumber = function PortugueseNumeralN
 		name = name.toLowerCase()
 		const DEFAULT_AGREGATOR_WORD = "e"
 
-		if (name.startsWith("mil ")) name = "um ".concat(name)
-		if (name.includes(" ") === false) return nameToNumber(name)
+		if (name.includes(" ") === false) return toNumber(name)
 
 		let total = 0
 		let partial = 0
+		let partialHasChanged = false
 
 		name
 			.replace(RegExp(`\\b${DEFAULT_AGREGATOR_WORD}\\b`, "gi"), "")
 			.replace(/w+/g, (s) => nameToNumber(s).toString(10))
 			.split(/\s+/)
 			.forEach((label) => {
-				if (mapGroupsNames.has(label)) {
-					const factor = nameToNumber(label)
-					if (partial === 0 && factor === 1e3) partial = 1
+				if (PortugueseGroupsNamesMap.has(label)) {
+					const factor = toNumber(label)
+
+					if (partial === 0 && partialHasChanged === false)
+						partial = 1
 
 					partial *= factor
 					total += partial
 					partial = 0
-				} else { partial += nameToNumber(label); }
+					partialHasChanged = false
+				} else {
+					partial += toNumber(label)
+					partialHasChanged = true
+				}
 			})
 
 		return total + partial
