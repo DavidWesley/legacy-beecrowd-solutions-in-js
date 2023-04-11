@@ -1,43 +1,42 @@
 const { readFileSync } = require("fs")
-const [numCases, ...points] = readFileSync("/dev/stdin", "utf8").split("\n")
+const [[N], ...input] = readFileSync("/dev/stdin", "utf8")
+	.split("\n")
+	.map((line) => line.split(" ", 2).map((value) => Number.parseInt(value, 10)))
 
-const pow = Math.pow
+/**
+ * @typedef {"Rafael" | "Beto" | "Carlos" } FunctionsNamesUnionType
+ * @typedef {(x: number, y:number) => number} FunctionSignatureType
+ */
 
-const FuncitionsEnum = Object.freeze({
-	Rafael: (x, y) => pow(3 * x, 2) + pow(y, 2),
-	Beto: (x, y) => 2 * pow(x, 2) + pow(5 * y, 2),
-	Carlos: (x, y) => -100 * x + pow(y, 3),
+/** @type {Readonly<{ [P in FunctionsNamesUnionType]: FunctionSignatureType }>} */
+const FunctionsEnum = Object.freeze({
+	"Rafael": (x, y) => Math.pow(3 * x, 2) + Math.pow(y, 2),
+	"Beto": (x, y) => 2 * Math.pow(x, 2) + Math.pow(5 * y, 2),
+	"Carlos": (x, y) => -100 * x + Math.pow(y, 3),
 })
 
-function List(enumFunctions) {
-	const names = Object.keys(enumFunctions)
-	const funcs = Object.values(enumFunctions)
-
-	function getNameFromBiggerResult(x, y) {
-		const results = funcs.map((fn) => fn(x, y))
+/** @param {Array<[string, FunctionSignatureType]>} fns */
+function FunctionsList(fns) {
+	function getBiggerEntry(x, y) {
+		const results = fns.map(([_, fn]) => fn(x, y))
 		const bigger = Math.max.apply(null, results)
-
-		return names[results.indexOf(bigger)]
+		return fns[results.indexOf(bigger)]
 	}
 
-	return { getNameFromBiggerResult }
+	return { getBiggerEntry }
 }
 
 function main() {
-	const responses = []
-	const listIstance = List(FuncitionsEnum)
+	const output = []
+	const functionListInstance = FunctionsList(Object.entries(FunctionsEnum))
 
-	const coordenatesList = points.slice(0, +numCases).map((coords) => {
-		const [x, y] = coords.split(" ")
-		return [+x, +y]
-	})
-
-	for (const [x, y] of coordenatesList) {
-		const winner = listIstance.getNameFromBiggerResult(x, y)
-		responses.push(`${winner} ganhou`)
+	for (let index = 0; index < N; index += 1) {
+		const [X, Y] = input[index]
+		const [name] = functionListInstance.getBiggerEntry(X, Y)
+		output.push(`${name} ganhou`)
 	}
 
-	console.log(responses.join("\n"))
+	console.log(output.join("\n"))
 }
 
 main()
