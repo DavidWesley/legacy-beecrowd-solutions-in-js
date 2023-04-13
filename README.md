@@ -26,10 +26,11 @@ Question codes approved in URI Online Judge (or Beecrowd) site using **only** mo
 ## Profile
 
 <div align="center" style="width: 250px;">
-    <a href="https://www.beecrowd.com.br/judge/pt/profile/506619" target="_blank">
-        <img src="https://phx02pap003files.storage.live.com/y4m0R89h7l9JhjmLgjcjD1lIO0bkEJJRfF4DPkRiGu5KZ_a0MAcBW82cUe2dL87mGs04YAE-1lVZvXLW-F5VhgvuUDe-RiCBSi5lA9xZe74UPv2bkzHA6ftx4EcuHcLvdwvyOycMN-nAsnmYWScYBCBz4qqxrcrQ0uT-KgrXsRW7Yg7vbioqCt_D1SfaHl1t2vX?width=660&height=660&cropmode=none" width="250px" />
-        <b>David Wesley</b>
-    </a>
+<a href="https://www.beecrowd.com.br/judge/pt/profile/506619" target="_blank">
+	<img src="https://phx02pap003files.storage.live.com/y4m0R89h7l9JhjmLgjcjD1lIO0bkEJJRfF4DPkRiGu5KZ_a0MAcBW82cUe2dL87mGs04YAE-1lVZvXLW-F5VhgvuUDe-RiCBSi5lA9xZe74UPv2bkzHA6ftx4EcuHcLvdwvyOycMN-nAsnmYWScYBCBz4qqxrcrQ0uT-KgrXsRW7Yg7vbioqCt_D1SfaHl1t2vX?width=660&height=660&cropmode=none" width="250px" />
+
+[**David Wesley**](https://www.beecrowd.com.br/judge/pt/profile/506619)
+</a>
 </div>
 
 ## References
