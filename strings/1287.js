@@ -1,33 +1,31 @@
-const { readFileSync } = require("fs")
-const cases = readFileSync("/dev/stdin", "utf8").split("\n")
+const { readFileSync } = require("node:fs")
+const input = readFileSync("/dev/stdin", "utf8").split("\n")
 
-const MAX_ACEPTABLE_INTEGER = Math.pow(2, 31) - 1 // 2147483647
+const MAX_ACCEPTABLE_INTEGER = Math.pow(2, 31) - 1 // 2147483647
 
-const isALegallInteger = (num) => Number.isInteger(num) && num <= MAX_ACEPTABLE_INTEGER
+const isALegalInteger = (num) => Number.isInteger(num) && num <= MAX_ACCEPTABLE_INTEGER
 
-function processInputIntoIntengers(inputInteger = "") {
-	const processedNum = inputInteger
-		.replaceAll(/[l]/, "1")
-		.replaceAll(/[Oo]/, "0")
-		.replaceAll(/[.\s]/, "")
+function FriendlyIntParser(str = "") {
+	const processed = str
+		.replace(/[l]/g, "1")
+		.replace(/[Oo]/g, "0")
+		.replace(/[\,\s]/g, "")
 
-	return processedNum.replaceAll(/\D/, "") === processedNum
-		? Number.parseInt(processedNum, 10)
+	return processed.replace(/\D/g, "") === processed
+		? Number.parseInt(processed, 10)
 		: NaN
 }
 
 function main() {
-	const responses = []
+	const output = []
 
-	cases.forEach((input) => {
-		const processedInteger = processInputIntoIntengers(input)
+	for (const line of input) {
+		const processedInteger = FriendlyIntParser(line)
+		output.push(isALegalInteger(processedInteger) ? processedInteger : "error")
+	}
 
-		responses.push(
-			isALegallInteger(processedInteger) ? processedInteger : "error"
-		)
-	})
-
-	console.log(responses.slice(1).join("\n"))
+	output.pop()
+	console.log(output.join("\n"))
 }
 
 main()
