@@ -1,46 +1,101 @@
-//// READING FILE | STREAMS ////
-
 const { createReadStream } = require("node:fs")
 const { createInterface } = require("node:readline")
 
-const PATH = "/dev/stdin"
-const ENCODING = "utf8"
+//// READING FILE | STREAMS ////
 
-/**
- * @param {string} path
- * @param {BufferEncoding} encoding
- */
-function createReadLineInterface(path, encoding) {
-	return createInterface({
-		input: createReadStream(path, encoding),
-		crlfDelay: Infinity,
-		terminal: false
-	})
-}
+class LineReader {
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 * @return {import("node:readline").ReadLine}
+	 */
+	static createReadLineInterface(path, encoding = "utf8") {
+		// For execution security reasons, do not change this object
+		const readStreamOptions = {
+			encoding: encoding,
+			flags: "r",
+			emitClose: true,
+			autoClose: true // critical
+		}
 
-const RLI = createReadLineInterface(PATH, ENCODING)
+		return createInterface({
+			input: createReadStream(path, readStreamOptions),
+			crlfDelay: Infinity,
+			terminal: false
+		})
+	}
 
-/** @param {import("readline").Interface} readLineInterface */
-const processLineByLine = function (readLineInterface) {
-	let EOF = false
+	/**
+	 * @param {import("node:fs").PathLike} path
+	 * @param {BufferEncoding} encoding
+	 * @param {boolean} split To split spaces into line
+	 */
+	static create(path, encoding, split = false) {
+		let EOF = false
+		let RLI = LineReader.createReadLineInterface(path, encoding)
 
-	const nextLineGenerator = (async function* () {
-		for await (const line of readLineInterface) yield line
-		EOF = true
-	})()
+		const nextLine = async (fn) => {
+			if (EOF) return undefined
 
-	return {
-		hasNextLine: () => !EOF,
-		nextLine: async (fn) => {
-			const { value } = (await nextLineGenerator.next())
+			const { value } = await RLI[Symbol.asyncIterator]().next()
+
+			if (split) {
+				value = value.split(/\s+/)
+			}
+
 			return (typeof fn === "function") ? fn(value) : value
+		}
+
+		RLI.once("close", () => { EOF = true })
+
+		return {
+			hasNextLine: () => !EOF,
+			nextLine: nextLine,
+			close: () => RLI.close()
 		}
 	}
 }
 
+//// CONSTANTS ////
 
-//// FUNCTIONS ////
+const BIGGER_CONSECUTIVE_PRIMES_DISTANCES_MAP = Object.freeze({
+	2: 0,
+	3: 1,
+	5: 2,
+	11: 4,
+	29: 6,
+	97: 8,
+	127: 14,
+	541: 18,
+	907: 20,
+	1_151: 22,
+	1_361: 34,
+	9_587: 36,
+	15_727: 44,
+	19_661: 52,
+	31_469: 72,
+	156_007: 86,
+	360_749: 96,
+	370_373: 112,
+	492_227: 114,
+	1_349_651: 118,
+	1_357_333: 132,
+	2_010_881: 148,
+	4_652_507: 154,
+	17_051_887: 180,
+	20_831_533: 210,
+	47_326_913: 220,
+	122_164_969: 222,
+	189_695_893: 234,
+	191_913_031: 248,
+	387_096_383: 250,
+	436_273_291: 282,
+	1_000_000_001: 282
+})
 
+const PRIMES = Object.keys(BIGGER_CONSECUTIVE_PRIMES_DISTANCES_MAP).map(value => Number.parseInt(value, 10))
+
+//// BINARY SEARCH ////
 
 /**
  * Return 0 <= i <= array.length such that !pred(array[i - 1]) && pred(array[i]).
@@ -61,7 +116,6 @@ function binarySearch(arr, predicate) {
 	return max
 }
 
-
 /**
  * Return i such that array[i - 1] <= item < array[i].
  * @param {Array<number>} arr
@@ -71,54 +125,44 @@ function upperBound(arr, item) {
 	return binarySearch(arr, (value) => item < value)
 }
 
+/**
+ * Returns the largest distance between consecutive prime numbers from 1 up to N.
+ *
+ * `NOTE`: The value is limited to 1 billion.
+ *
+ * @param {number} n - The upper limit to search for consecutive prime numbers.
+ * @returns {number} - The largest distance between consecutive prime numbers.
+ */
+function findBiggestDistanceBetweenConsecutivePrimesUpToNum(n) {
+	// Find the index of the largest prime number that is less than or equal to N.
+	const index = upperBound(PRIMES, n) - 1;
 
-//// PRIMES ////
-
-class Primes {
-	static #PRIMES_STEPS_ARR = [
-		2, 3, 5, 11, 29, 97, 127, 541, 907, 1151, 1361, 9587, 15727,
-		19661, 31469, 156007, 360749, 370373, 492227, 1349651, 1357333,
-		2010881, 4652507, 17051887, 20831533, 47326913, 122164969, 189695893,
-		191913031, 387096383, 436273291, Math.pow(10, 9) + 1
-	]
-
-	static #BIGGERS_CONSUCUTIVES_PRIMES_DISTANCES_MAP = new Map([
-		[2, 0], [3, 1], [5, 2], [11, 4], [29, 6], [97, 8], [127, 14], [541, 18],
-		[907, 20], [1151, 22], [1361, 34], [9587, 36], [15727, 44],
-		[19661, 52], [31469, 72], [156007, 86], [360749, 96], [370373, 112],
-		[492227, 114], [1349651, 118], [1357333, 132], [2010881, 148], [4652507, 154],
-		[17051887, 180], [20831533, 210], [47326913, 220], [122164969, 222],
-		[189695893, 234], [191913031, 248], [387096383, 250], [436273291, 282], [Math.pow(10, 9) + 1, 282]
-	])
-
-	/**
-	 * retorna a maior distância entre primos consecutivos, de 1 a N.
-	 *
-	 * `OBS`: O Valor está limitado ao 1 Bilhão.
-	 * @param {number} num
-	 */
-	static findBiggestDistanceBetweenConsecutivePrimesUpToNum(num) {
-		const index = upperBound(Primes.#PRIMES_STEPS_ARR, num) - 1
-		const key = Primes.#PRIMES_STEPS_ARR[index]
-		return Primes.#BIGGERS_CONSUCUTIVES_PRIMES_DISTANCES_MAP.get(key)
-	}
+	// Get the largest distance between consecutive prime numbers up to that index.
+	const prime = PRIMES[index];
+	return BIGGER_CONSECUTIVE_PRIMES_DISTANCES_MAP[prime];
 }
-
 
 //// MAIN ////
 
-
 async function main() {
+	const PATH = "/dev/stdin"
+	const ENCODING = "utf8"
+	const lineReader = LineReader.create(PATH, ENCODING, false)
+
+	const helper = (line = "") => Number.parseInt(line, 10)
+	const nextLine = lineReader.nextLine.bind(null, helper)
+
 	const output = []
-	const readLineInstance = processLineByLine(RLI)
-	const readLine = readLineInstance.nextLine.bind(undefined, (n = "") => Number.parseInt(n, 10))
 
-	while (readLineInstance.hasNextLine()) {
-		const num = await readLine()
+	while (lineReader.hasNextLine()) {
+		const N = await nextLine()
 
-		if (isNaN(num)) break // EOFile Condition
-		else output.push(Primes.findBiggestDistanceBetweenConsecutivePrimesUpToNum(num))
+		if (isNaN(N)) break // EOF
+		else output.push(findBiggestDistanceBetweenConsecutivePrimesUpToNum(N))
 	}
+
+	if (lineReader.hasNextLine())
+		lineReader.close()
 
 	console.log(output.join("\n"))
 }
